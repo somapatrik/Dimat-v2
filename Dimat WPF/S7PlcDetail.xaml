@@ -1,0 +1,167 @@
+﻿<UserControl x:Class="Dimat_WPF.S7PlcDetail"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Dimat_WPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Foreground="White">
+
+    <UserControl.Resources>
+        <ResourceDictionary Source="Styles.xaml"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition MaxWidth="1"/>
+            <ColumnDefinition Width="250px"/>
+        </Grid.ColumnDefinitions>
+
+        <GridSplitter HorizontalAlignment="Stretch" Grid.Column="1" Background="#FF495162"/>
+        
+        <!--Left side-->
+        <Grid Background="Transparent">
+            <Grid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header = "Menu item 1"/>
+                    <MenuItem Header = "Menu item 2"/>
+                    <MenuItem Header = "Menu item 3"/>
+                </ContextMenu>
+            </Grid.ContextMenu>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <Label x:Name="lblname" Grid.Column="1" Content="Plc name" Style="{StaticResource ColorLabel}" HorizontalAlignment="Right"/>
+                <Label x:Name="lblIP" Grid.Column="2" Content="IP" Style="{StaticResource ColorLabel}" HorizontalAlignment="Left"/>
+                <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Right">
+                    <Label x:Name="btnWriteAll" Content="Write all" Style="{StaticResource RowButton}" />
+                    <Label x:Name="btnReadAll"  Content="Read all" Style="{StaticResource RowButton}" />
+                    <Label x:Name="btnNewRow" Content="New row" Style="{StaticResource RowButton}" />
+                </StackPanel>
+            </Grid>
+            
+            <StackPanel Grid.Row="1" x:Name="StackData" Orientation="Vertical" Margin="0 5"/>
+            
+        </Grid>
+
+        <!--Right side-->
+        <Grid Grid.Column="2" x:Name="GridRightSideInfo">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Vertical">
+                <Label x:Name="lblPlcStatus" Content="PLC status" Style="{StaticResource ColorLabelNOK}"/>
+                <Label x:Name="lblConnect" Content="Connect" MouseLeftButtonUp="lblConnect_MouseLeftButtonUp" Style="{StaticResource EliteButtonBlue}"/>
+            </StackPanel>
+
+            
+            <!--<Label Grid.Row="1" x:Name="lblGroupProperties" Grid.ColumnSpan="2" Content="Properties" MouseLeftButtonUp="lblGroupProperties_MouseLeftButtonUp" Style="{StaticResource DetailGroupName}"/>-->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="lblGroupPropertiesArrow" FontFamily="Marlett" Content="6" Style="{StaticResource DetailGroupName}"/>
+                <Label Grid.Column="1" x:Name="lblGroupProperties" Content="Properties" MouseLeftButtonUp="lblGroupProperties_MouseLeftButtonUp" Style="{StaticResource DetailGroupName}"/>
+            </Grid>
+            
+            <!--CPU info-->
+            <Grid Grid.Row="2" x:Name="GridProperties">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Content="AS Name" Style="{StaticResource ColorLabel}"/>
+                <Label Grid.Column="1" x:Name="lbl_ASname" Style="{StaticResource ColorLabel}"/>
+
+                <Label Grid.Row="2" Grid.Column="1" x:Name="lbl_Modultype" Style="{StaticResource ColorLabel}"/>
+                <Label Grid.Row="2" Content="Modul type" Style="{StaticResource ColorLabel}"/>
+
+                <Label Grid.Row="1" Content="Modul name" Style="{StaticResource ColorLabel}"/>
+                <Label Grid.Row="1" Grid.Column="1" x:Name="lbl_Modulname" Style="{StaticResource ColorLabel}"/>
+
+                <Label Grid.Row="3" Content="Serial number" Style="{StaticResource ColorLabel}"/>
+                <Label Grid.Row="3" Grid.Column="1" x:Name="lbl_Serialnumber" Style="{StaticResource ColorLabel}"/>
+                
+                <Label Grid.Row="4" Content="Max connections" Style="{StaticResource ColorLabel}"/>
+                <Label Grid.Row="4" Grid.Column="1" x:Name="lbl_MaxConnections" Style="{StaticResource ColorLabel}"/>
+
+            </Grid>
+
+            <!--<Label Grid.Row="3" x:Name="lblGroupFunctions" Grid.ColumnSpan="2" Content="Functions" MouseLeftButtonUp="lblGroupFunctions_MouseLeftButtonUp" Style="{StaticResource DetailGroupName}"/>-->
+            <Grid Grid.Row="3" MouseLeftButtonUp="lblGroupFunctions_MouseLeftButtonUp">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="lblGroupFunctionsArrow" FontFamily="Marlett" Content="6" Style="{StaticResource DetailGroupName}"/>
+                <Label Grid.Column="1" x:Name="lblGroupFunctions" Content="Functions" Style="{StaticResource DetailGroupName}"/>
+            </Grid>
+            
+            <!--Start/Stop info-->
+            <Grid Grid.Row="4" x:Name="GridFunctions" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" x:Name="btnStartPLC" Content="Start" Style="{StaticResource RowButton}"/>
+                <Label Grid.Row="0" Grid.Column="1" x:Name="btnStopPLC" Content="Stop" MouseLeftButtonUp="Label_MouseLeftButtonUp"  Style="{StaticResource RowButton}"/>
+                <Label Grid.Row="1" Content="Warm start" MouseLeftButtonUp="Label_MouseLeftButtonUp_1" Style="{StaticResource RowButton}"/>
+                <Label Grid.Row="1" Grid.Column="1" Content="Cold start" Style="{StaticResource RowButton}"/>
+                <Label  Grid.Row="2" Grid.ColumnSpan="2" Content="Copy RAM to ROM" Style="{StaticResource RowButton}"/>
+                <Label  Grid.Row="3" Grid.ColumnSpan="2" Content="Compress memory" Style="{StaticResource RowButton}"/>
+
+                <Grid x:Name="GridDanger" Panel.ZIndex="1" Grid.ColumnSpan="2" Grid.RowSpan="4" Background="DarkRed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Viewbox>
+                        <TextBlock Text="DANGER!" Style="{StaticResource DangerText}"/>
+                    </Viewbox>
+                    <TextBlock Grid.Row="1" Text="Using these functions can cause damage or harm. Please be careful." TextWrapping="Wrap" Style="{StaticResource DangerText}"/>
+                    <Label Grid.Row="2" Content="I understand" MouseLeftButtonUp="DangerButton_Clicked" Style="{StaticResource DangerButton}"/>
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,120 @@
+﻿<Window x:Class="Dimat_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Dimat_WPF"
+        mc:Ignorable="d"
+        Title="S7 Dimat - Diagnostic and maintenance tool" Height="650" Width="1300"
+        Background="#FF2E3440"
+        Foreground="White"
+        FontSize="14"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <ResourceDictionary Source="Styles.xaml"/>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="GridPopup" Grid.RowSpan="3" Background="#7F000000" Panel.ZIndex="10" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".1*"/>
+                <RowDefinition/>
+                <RowDefinition Height=".1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".1*"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width=".1*"/>
+            </Grid.ColumnDefinitions>
+            
+        </Grid>
+        
+        <!--Main menu-->
+        <StackPanel Orientation="Horizontal" Background="#FF313742">
+            <Label Content="Menu"  Style="{StaticResource TopMenuButton}"/>
+            <Label Content="Menu2" Style="{StaticResource TopMenuButton}"/>
+            <Label Content="About" Style="{StaticResource TopMenuButton}"/>
+        </StackPanel>
+        
+        <!--Main columns-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition x:Name="col_LeftMenu" Width="250px"/>
+                <ColumnDefinition MaxWidth="1"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+           
+            
+            <!--Left Menu-->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Row="0" x:Name="PlcStack" Orientation="Vertical"/>
+
+                <!--Group menu-->
+                <Grid Grid.Row="1" VerticalAlignment="Bottom">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" x:Name="BtnShowAddGroup" Content="+" ToolTip="Add group" MouseLeftButtonUp="BtnShowAddGroup_MouseLeftButtonUp" Style="{StaticResource ColorButton}"/>
+                    <TextBox Grid.Column="1" x:Name="txtGroupName" Visibility="Collapsed" TextChanged="txtGroupName_TextChanged" Style="{StaticResource DarkBox}"/>
+                    <Label Grid.Column="2" x:Name="btnAddGroup" Visibility="Collapsed" Content="Add group" MouseLeftButtonUp="btnAddGroup_MouseLeftButtonUp" Style="{StaticResource ColorButton}"/>
+                </Grid>
+
+            </Grid>
+
+            <!--GridSplitter-->
+            <GridSplitter Grid.Column="2" HorizontalAlignment="Stretch" Background="#FF495162"/>
+
+            <!--RightSide windows-->
+            <Grid Grid.Column="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <StackPanel x:Name="BookmarkStack" Orientation="Horizontal"/>
+                </ScrollViewer>
+
+                <!--Rightside plc detail-->
+                <Grid Grid.Row="1" x:Name="GridPlcDetail">
+                    
+                </Grid>
+                
+            </Grid>
+        
+        </Grid>
+        
+        <!--Footer-->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Version" Style="{StaticResource FooterButton}"/>
+            <Label Grid.Column="2" Content="Database" Style="{StaticResource FooterButton}" HorizontalAlignment="Right"/>
+        </Grid>
+
+        <!--Popup grid-->
+        <Grid x:Name="PopUpGrid" Panel.ZIndex="10" Grid.ColumnSpan="10" Grid.RowSpan="10" Visibility="Hidden" Background="#7F000000"/>
+
+    </Grid>
+
+</Window>

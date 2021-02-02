@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="Dimat_WPF.PlcButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Dimat_WPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="70" d:DesignWidth="200" 
+             MaxHeight="70">
+    
+    <UserControl.Resources>
+        <ResourceDictionary Source="Styles.xaml"/>
+    </UserControl.Resources>
+
+    <Grid Style="{StaticResource PlcButtonGrid}" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5pt"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="lbl_PLCInfo" Content="Plc info" HorizontalAlignment="Left" Style="{StaticResource PlcButtonLabelSecondary}"/>
+            <Label x:Name="lbl_DeletePLC" Grid.Column="1" Content="x" Style="{StaticResource PLCListButton}"/>
+        </Grid>
+
+        <Label Grid.Row="1" Grid.Column="1" x:Name="lbl_PLCName" Content="PLC name" HorizontalAlignment="Center" Style="{StaticResource PlcButtonLabel}"/>
+
+        <Label Grid.Row="2" Grid.Column="1" x:Name="lbl_PLCIP" Content="PLC ip"  HorizontalAlignment="Right" Style="{StaticResource PlcButtonLabelSecondary}"/>
+
+
+        <Border x:Name="PlcStatusButton" Grid.Column="0" Grid.RowSpan="4" />
+        <Border x:Name="brd_PlcButton" Grid.ColumnSpan="2" Grid.RowSpan="3" Panel.ZIndex="-1" Style="{StaticResource PlcButtonBorder}"/>
+
+    </Grid>
+</UserControl>
