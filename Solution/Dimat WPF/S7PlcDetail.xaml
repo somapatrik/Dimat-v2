@@ -140,8 +140,8 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" x:Name="btnStartPLC" Content="Start" Style="{StaticResource RowButton}"/>
-                <Label Grid.Row="0" Grid.Column="1" x:Name="btnStopPLC" Content="Stop" MouseLeftButtonUp="Label_MouseLeftButtonUp"  Style="{StaticResource RowButton}"/>
-                <Label Grid.Row="1" Content="Warm start" MouseLeftButtonUp="Label_MouseLeftButtonUp_1" Style="{StaticResource RowButton}"/>
+                <Label Grid.Row="0" Grid.Column="1" x:Name="btnStopPLC" Content="Stop" MouseLeftButtonUp="PlcStop_Clicked"  Style="{StaticResource RowButton}"/>
+                <Label Grid.Row="1" Content="Warm start" MouseLeftButtonUp="HotStart_Clicked" Style="{StaticResource RowButton}"/>
                 <Label Grid.Row="1" Grid.Column="1" Content="Cold start" Style="{StaticResource RowButton}"/>
                 <Label  Grid.Row="2" Grid.ColumnSpan="2" Content="Copy RAM to ROM" Style="{StaticResource RowButton}"/>
                 <Label  Grid.Row="3" Grid.ColumnSpan="2" Content="Compress memory" Style="{StaticResource RowButton}"/>

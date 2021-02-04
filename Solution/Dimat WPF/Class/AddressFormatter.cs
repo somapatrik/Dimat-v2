@@ -10,114 +10,178 @@ namespace Dimat_WPF.Class
     class AddressFormatter
     {
        
-            private string Adrr;
-            private Boolean Ok;
+        private string RawAddress;
+        private bool _Valid;
 
-            private Boolean nbit;
-            private Boolean nbyte;
-            private Boolean nword;
-            private Boolean ndouble;
+        private bool ibit;
+        private bool ibyte;
+        private bool iword;
+        private bool idouble;
 
-            private Boolean dbbit;
-            private Boolean dbbyte;
-            private Boolean dbword;
-            private Boolean dbdouble;
+        private bool qbit;
+        private bool qbyte;
+        private bool qword;
+        private bool qdouble;
 
-            public Boolean IsValid
-            {
-                get
-                {
-                    return Ok;
-                }
-            }
+        private bool mbit;
+        private bool mbyte;
+        private bool mword;
+        private bool mdouble;
 
-            public Boolean IsBit
-            {
-                get
-                {
-                    return nbit | dbbit;
-                }
-            }
+        private bool dbbit;
+        private bool dbbyte;
+        private bool dbword;
+        private bool dbdouble;
 
-            public Boolean IsByte
-            {
-                get
-                {
-                    return nbyte | dbbyte;
-                }
-            }
+        private bool _IsInput;
+        private bool _IsOutput;
+        private bool _IsMerker;
+        private bool _IsDB;
 
-            public Boolean IsWord
-            {
-                get
-                {
-                    return nword | dbword;
-                }
-            }
+        public bool IsValid
+        {
+            get { return _Valid; }
+        }
 
-            public Boolean IsDouble
-            {
-                get
-                {
-                    return ndouble | dbdouble;
-                }
-            }
+        public bool IsBit
+        {
+            get{  return ibit || qbit || mbit || dbbit; }
+        }
+
+        public bool IsByte
+        {
+            get{ return ibyte || qbyte || mbyte || dbbyte; }
+        }
+
+        public bool IsWord
+        {
+            get{return iword || qword || mword || dbword;}
+        }
+
+        public bool IsDouble
+        {
+            get{return idouble || qdouble || mdouble || dbdouble; }
+        }
+
+        public bool IsInput
+        {
+            get { return _IsInput; }
+        }
+
+        public bool IsOutput
+        {
+            get { return _IsOutput; }
+        }
+
+        public bool IsMerker
+        {
+            get { return _IsMerker; }
+        }
+
+        public bool IsDB
+        {
+            get { return _IsDB; }
+        }
 
         public string Address
         {
             set
             {
-                Adrr = value.ToUpper().Trim().Replace(" ", "");
+                RawAddress = value.ToUpper().Trim().Replace(" ", "");
                 CheckAdrr();
             }
             get
             {
-                return Adrr;
+                return RawAddress;
             }
         }
+        private void CheckAdrr()
+        {
+            Regex InputBit = new Regex(@"[I]\d+[.][0-7]$", RegexOptions.IgnoreCase);
+            Regex InputByte = new Regex(@"[I][B]\d+$", RegexOptions.IgnoreCase);
+            Regex InputWord = new Regex(@"[I][W]\d+$", RegexOptions.IgnoreCase);
+            Regex InputDouble = new Regex(@"[I][D]\d+$", RegexOptions.IgnoreCase);
 
-            //public AddressFormatter(string input)
-            //{
-            //    //Adrr = input.ToUpper().Trim().Replace(" ", "");
-            //    //CheckAdrr();
-            //}
+            Regex OutputBit = new Regex(@"[Q]\d+[.][0-7]$", RegexOptions.IgnoreCase);
+            Regex OutputByte = new Regex(@"[Q][B]\d+$", RegexOptions.IgnoreCase);
+            Regex OutputWord = new Regex(@"[Q][W]\d+$", RegexOptions.IgnoreCase);
+            Regex OutputDouble = new Regex(@"[Q][D]\d+$", RegexOptions.IgnoreCase);
 
-            private void CheckAdrr()
+            Regex MerkerBit = new Regex(@"[Q]\d+[.][0-7]$", RegexOptions.IgnoreCase);
+            Regex MerkerByte = new Regex(@"[Q][B]\d+$", RegexOptions.IgnoreCase);
+            Regex MerkerWord = new Regex(@"[Q][W]\d+$", RegexOptions.IgnoreCase);
+            Regex MerkerDouble = new Regex(@"[Q][D]\d+$", RegexOptions.IgnoreCase);
+
+            Regex DBBit = new Regex(@"\DB\d+.DBX\d+[.][0-7]$", RegexOptions.IgnoreCase);
+            Regex DBByte = new Regex(@"\DB\d+.DB[B]\d+$", RegexOptions.IgnoreCase);
+            Regex DBWord = new Regex(@"\DB\d+.DB[W]\d+$", RegexOptions.IgnoreCase);
+            Regex DBDouble = new Regex(@"\DB\d+.DB[D]\d+$", RegexOptions.IgnoreCase);
+
+            ibit = InputBit.IsMatch(RawAddress) ? true : false;
+            ibyte = InputByte.IsMatch(RawAddress) ? true : false;
+            iword = InputWord.IsMatch(RawAddress) ? true : false;
+            idouble = InputDouble.IsMatch(RawAddress) ? true : false;
+
+            if (ibit || ibyte || iword || idouble)
             {
-                Regex NormalBit = new Regex(@"[I,Q,M]\d+[.][0-7]$", RegexOptions.IgnoreCase);
-                Regex NormalByte = new Regex(@"[I,Q,M][B]\d+$", RegexOptions.IgnoreCase);
-                Regex NormalWord = new Regex(@"[I,Q,M][W]\d+$", RegexOptions.IgnoreCase);
-                Regex NormalDouble = new Regex(@"[I,Q,M][D]\d+$", RegexOptions.IgnoreCase);
+                _IsInput = true;
+                _Valid = true;
+            } else
+            {
+                _IsInput = false;
+                _Valid = false;
+            }
 
-                Regex DBBit = new Regex(@"\DB\d+.DBX\d+[.][0-7]$", RegexOptions.IgnoreCase);
-                Regex DBByte = new Regex(@"\DB\d+.DB[B]\d+$", RegexOptions.IgnoreCase);
-                Regex DBWord = new Regex(@"\DB\d+.DB[W]\d+$", RegexOptions.IgnoreCase);
-                Regex DBDouble = new Regex(@"\DB\d+.DB[D]\d+$", RegexOptions.IgnoreCase);
+            qbit = OutputBit.IsMatch(RawAddress) ? true : false;
+            qbyte = OutputByte.IsMatch(RawAddress) ? true : false;
+            qword = OutputWord.IsMatch(RawAddress) ? true : false;
+            qdouble = OutputDouble.IsMatch(RawAddress) ? true : false;
 
-                //if (NormalBit.IsMatch(Adrr)) { nbit = true; Ok = true; return; }
-                //if (NormalByte.IsMatch(Adrr)) { nbyte = true; Ok = true; return; }
-                //if (NormalWord.IsMatch(Adrr)) { nword = true; Ok = true; return; }
-                //if (NormalDouble.IsMatch(Adrr)) { ndouble = true; Ok = true; return; }
+            if (qbit || qbyte || qword || qdouble)
+            {
+                _IsOutput = true;
+                _Valid = true;
+            }
+            else
+            {
+                _IsOutput = false;
+                _Valid = false;
+            }
 
-                //if (DBBit.IsMatch(Adrr)) { dbbit = true; Ok = true; return; }
-                //if (DBByte.IsMatch(Adrr)) { dbbyte = true; Ok = true; return; }
-                //if (DBWord.IsMatch(Adrr)) { dbword = true; Ok = true; return; }
-                //if (DBDouble.IsMatch(Adrr)) { dbdouble = true; Ok = true; return; }
+            mbit = MerkerBit.IsMatch(RawAddress) ? true : false;
+            mbyte = MerkerByte.IsMatch(RawAddress) ? true : false;
+            mword = MerkerWord.IsMatch(RawAddress) ? true : false;
+            mdouble = MerkerDouble.IsMatch(RawAddress) ? true : false;
 
-            nbit = NormalBit.IsMatch(Adrr) ? true : false;
-            nbyte = NormalByte.IsMatch(Adrr) ? true : false;
-            nword = NormalWord.IsMatch(Adrr) ? true : false;
-            ndouble = NormalDouble.IsMatch(Adrr) ? true : false;
+            if (mbit || mbyte || mword || mdouble)
+            {
+                _IsMerker = true;
+                _Valid = true;
+            }
+            else
+            {
+                _IsMerker = false;
+                _Valid = false;
+            }
 
-            dbbit = DBBit.IsMatch(Adrr) ? true : false;
-            dbbyte = DBByte.IsMatch(Adrr) ? true : false;
-            dbword = DBWord.IsMatch(Adrr) ? true : false;
-            dbdouble = DBDouble.IsMatch(Adrr) ? true : false;
+            dbbit = DBBit.IsMatch(RawAddress) ? true : false;
+            dbbyte = DBByte.IsMatch(RawAddress) ? true : false;
+            dbword = DBWord.IsMatch(RawAddress) ? true : false;
+            dbdouble = DBDouble.IsMatch(RawAddress) ? true : false;
 
-            Ok = nbit || nbyte || nword || ndouble || dbbit || dbbyte || dbword || dbdouble ? true : false;
+            if (dbbit || dbbyte || dbword || dbdouble)
+            {
+                _IsDB = true;
+                _Valid = true;
+            }
+            else
+            {
+                _IsDB = false;
+                _Valid = false;
+            }
 
         }
 
-        }
     }
+}
 

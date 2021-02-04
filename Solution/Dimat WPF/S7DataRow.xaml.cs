@@ -26,10 +26,26 @@ namespace Dimat_WPF
         public S7DataRow(ref S7Client PlcClient)
         {
             InitializeComponent();
-
             client = PlcClient;
         }
         
+        private void Read()
+        {
+            if (addressformatter.IsValid)
+            {
+                int Area;
+                int DBNumber;
+                int Start;
+                int Amount;
+                int WordLen;
+                byte[] array;
+
+
+                //client.AsReadArea()
+                // read;
+            }
+        }
+
         private void txt_Address_LostFocus(object sender, RoutedEventArgs e)
         {
             TextBox box = (TextBox)sender;
@@ -42,6 +58,7 @@ namespace Dimat_WPF
 
             CreateFormatMenu();
         }
+
         private void CreateFormatMenu()
         {
             cmb_Format.Items.Clear();

@@ -24,15 +24,20 @@ namespace Dimat_WPF
         // PLC from DB
         public S7PLC plc;
 
+        // PLC client
         private S7Client client;
 
-        Timer StatusWatch;
-        int WatchStatusTime = 500;
-        AutoResetEvent WatchReset = new AutoResetEvent(false);
+        // PLC callback
+        public S7Client.S7CliCompletion PlcCallBack = new S7Client.S7CliCompletion(PlcEventCallBack);
 
         // client.connected lock
         object ConnectedLock = new object();
 
+        // Check PLC connection timer
+        Timer StatusWatch;
+        int WatchStatusTime = 500;
+        AutoResetEvent WatchReset = new AutoResetEvent(false);
+                
         public int ID
         {
             get { return plc.ID; }
@@ -43,37 +48,39 @@ namespace Dimat_WPF
             get { return IsConnected(); }
         }
 
-        public S7PlcDetail(int ID)
-        {
-            InitializeComponent();
-
-            plc = new S7PLC(ID);
-            lblname.Content = plc.Name;
-            lblIP.Content = plc.IP;
-
-            client = new S7Client();
-
-            StatusWatch = new System.Threading.Timer(StatusWatchCallBack, WatchReset, Timeout.Infinite, WatchStatusTime);
-
-            S7DataRow row = new S7DataRow(ref client);
-            StackData.Children.Add(row);
-
-            SetGUI();
-        }
-
-        private void SetGUI()
-        {
-
-            lblGroupProperties_MouseLeftButtonUp(null, null);
-            lblGroupFunctions_MouseLeftButtonUp(null,null);
-
-        }
-
         private bool IsConnected()
         {
             lock (ConnectedLock)
                 return client.Connected;
         }
+
+        private static void PlcEventCallBack(IntPtr UserPtr, int opCode, int opResult)
+       {
+            
+       }
+
+        public S7PlcDetail(int ID)
+        {
+            InitializeComponent();
+
+            // Gets PLC data
+            plc = new S7PLC(ID);
+            
+            // Connection to PLC
+            client = new S7Client();
+            client.SetAsCallBack(PlcCallBack, IntPtr.Zero);
+            
+            // Set timer for status watching
+            StatusWatch = new System.Threading.Timer(StatusWatchCallBack, WatchReset, Timeout.Infinite, WatchStatusTime);
+
+            // Fills GUI
+            SetGUI();
+
+            // Create rows
+            S7DataRow row = new S7DataRow(ref client);
+            StackData.Children.Add(row);
+        }
+
 
         private void EnableWatch(bool enable)
         {
@@ -124,6 +131,17 @@ namespace Dimat_WPF
             });
         }
 
+        private void SetGUI()
+        {
+
+            lblname.Content = plc.Name;
+            lblIP.Content = plc.IP;
+
+            lblGroupProperties_MouseLeftButtonUp(null, null);
+            lblGroupFunctions_MouseLeftButtonUp(null, null);
+
+        }
+
         // Connect button
         private void lblConnect_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -151,19 +169,18 @@ namespace Dimat_WPF
             }
         }
 
-        private void Label_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void PlcStop_Clicked(object sender, MouseButtonEventArgs e)
         {
             client.PlcStop();
         }
 
-        private void Label_MouseLeftButtonUp_1(object sender, MouseButtonEventArgs e)
+        private void HotStart_Clicked(object sender, MouseButtonEventArgs e)
         {
             client.PlcHotStart();
         }
 
         private void lblGroupFunctions_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            //GridFunctions.Visibility = GridFunctions.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
             if (GridFunctions.Visibility == Visibility.Visible)
             {
                 GridFunctions.Visibility = Visibility.Collapsed;
@@ -178,7 +195,6 @@ namespace Dimat_WPF
 
         private void lblGroupProperties_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            //GridProperties.Visibility = GridProperties.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
             if (GridProperties.Visibility == Visibility.Visible)
             {
                 GridProperties.Visibility = Visibility.Collapsed;
