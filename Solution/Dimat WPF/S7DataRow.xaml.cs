@@ -41,7 +41,7 @@ namespace Dimat_WPF
                 byte[] array;
 
 
-                //client.AsReadArea()
+                ////client.AsReadArea()
                 // read;
             }
         }
