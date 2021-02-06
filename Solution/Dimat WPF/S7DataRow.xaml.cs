@@ -23,6 +23,13 @@ namespace Dimat_WPF
         S7Client client;
         AddressFormatter addressformatter = new AddressFormatter();
 
+        int Area;
+        int DBNumber;
+        int Start;
+        int Amount;
+        int WordLen;
+        byte[] array;
+
         public S7DataRow(ref S7Client PlcClient)
         {
             InitializeComponent();
@@ -31,19 +38,57 @@ namespace Dimat_WPF
         
         private void Read()
         {
-            if (addressformatter.IsValid)
+            if (addressformatter.IsValid && client.ReadArea(Area, DBNumber, Start, Amount, WordLen, array) == 0)
             {
-                int Area;
-                int DBNumber;
-                int Start;
-                int Amount;
-                int WordLen;
-                byte[] array;
-
-
-                ////client.AsReadArea()
-                // read;
+                txt_Actual.Text = array.ToString();  
             }
+            else
+            {
+                txt_Actual.Text = "";
+            }
+        }
+
+        private void SetReading()
+        {
+            if (addressformatter.IsInput)
+                Area = S7Consts.S7AreaPE;
+            else if (addressformatter.IsOutput)
+                Area = S7Consts.S7AreaPA;
+            else if (addressformatter.IsMerker)
+                Area = S7Consts.S7AreaMK;
+            else if (addressformatter.IsDB)
+                Area = S7Consts.S7AreaDB;
+
+            if (addressformatter.IsBit)
+            {
+                WordLen = S7Consts.S7WLBit;
+                array = new byte[1];
+            }
+            else if (addressformatter.IsByte)
+            {
+                WordLen = S7Consts.S7WLByte;
+                array = new byte[1];
+            }
+            else if (addressformatter.IsWord) {
+                WordLen = S7Consts.S7WLWord; 
+                array = new byte[2];
+            }
+            else if (addressformatter.IsDouble)
+            {
+                WordLen = S7Consts.S7WLDWord;
+                array = new byte[4];
+            }
+                
+
+            Amount = 1;
+
+            if (addressformatter.IsBit)
+                Start = (addressformatter.Byte * 8) + addressformatter.Bit;
+            else
+                Start = addressformatter.Byte;
+
+            if (addressformatter.IsDB)
+                DBNumber = addressformatter.DBNumber;
         }
 
         private void txt_Address_LostFocus(object sender, RoutedEventArgs e)
@@ -54,7 +99,16 @@ namespace Dimat_WPF
             addressformatter.Address = input;
 
             box.Text = addressformatter.Address;
-            box.Style = addressformatter.IsValid ? (Style)Resources["AddressBox"] : (Style)Resources["AddressBoxNOK"];
+
+            if (addressformatter.IsValid)
+            {
+                box.Style = (Style)Resources["AddressBox"];
+                SetReading();
+            } else
+            {
+                box.Style = (Style)Resources["AddressBoxNOK"];
+            }
+                
 
             CreateFormatMenu();
         }

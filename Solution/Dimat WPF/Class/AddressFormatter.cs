@@ -9,9 +9,15 @@ namespace Dimat_WPF.Class
 {
     class AddressFormatter
     {
-       
+
+        #region Private properties
+
         private string RawAddress;
         private bool _Valid;
+
+        private int _Byte;
+        private int _Bit;
+        private int _DBNumber;
 
         private bool ibit;
         private bool ibyte;
@@ -37,6 +43,10 @@ namespace Dimat_WPF.Class
         private bool _IsOutput;
         private bool _IsMerker;
         private bool _IsDB;
+
+        #endregion
+
+        #region Public properties
 
         public bool IsValid
         {
@@ -83,19 +93,86 @@ namespace Dimat_WPF.Class
             get { return _IsDB; }
         }
 
+        public int Byte
+        {
+            get { return _Byte; }
+        }
+
+        public int Bit
+        {
+            get { return _Bit; }
+        }
+
+        public int DBNumber
+        {
+            get { return _DBNumber; }
+        }
+
         public string Address
         {
             set
             {
                 RawAddress = value.ToUpper().Trim().Replace(" ", "");
-                CheckAdrr();
+                CheckAddress();
+                if (_Valid)
+                {
+                    GetByte();
+                    if (IsBit)
+                        GetBit();
+                    else
+                        _Bit = 0;
+
+                    if (_IsDB)
+                        GetDBNumber();
+                    else
+                        _DBNumber = 0;
+
+                }else
+                {
+                    _Byte = 0;
+                    _Bit = 0;
+                }
             }
             get
             {
                 return RawAddress;
             }
         }
-        private void CheckAdrr()
+
+        #endregion
+
+        
+        private void GetDBNumber()
+        {
+            // int.TryParse( RawAddress.Substring(1, RawAddress.IndexOf('.')) ,out _DBNumber);
+            int.TryParse( (RawAddress.Split('.')[0]).Substring(2) ,out _DBNumber);
+        }
+
+        private void GetByte()
+        {
+            int Byte;
+
+            if (_IsInput || _IsOutput || _IsMerker)
+                int.TryParse(RawAddress.Substring(2),out Byte);
+            else
+                int.TryParse(RawAddress.Split('.')[1].Substring(3), out Byte);
+
+            _Byte = Byte;
+        }
+
+        private void GetBit()
+        {
+            int Bit;
+
+            if (_IsInput || _IsOutput || _IsMerker)
+                int.TryParse(RawAddress.Split('.')[1], out Bit);
+            else
+                int.TryParse(RawAddress.Split('.')[2], out Bit);
+
+            _Bit = Bit;
+        }
+
+        private void CheckAddress()
         {
             Regex InputBit = new Regex(@"[I]\d+[.][0-7]$", RegexOptions.IgnoreCase);
             Regex InputByte = new Regex(@"[I][B]\d+$", RegexOptions.IgnoreCase);
@@ -107,10 +184,10 @@ namespace Dimat_WPF.Class
             Regex OutputWord = new Regex(@"[Q][W]\d+$", RegexOptions.IgnoreCase);
             Regex OutputDouble = new Regex(@"[Q][D]\d+$", RegexOptions.IgnoreCase);
 
-            Regex MerkerBit = new Regex(@"[Q]\d+[.][0-7]$", RegexOptions.IgnoreCase);
-            Regex MerkerByte = new Regex(@"[Q][B]\d+$", RegexOptions.IgnoreCase);
-            Regex MerkerWord = new Regex(@"[Q][W]\d+$", RegexOptions.IgnoreCase);
-            Regex MerkerDouble = new Regex(@"[Q][D]\d+$", RegexOptions.IgnoreCase);
+            Regex MerkerBit = new Regex(@"[M]\d+[.][0-7]$", RegexOptions.IgnoreCase);
+            Regex MerkerByte = new Regex(@"[M][B]\d+$", RegexOptions.IgnoreCase);
+            Regex MerkerWord = new Regex(@"[M][W]\d+$", RegexOptions.IgnoreCase);
+            Regex MerkerDouble = new Regex(@"[M][D]\d+$", RegexOptions.IgnoreCase);
 
             Regex DBBit = new Regex(@"\DB\d+.DBX\d+[.][0-7]$", RegexOptions.IgnoreCase);
             Regex DBByte = new Regex(@"\DB\d+.DB[B]\d+$", RegexOptions.IgnoreCase);
@@ -125,11 +202,11 @@ namespace Dimat_WPF.Class
             if (ibit || ibyte || iword || idouble)
             {
                 _IsInput = true;
-                _Valid = true;
+                //_Valid = true;
             } else
             {
                 _IsInput = false;
-                _Valid = false;
+                //_Valid = false;
             }
 
             qbit = OutputBit.IsMatch(RawAddress) ? true : false;
@@ -140,12 +217,12 @@ namespace Dimat_WPF.Class
             if (qbit || qbyte || qword || qdouble)
             {
                 _IsOutput = true;
-                _Valid = true;
+                //_Valid = true;
             }
             else
             {
                 _IsOutput = false;
-                _Valid = false;
+                //_Valid = false;
             }
 
             mbit = MerkerBit.IsMatch(RawAddress) ? true : false;
@@ -156,12 +233,12 @@ namespace Dimat_WPF.Class
             if (mbit || mbyte || mword || mdouble)
             {
                 _IsMerker = true;
-                _Valid = true;
+                //_Valid = true;
             }
             else
             {
                 _IsMerker = false;
-                _Valid = false;
+                //_Valid = false;
             }
 
             dbbit = DBBit.IsMatch(RawAddress) ? true : false;
@@ -172,13 +249,18 @@ namespace Dimat_WPF.Class
             if (dbbit || dbbyte || dbword || dbdouble)
             {
                 _IsDB = true;
-                _Valid = true;
+                //_Valid = true;
             }
             else
             {
                 _IsDB = false;
-                _Valid = false;
+                //_Valid = false;
             }
+
+            if (_IsInput ^ _IsOutput ^ _IsMerker ^ _IsDB)
+                _Valid = true;
+            else
+                _Valid = false;
 
         }
 
