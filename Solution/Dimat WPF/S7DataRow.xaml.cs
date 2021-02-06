@@ -38,15 +38,95 @@ namespace Dimat_WPF
         
         private void Read()
         {
-            if (addressformatter.IsValid && client.ReadArea(Area, DBNumber, Start, Amount, WordLen, array) == 0)
+            if (addressformatter.IsValid && client.Connected && client.ReadArea(Area, DBNumber, Start, Amount, WordLen, array) == 0)
             {
-                txt_Actual.Text = array.ToString();  
+                FormatValue();  
             }
             else
             {
                 txt_Actual.Text = "";
             }
         }
+
+        private void FormatValue()
+        {
+            switch(cmb_Format.SelectedValue.ToString())
+            {
+                case "BOOL":
+                    txt_Actual.Text = GetBooltS();
+                    break;
+                case "BINARY":
+                    txt_Actual.Text = GetBinS();
+                    break;
+                case "DECIMAL":
+                    txt_Actual.Text = GetDecS();
+                    break;
+                case "CHARACTER":
+                    txt_Actual.Text = GetCharS();
+                    break;
+                case "FLOAT":
+                    txt_Actual.Text = GetFloatS();
+                    break;
+
+            }
+        }
+
+        #region Format functions
+
+        public string GetBooltS()
+        {
+            Boolean b = S7.GetBitAt(array, 0, 0);
+            return b.ToString();
+        }
+
+        public string GetDecS()
+        {
+            string i = "[Error]";
+
+            switch (array.Length)
+            {
+                case 1:
+                    i = S7.GetSIntAt(array, 0).ToString();
+                    break;
+                case 2:
+                    i = S7.GetIntAt(array, 0).ToString();
+                    break;
+                case 4:
+                    i = S7.GetDIntAt(array, 0).ToString();
+                    break;
+            }
+
+            return i;
+        }
+
+        public string GetCharS()
+        {
+            string s = "";
+            if (array.Length > 0)
+                s = S7.GetCharsAt(array, 0, array.Length);
+
+            return s;
+        }
+
+        public string GetBinS()
+        {
+            string s = string.Join(" ", array.Select(x => Convert.ToString(x, 2).PadLeft(8, '0')));
+            return s;
+        }
+
+        public string GetFloatS()
+        {
+            string i = "";
+            switch (array.Length)
+            {
+                case 4:
+                    i = S7.GetRealAt(array, 0).ToString();
+                    break;
+            }
+            return i;
+        }
+
+        #endregion
 
         private void SetReading()
         {
@@ -140,6 +220,11 @@ namespace Dimat_WPF
                 cmb_Format.SelectedIndex = 0;
             }
 
+        }
+
+        private void txt_Actual_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Read();
         }
     }
 }
