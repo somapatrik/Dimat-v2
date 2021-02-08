@@ -52,7 +52,7 @@
                 <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Right">
                     <Label x:Name="btnWriteAll" Content="Write all" Style="{StaticResource RowButton}" />
                     <Label x:Name="btnReadAll"  Content="Read all" Style="{StaticResource RowButton}" />
-                    <Label x:Name="btnNewRow" Content="New row" Style="{StaticResource RowButton}" />
+                    <Label x:Name="btnNewRow" Content="New row" Style="{StaticResource RowButton}" MouseLeftButtonUp="btnNewRow_MouseLeftButtonUp"/>
                 </StackPanel>
             </Grid>
             

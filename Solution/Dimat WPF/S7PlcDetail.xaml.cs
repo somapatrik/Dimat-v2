@@ -77,8 +77,7 @@ namespace Dimat_WPF
             SetGUI();
 
             // Create rows
-            S7DataRow row = new S7DataRow(ref client);
-            StackData.Children.Add(row);
+            CreateRow();
         }
 
 
@@ -211,6 +210,17 @@ namespace Dimat_WPF
         private void DangerButton_Clicked(object sender, MouseButtonEventArgs e)
         {
             GridDanger.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnNewRow_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            CreateRow();
+        }
+
+        private void CreateRow()
+        {
+            S7DataRow row = new S7DataRow(ref client);
+            StackData.Children.Add(row);
         }
     }
 }

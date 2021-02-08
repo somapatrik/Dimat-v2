@@ -36,16 +36,18 @@ namespace Dimat_WPF
             client = PlcClient;
         }
         
-        private void Read()
+        private async void Read()
         {
-            if (addressformatter.IsValid && client.Connected && client.ReadArea(Area, DBNumber, Start, Amount, WordLen, array) == 0)
+            await Task.Run(() =>
             {
-                FormatValue();  
-            }
-            else
-            {
-                txt_Actual.Text = "";
-            }
+                GridRow.Dispatcher.Invoke(()=>
+                {
+                    if (addressformatter.IsValid && client.Connected && client.ReadArea(Area, DBNumber, Start, Amount, WordLen, array) == 0)
+                        FormatValue();
+                    else
+                        txt_Actual.Text = "";
+                });
+            });
         }
 
         private void FormatValue()
@@ -67,7 +69,6 @@ namespace Dimat_WPF
                 case "FLOAT":
                     txt_Actual.Text = GetFloatS();
                     break;
-
             }
         }
 
@@ -171,13 +172,13 @@ namespace Dimat_WPF
                 DBNumber = addressformatter.DBNumber;
         }
 
+        // Address lost focus
         private void txt_Address_LostFocus(object sender, RoutedEventArgs e)
         {
             TextBox box = (TextBox)sender;
             string input = box.Text;
 
             addressformatter.Address = input;
-
             box.Text = addressformatter.Address;
 
             if (addressformatter.IsValid)
@@ -188,13 +189,18 @@ namespace Dimat_WPF
             {
                 box.Style = (Style)Resources["AddressBoxNOK"];
             }
-                
 
             CreateFormatMenu();
         }
 
         private void CreateFormatMenu()
         {
+            // Last selected value
+            object selected = null;
+            if (cmb_Format.Items.Count > 0)
+                selected = cmb_Format.SelectedItem;
+
+            // New menu
             cmb_Format.Items.Clear();
 
             if (addressformatter.IsValid)
@@ -217,7 +223,11 @@ namespace Dimat_WPF
                     cmb_Format.Items.Add("FLOAT");
                 }
 
-                cmb_Format.SelectedIndex = 0;
+                // Set last selected
+                if (selected != null && cmb_Format.Items.Contains(selected))
+                    cmb_Format.SelectedItem = selected;
+                else
+                    cmb_Format.SelectedIndex = 0;
             }
 
         }
@@ -225,6 +235,12 @@ namespace Dimat_WPF
         private void txt_Actual_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Read();
+        }
+
+        private void cmb_Format_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (addressformatter.IsValid && cmb_Format.SelectedIndex >= 0)
+                FormatValue();
         }
     }
 }

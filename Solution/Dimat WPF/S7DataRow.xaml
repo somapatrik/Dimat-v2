@@ -21,7 +21,7 @@
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <TextBox x:Name="txt_Address" Style="{StaticResource AddressBox}" LostFocus="txt_Address_LostFocus"/>
-        <ComboBox x:Name="cmb_Format"  Grid.Column="1" Style="{StaticResource ComboBoxFlatStyle}" />
+        <ComboBox x:Name="cmb_Format"  Grid.Column="1" Style="{StaticResource ComboBoxFlatStyle}" SelectionChanged="cmb_Format_SelectionChanged" />
         <TextBox x:Name="txt_Actual" Grid.Column="2" Style="{StaticResource ActualBox}" MouseDoubleClick="txt_Actual_MouseDoubleClick"/>
         <TextBox x:Name="txt_Value" Grid.Column="3" Style="{StaticResource AddressBox}"/>
         <Label Grid.Column="4" Content="Write" Style="{StaticResource RowButton}"/>
