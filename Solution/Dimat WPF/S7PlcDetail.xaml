@@ -35,28 +35,30 @@
             </Grid.RowDefinitions>
 
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label x:Name="lblname" Content="Plc name" Style="{StaticResource ColorLabel}" />
+                    <Label x:Name="lblIP" Content="IP" Style="{StaticResource ColorLabel}" />
+                </StackPanel>
                 
-                <Label x:Name="lblname" Grid.Column="1" Content="Plc name" Style="{StaticResource ColorLabel}" HorizontalAlignment="Right"/>
-                <Label x:Name="lblIP" Grid.Column="2" Content="IP" Style="{StaticResource ColorLabel}" HorizontalAlignment="Left"/>
-                <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Right">
-                    <Label x:Name="btnWriteAll" Content="Write all" Style="{StaticResource RowButton}" />
-                    <Label x:Name="btnReadAll"  Content="Read all" Style="{StaticResource RowButton}" />
-                    <Label x:Name="btnNewRow" Content="New row" Style="{StaticResource RowButton}" MouseLeftButtonUp="btnNewRow_MouseLeftButtonUp"/>
+                
+                <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Left" Margin="5 0 0 0">
+                    <Label FontFamily="Segoe MDL2 Assets" Content="&#xF0B5;" Style="{StaticResource RowButton}"/>
+                    <Label x:Name="btnReadAll" ToolTip="Read all" FontFamily="Segoe MDL2 Assets"  Content="&#xE895;" Style="{StaticResource RowButton}" />
+                    <Label x:Name="btnWriteAll" ToolTip="Write all" FontFamily="Segoe MDL2 Assets"  Content="&#xEAC2;" Style="{StaticResource RowButton}" />
+                    <Label x:Name="btnNewRow" ToolTip="Add row" FontFamily="Segoe MDL2 Assets" Content="&#xE710;" Style="{StaticResource RowButton}" MouseLeftButtonUp="btnNewRow_MouseLeftButtonUp"/>
+
+                    <Label ToolTip="Delete selected" FontFamily="Segoe MDL2 Assets" Content="&#xE74D;" Style="{StaticResource RowButton}" />
+                    <Label ToolTip="Save" FontFamily="Segoe MDL2 Assets" Content="&#xE74E;" Style="{StaticResource RowButton}" />
                 </StackPanel>
             </Grid>
             
-            <StackPanel Grid.Row="1" x:Name="StackData" Orientation="Vertical" Margin="0 5"/>
+            <StackPanel Grid.Row="2" x:Name="StackData" Orientation="Vertical" Margin="5"/>
             
         </Grid>
 
