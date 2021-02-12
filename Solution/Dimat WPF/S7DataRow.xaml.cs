@@ -20,6 +20,14 @@ namespace Dimat_WPF
 
     public partial class S7DataRow : UserControl
     {
+
+        private bool _selected;
+        public bool Selected
+        {
+            set { _selected = value; }
+            get { return _selected; }
+        }
+
         S7Client client;
         AddressFormatter addressformatter = new AddressFormatter();
 
@@ -241,6 +249,14 @@ namespace Dimat_WPF
         {
             if (addressformatter.IsValid && cmb_Format.SelectedIndex >= 0)
                 FormatValue();
+        }
+
+        private void lblSelect_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            _selected = _selected ? false : true;
+            lblSelect.Style = _selected ? (Style)Resources["RowButtonSelected"] : (Style)Resources["RowButton"];
+
+
         }
     }
 }

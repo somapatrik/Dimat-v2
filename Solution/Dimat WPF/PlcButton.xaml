@@ -12,7 +12,7 @@
         <ResourceDictionary Source="Styles.xaml"/>
     </UserControl.Resources>
 
-    <Grid Style="{StaticResource PlcButtonGrid}" MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave">
+    <Grid MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5pt"/>
             <ColumnDefinition/>

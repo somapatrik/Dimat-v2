@@ -7,93 +7,21 @@
         <Setter Property="Foreground" Value="WhiteSmoke"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Margin" Value="0 2.5"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Style.Triggers >
             <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="BorderBrush" Value="Red"/>
                 <Setter Property="Background" Value="#FF6a758e"/>
             </Trigger>
         </Style.Triggers>
-        
+
     </Style>
 
     <Style x:Key="DarkBoxNOK" BasedOn="{StaticResource DarkBox}" TargetType="TextBox">
         <Setter Property="Background" Value="IndianRed"/>
         <Setter Property="Foreground" Value="Black"/>
-    </Style>
-
-    <Style x:Key="AddressBox" BasedOn="{StaticResource DarkBox}" TargetType="TextBox">
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="Margin" Value="0"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="BorderBrush" Value="#FF2E3440"/>
-    </Style>
-
-    <Style x:Key="AddressBoxNOK" BasedOn="{StaticResource DarkBoxNOK}" TargetType="TextBox">
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="Margin" Value="0"/>
-    </Style>
-
-    <Style x:Key="ActualBox" BasedOn="{StaticResource AddressBox}" TargetType="TextBox">
-        <Setter Property="IsReadOnly" Value="True"/>
-        <Setter Property="Margin" Value="0"/>
-    </Style>
-
-    <Style x:Key="TopMenuButton" TargetType="Label">
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Padding" Value="10 5"/>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Cursor" Value="Hand"/>
-                <Setter Property="Background" Value="#FF495162"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key="FooterButton" TargetType="Label">
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Padding" Value="10 5"/>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Cursor" Value="Hand"/>
-                <Setter Property="Background" Value="#FF495162"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key="PlcButtonGrid" TargetType="Grid">
-
-    </Style>
-
-    <Style x:Key="PlcButtonBorder" TargetType="Border">
-        <Setter Property="Background" Value="#FF2E3440"/>
-        <Setter Property="BorderThickness" Value="0 0 1 1"/>
-        <Setter Property="BorderBrush" Value="#FF495162"/>
-    </Style>
-
-    <Style x:Key="PlcButtonBorderActive" BasedOn="{StaticResource PlcButtonBorder}" TargetType="Border">
-        <Setter Property="BorderBrush" Value="Gray"/>
-        <Setter Property="Background" Value="#FF333945"/>
-        <Setter Property="BorderThickness" Value="0 1 1 1.2"/>
-    </Style>
-
-    <Style x:Key="PlcButtonLabel" TargetType="Label">
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Padding" Value="2"/>
-    </Style>
-
-    <Style x:Key="PlcButtonLabelSecondary" BasedOn="{StaticResource PlcButtonLabel}" TargetType="Label">
-        <Setter Property="Foreground" Value="DarkGray"/>
-    </Style>
-
-    <Style x:Key="LeftMenuTopButton" TargetType="Label">
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Padding" Value="10 5"/>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Cursor" Value="Hand"/>
-                <Setter Property="Background" Value="#FF495162"/>
+        <Style.Triggers >
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="IndianRed"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -138,7 +66,73 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key="EliteButtonBlue" BasedOn="{StaticResource ColorButton}" TargetType="Label">
+
+    <!--Data row-->
+    <Style x:Key="AddressBox" BasedOn="{StaticResource DarkBox}" TargetType="TextBox">
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="#FF2E3440"/>
+    </Style>
+
+    <Style x:Key="AddressBoxNOK" BasedOn="{StaticResource DarkBoxNOK}" TargetType="TextBox">
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0"/>
+    </Style>
+
+    <Style x:Key="ActualBox" BasedOn="{StaticResource AddressBox}" TargetType="TextBox">
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="Margin" Value="0"/>
+    </Style>
+
+    
+    <Style x:Key="TopMenuButton" TargetType="Label">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Padding" Value="10 5"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Background" Value="#FF495162"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="FooterButton" TargetType="Label">
+        <Setter Property="Foreground" Value="white"/>
+        <Setter Property="Padding" Value="10 5"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Background" Value="#FF495162"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--PLC list-->
+    <Style x:Key="PlcButtonBorder" TargetType="Border">
+        <Setter Property="Background" Value="#FF2E3440"/>
+        <Setter Property="BorderThickness" Value="0 0 1 1"/>
+        <Setter Property="BorderBrush" Value="#FF495162"/>
+    </Style>
+
+    <Style x:Key="PlcButtonBorderActive" BasedOn="{StaticResource PlcButtonBorder}" TargetType="Border">
+        <Setter Property="BorderBrush" Value="Gray"/>
+        <Setter Property="Background" Value="#FF333945"/>
+        <Setter Property="BorderThickness" Value="0 1 1 1.2"/>
+    </Style>
+
+    <Style x:Key="PlcButtonLabel" TargetType="Label">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Padding" Value="2"/>
+    </Style>
+
+    <Style x:Key="PlcButtonLabelSecondary" BasedOn="{StaticResource PlcButtonLabel}" TargetType="Label">
+        <Setter Property="Foreground" Value="DarkGray"/>
+    </Style>
+
+    <!--<Style x:Key="EliteButtonBlue" BasedOn="{StaticResource ColorButton}" TargetType="Label">
         <Setter Property="BorderBrush" Value="#FF057af0"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="White"/>
@@ -150,17 +144,15 @@
                 <Setter Property="Cursor" Value="Hand"/>
             </Trigger>
         </Style.Triggers>
-    </Style>
+    </Style>-->
 
     <Style x:Key="RowButton" TargetType="Label">
-        <Setter Property="Foreground" Value="WhiteSmoke"/>
+        <Setter Property="Foreground" Value="AntiqueWhite"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Background" Value="#FF495162"/>
-        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Margin" Value="1"/>
         <Setter Property="MinWidth" Value="50"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="BorderBrush" Value="#FF2E3440"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Background" Value="#FF6a758e"/>
@@ -168,6 +160,19 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style x:Key="RowButtonConnected" TargetType="Label" BasedOn="{StaticResource RowButton}">
+        <Setter Property="Foreground" Value="LimeGreen"/>
+    </Style>
+
+    <Style x:Key="RowButtonDisconnected" TargetType="Label" BasedOn="{StaticResource RowButton}">
+        <Setter Property="Foreground" Value="OrangeRed"/>
+    </Style>
+
+    <Style x:Key="RowButtonSelected" TargetType="Label" BasedOn="{StaticResource RowButton}">
+        <Setter Property="Background" Value="LimeGreen"/>
+    </Style>
+
 
     <Style x:Key="ColorLabel" TargetType="Label">
         <Setter Property="BorderThickness" Value="1"/>

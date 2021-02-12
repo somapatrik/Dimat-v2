@@ -132,6 +132,7 @@ namespace Dimat_WPF
 
         private void SetGUI()
         {
+            btnDisconnect.Visibility = Visibility.Collapsed;
 
             lblname.Content = plc.Name;
             lblIP.Content = plc.IP;
@@ -154,7 +155,9 @@ namespace Dimat_WPF
         {
             EnableWatch(false);
             client.Disconnect();
-            lblConnect.Content = "Connect";
+            btnDisconnect.Visibility = Visibility.Collapsed;
+            btnConnect.Visibility = Visibility.Visible;
+           // lblConnect.Content = "Connect";
             lblPlcStatus.Style = (Style)Resources["ColorLabelNOK"];
             lblPlcStatus.Content = "Disconnected";
         }
@@ -163,7 +166,9 @@ namespace Dimat_WPF
         {
             if (client.ConnectTo(plc.IP, plc.Rack, plc.Slot) == 0)
             {
-                lblConnect.Content = "Disconnect";
+                btnDisconnect.Visibility = Visibility.Visible;
+                btnConnect.Visibility = Visibility.Collapsed;
+              //  lblConnect.Content = "Disconnect";
                 EnableWatch(true);
             }
         }
