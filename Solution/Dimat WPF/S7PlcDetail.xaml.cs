@@ -157,7 +157,6 @@ namespace Dimat_WPF
             client.Disconnect();
             btnDisconnect.Visibility = Visibility.Collapsed;
             btnConnect.Visibility = Visibility.Visible;
-           // lblConnect.Content = "Connect";
             lblPlcStatus.Style = (Style)Resources["ColorLabelNOK"];
             lblPlcStatus.Content = "Disconnected";
         }
@@ -168,19 +167,8 @@ namespace Dimat_WPF
             {
                 btnDisconnect.Visibility = Visibility.Visible;
                 btnConnect.Visibility = Visibility.Collapsed;
-              //  lblConnect.Content = "Disconnect";
                 EnableWatch(true);
             }
-        }
-
-        private void PlcStop_Clicked(object sender, MouseButtonEventArgs e)
-        {
-            client.PlcStop();
-        }
-
-        private void HotStart_Clicked(object sender, MouseButtonEventArgs e)
-        {
-            client.PlcHotStart();
         }
 
         private void lblGroupFunctions_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -227,5 +215,16 @@ namespace Dimat_WPF
             S7DataRow row = new S7DataRow(ref client);
             StackData.Children.Add(row);
         }
+
+        private void PlcStop_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            client.PlcStop();
+        }
+
+        private void HotStart_Clicked(object sender, MouseButtonEventArgs e)
+        {
+            client.PlcHotStart();
+        }
+
     }
 }

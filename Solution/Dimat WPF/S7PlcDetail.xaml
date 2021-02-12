@@ -68,7 +68,7 @@
                     <StackPanel Orientation="Horizontal">
 
                         <Label x:Name="btnConnect" ToolTip="Connect" FontFamily="Segoe MDL2 Assets"  Content="&#xE768;" Style="{StaticResource RowButtonConnected}" MouseLeftButtonUp="lblConnect_MouseLeftButtonUp"/>
-                        <Label x:Name="btnDisconnect" ToolTip="Disconnect" FontFamily="Segoe MDL2 Assets"  Content="&#xE71A;" Style="{StaticResource RowButtonDisconnected}" MouseLeftButtonUp="lblConnect_MouseLeftButtonUp"/>
+                        <Label x:Name="btnDisconnect" ToolTip="Disconnect" FontFamily="Segoe MDL2 Assets"  Content="&#xE73B;" Style="{StaticResource RowButtonDisconnected}" MouseLeftButtonUp="lblConnect_MouseLeftButtonUp"/>
 
                     </StackPanel>
 
@@ -158,8 +158,7 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" x:Name="btnStartPLC" Content="Start" Style="{StaticResource RowButton}"/>
-                <Label Grid.Row="0" Grid.Column="1" x:Name="btnStopPLC" Content="Stop" MouseLeftButtonUp="PlcStop_Clicked"  Style="{StaticResource RowButton}"/>
+                <Label Grid.Row="0" Grid.Column="1" x:Name="btnStopPLC" Content="STOP PLC" Style="{StaticResource RowButton}" MouseLeftButtonUp="PlcStop_Clicked" />
                 <Label Grid.Row="1" Content="Warm start" MouseLeftButtonUp="HotStart_Clicked" Style="{StaticResource RowButton}"/>
                 <Label Grid.Row="1" Grid.Column="1" Content="Cold start" Style="{StaticResource RowButton}"/>
                 <Label  Grid.Row="2" Grid.ColumnSpan="2" Content="Copy RAM to ROM" Style="{StaticResource RowButton}"/>
