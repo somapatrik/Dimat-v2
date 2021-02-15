@@ -255,7 +255,15 @@ namespace Dimat_WPF
         {
             _selected = _selected ? false : true;
             lblSelect.Style = _selected ? (Style)Resources["RowButtonSelected"] : (Style)Resources["RowButton"];
+        }
 
+        private void SelectRow()
+        {
+
+        }
+
+        private void Unselectrow()
+        {
 
         }
     }

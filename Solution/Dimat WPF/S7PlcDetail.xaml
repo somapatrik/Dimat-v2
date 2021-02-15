@@ -49,8 +49,10 @@
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5 0 0 0">
 
                     <StackPanel Orientation="Horizontal">
-                    
-                        <Label x:Name="btnSelectAll" ToolTip="Select all" FontFamily="Segoe MDL2 Assets" Content="&#xF0B5;" Style="{StaticResource RowButton}"/>
+
+                        <Viewbox>
+                            <Label x:Name="btnSelectAll" ToolTip="Select all" FontFamily="Segoe MDL2 Assets" Content="&#xF0B5;" Style="{StaticResource RowButton}" MouseLeftButtonUp="btnSelectAll_MouseLeftButtonUp"/>
+                        </Viewbox>
                         <Label x:Name="btnNewRow" ToolTip="Add row" FontFamily="Segoe MDL2 Assets" Content="&#xE710;" Style="{StaticResource RowButton}" MouseLeftButtonUp="btnNewRow_MouseLeftButtonUp"/>
 
                         <Label x:Name="btnDeleteSelected" ToolTip="Delete selected" FontFamily="Segoe MDL2 Assets" Content="&#xE74D;" Style="{StaticResource RowButton}" />
@@ -77,7 +79,9 @@
             </Grid>
 
             <!--Rows-->
-            <StackPanel Grid.Row="2" x:Name="StackData" Orientation="Vertical" Margin="5"/>
+            <ScrollViewer Grid.Row="2"  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <StackPanel  x:Name="StackData" Orientation="Vertical" Margin="5"/>
+            </ScrollViewer>
 
         </Grid>
 
@@ -120,20 +124,20 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <Label Content="AS Name" Style="{StaticResource ColorLabel}"/>
-                <Label Grid.Column="1" x:Name="lbl_ASname" Style="{StaticResource ColorLabel}"/>
+                <Label Content="AS Name" Style="{StaticResource DetailLabel}"/>
+                <Label Grid.Column="1" x:Name="lbl_ASname" Style="{StaticResource DetailLabel}"/>
 
-                <Label Grid.Row="2" Grid.Column="1" x:Name="lbl_Modultype" Style="{StaticResource ColorLabel}"/>
-                <Label Grid.Row="2" Content="Modul type" Style="{StaticResource ColorLabel}"/>
+                <Label Grid.Row="2" Grid.Column="1" x:Name="lbl_Modultype" Style="{StaticResource DetailLabel}"/>
+                <Label Grid.Row="2" Content="Modul type" Style="{StaticResource DetailLabel}"/>
 
-                <Label Grid.Row="1" Content="Modul name" Style="{StaticResource ColorLabel}"/>
-                <Label Grid.Row="1" Grid.Column="1" x:Name="lbl_Modulname" Style="{StaticResource ColorLabel}"/>
+                <Label Grid.Row="1" Content="Modul name" Style="{StaticResource DetailLabel}"/>
+                <Label Grid.Row="1" Grid.Column="1" x:Name="lbl_Modulname" Style="{StaticResource DetailLabel}"/>
 
-                <Label Grid.Row="3" Content="Serial number" Style="{StaticResource ColorLabel}"/>
-                <Label Grid.Row="3" Grid.Column="1" x:Name="lbl_Serialnumber" Style="{StaticResource ColorLabel}"/>
-                
-                <Label Grid.Row="4" Content="Max connections" Style="{StaticResource ColorLabel}"/>
-                <Label Grid.Row="4" Grid.Column="1" x:Name="lbl_MaxConnections" Style="{StaticResource ColorLabel}"/>
+                <Label Grid.Row="3" Content="Serial number" Style="{StaticResource DetailLabel}"/>
+                <Label Grid.Row="3" Grid.Column="1" x:Name="lbl_Serialnumber" Style="{StaticResource DetailLabel}"/>
+
+                <Label Grid.Row="4" Content="Max connections" Style="{StaticResource DetailLabel}"/>
+                <Label Grid.Row="4" Grid.Column="1" x:Name="lbl_MaxConnections" Style="{StaticResource DetailLabel}"/>
 
             </Grid>
 

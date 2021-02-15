@@ -226,5 +226,12 @@ namespace Dimat_WPF
             client.PlcHotStart();
         }
 
+        private void btnSelectAll_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            foreach (S7DataRow row in StackData.Children)
+            {
+                //row.Selected
+            }
+        }
     }
 }

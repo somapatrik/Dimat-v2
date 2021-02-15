@@ -56,17 +56,19 @@
             <!--Left Menu-->
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Row="0" x:Name="PlcStack" Orientation="Vertical"/>
+                <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="PlcStack" Orientation="Vertical"/>
+                </ScrollViewer>
 
                 <!--Group menu-->
-                <Grid Grid.Row="1" VerticalAlignment="Bottom">
+                <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition/>

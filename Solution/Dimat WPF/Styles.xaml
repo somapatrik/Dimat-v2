@@ -124,12 +124,14 @@
     </Style>
 
     <Style x:Key="PlcButtonLabel" TargetType="Label">
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Padding" Value="2"/>
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
+        <Setter Property="Padding" Value="1"/>
     </Style>
 
     <Style x:Key="PlcButtonLabelSecondary" BasedOn="{StaticResource PlcButtonLabel}" TargetType="Label">
         <Setter Property="Foreground" Value="DarkGray"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Margin" Value="2 0"/>
     </Style>
 
     <!--<Style x:Key="EliteButtonBlue" BasedOn="{StaticResource ColorButton}" TargetType="Label">
@@ -147,7 +149,7 @@
     </Style>-->
 
     <Style x:Key="RowButton" TargetType="Label">
-        <Setter Property="Foreground" Value="AntiqueWhite"/>
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Background" Value="#FF495162"/>
@@ -196,6 +198,15 @@
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="BorderBrush" Value="LimeGreen"/>
         <Setter Property="Foreground" Value="LimeGreen"/>
+    </Style>
+
+    <Style x:Key="DetailLabel" TargetType="Label">
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="#FF495162"/>
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
+        <Setter Property="Padding" Value="1.5"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
     <Style x:Key="PlcButtonPingOK" TargetType="Border">
