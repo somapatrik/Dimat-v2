@@ -24,7 +24,14 @@ namespace Dimat_WPF
         private bool _selected;
         public bool Selected
         {
-            set { _selected = value; }
+            set 
+            {
+                if (value)
+                    SelectRow();
+                else
+                    Unselectrow();
+            }
+            
             get { return _selected; }
         }
 
@@ -253,18 +260,22 @@ namespace Dimat_WPF
 
         private void lblSelect_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            _selected = _selected ? false : true;
-            lblSelect.Style = _selected ? (Style)Resources["RowButtonSelected"] : (Style)Resources["RowButton"];
+            if (_selected)
+                Unselectrow();
+            else
+                SelectRow();
         }
 
         private void SelectRow()
         {
-
+            _selected =  true;
+            lblSelect.Style =  (Style)Resources["RowButtonSelected"] ;
         }
 
         private void Unselectrow()
         {
-
+            _selected = false;
+            lblSelect.Style = (Style)Resources["RowButton"];
         }
     }
 }

@@ -230,7 +230,15 @@ namespace Dimat_WPF
         {
             foreach (S7DataRow row in StackData.Children)
             {
-                //row.Selected
+                row.Selected = true;
+            }
+        }
+
+        private void btnUnselectAll_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            foreach (S7DataRow row in StackData.Children)
+            {
+                row.Selected = false;
             }
         }
     }
