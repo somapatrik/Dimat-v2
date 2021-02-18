@@ -237,9 +237,21 @@ namespace Dimat_WPF
         private void btnUnselectAll_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             foreach (S7DataRow row in StackData.Children)
-            {
                 row.Selected = false;
-            }
+        }
+
+        private void btnDeleteSelected_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            List<S7DataRow> MarkDelete = new List<S7DataRow>();
+            
+            foreach (S7DataRow row in StackData.Children)
+                if (row.Selected)
+                    MarkDelete.Add(row);
+
+            foreach (S7DataRow row in MarkDelete)
+                StackData.Children.Remove(row);
+
+
         }
     }
 }
