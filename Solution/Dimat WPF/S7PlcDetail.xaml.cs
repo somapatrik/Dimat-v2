@@ -251,7 +251,7 @@ namespace Dimat_WPF
             foreach (S7DataRow row in MarkDelete)
                 StackData.Children.Remove(row);
 
-
+            MarkDelete.Clear();
         }
     }
 }
