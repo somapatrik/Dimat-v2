@@ -24,7 +24,7 @@
         <TextBox Grid.Column="1" x:Name="txt_Address" Style="{StaticResource AddressBox}" LostFocus="txt_Address_LostFocus"/>
         <ComboBox Grid.Column="2" x:Name="cmb_Format"   Style="{StaticResource ComboBoxFlatStyle}" SelectionChanged="cmb_Format_SelectionChanged" />
         <TextBox Grid.Column="3" x:Name="txt_Actual"  Style="{StaticResource ActualBox}" MouseDoubleClick="txt_Actual_MouseDoubleClick"/>
-        <TextBox Grid.Column="4" x:Name="txt_Value"  Style="{StaticResource AddressBox}"/>
+        <TextBox Grid.Column="4" x:Name="txt_Value"  Style="{StaticResource AddressBox}" LostFocus="txt_Value_LostFocus"/>
         <Label Grid.Column="5" x:Name="btnWrite" ToolTip="Write" FontFamily="Segoe MDL2 Assets" Content="&#xE898;" Style="{StaticResource RowButton}"/>
     </Grid>
 </UserControl>

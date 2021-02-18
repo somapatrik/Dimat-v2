@@ -91,7 +91,6 @@ namespace Dimat_WPF
 
         private void StatusWatchCallBack(object state)
         {
-
             GridRightSideInfo.Dispatcher.Invoke(() =>
             {
                 if (!IsConnected())

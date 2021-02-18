@@ -20,7 +20,7 @@ namespace Dimat_WPF
 
     public partial class S7DataRow : UserControl
     {
-
+        // Row selected
         private bool _selected;
         public bool Selected
         {
@@ -35,15 +35,22 @@ namespace Dimat_WPF
             get { return _selected; }
         }
 
+        // Connection to PLC
         S7Client client;
+
+        // Address validation & info
         AddressFormatter addressformatter = new AddressFormatter();
 
+        // Address information
         int Area;
         int DBNumber;
         int Start;
         int Amount;
         int WordLen;
         byte[] array;
+
+        // Write information
+        bool IsWriteValid;
 
         public S7DataRow(ref S7Client PlcClient)
         {
@@ -65,9 +72,102 @@ namespace Dimat_WPF
             });
         }
 
+        private async void Write()
+        {
+
+        }
+
+
+        private void SetReading()
+        {
+            if (addressformatter.IsInput)
+                Area = S7Consts.S7AreaPE;
+            else if (addressformatter.IsOutput)
+                Area = S7Consts.S7AreaPA;
+            else if (addressformatter.IsMerker)
+                Area = S7Consts.S7AreaMK;
+            else if (addressformatter.IsDB)
+                Area = S7Consts.S7AreaDB;
+
+            if (addressformatter.IsBit)
+            {
+                WordLen = S7Consts.S7WLBit;
+                array = new byte[1];
+            }
+            else if (addressformatter.IsByte)
+            {
+                WordLen = S7Consts.S7WLByte;
+                array = new byte[1];
+            }
+            else if (addressformatter.IsWord)
+            {
+                WordLen = S7Consts.S7WLWord;
+                array = new byte[2];
+            }
+            else if (addressformatter.IsDouble)
+            {
+                WordLen = S7Consts.S7WLDWord;
+                array = new byte[4];
+            }
+
+
+            Amount = 1;
+
+            if (addressformatter.IsBit)
+                Start = (addressformatter.Byte * 8) + addressformatter.Bit;
+            else
+                Start = addressformatter.Byte;
+
+            if (addressformatter.IsDB)
+                DBNumber = addressformatter.DBNumber;
+        }
+
+        private void CreateFormatMenu()
+        {
+            // Last selected value
+            object selected = null;
+            if (cmb_Format.Items.Count > 0)
+                selected = cmb_Format.SelectedItem;
+
+            // New menu
+            cmb_Format.Items.Clear();
+
+            if (addressformatter.IsValid)
+            {
+                if (addressformatter.IsBit)
+                {
+                    cmb_Format.Items.Add("BOOL");
+                }
+                else if (addressformatter.IsByte || addressformatter.IsWord)
+                {
+                    cmb_Format.Items.Add("BINARY");
+                    cmb_Format.Items.Add("DECIMAL +/-");
+                    cmb_Format.Items.Add("DECIMAL");
+                    cmb_Format.Items.Add("CHARACTER");
+                }
+                else if (addressformatter.IsDouble)
+                {
+                    cmb_Format.Items.Add("BINARY");
+                    cmb_Format.Items.Add("DECIMAL +/-");
+                    cmb_Format.Items.Add("DECIMAL");
+                    cmb_Format.Items.Add("CHARACTER");
+                    cmb_Format.Items.Add("FLOAT");
+                }
+
+                // Set last selected
+                if (selected != null && cmb_Format.Items.Contains(selected))
+                    cmb_Format.SelectedItem = selected;
+                else
+                    cmb_Format.SelectedIndex = 0;
+            }
+
+        }
+
+        #region Format functions
+
         private void FormatValue()
         {
-            switch(cmb_Format.SelectedValue.ToString())
+            switch (cmb_Format.SelectedValue.ToString())
             {
                 case "BOOL":
                     txt_Actual.Text = GetBooltS();
@@ -90,14 +190,11 @@ namespace Dimat_WPF
             }
         }
 
-        #region Format functions
-
         public string GetBooltS()
         {
             Boolean b = S7.GetBitAt(array, 0, 0);
             return b.ToString();
         }
-
 
         public string GetSDecS()
         {
@@ -168,50 +265,7 @@ namespace Dimat_WPF
 
         #endregion
 
-        private void SetReading()
-        {
-            if (addressformatter.IsInput)
-                Area = S7Consts.S7AreaPE;
-            else if (addressformatter.IsOutput)
-                Area = S7Consts.S7AreaPA;
-            else if (addressformatter.IsMerker)
-                Area = S7Consts.S7AreaMK;
-            else if (addressformatter.IsDB)
-                Area = S7Consts.S7AreaDB;
-
-            if (addressformatter.IsBit)
-            {
-                WordLen = S7Consts.S7WLBit;
-                array = new byte[1];
-            }
-            else if (addressformatter.IsByte)
-            {
-                WordLen = S7Consts.S7WLByte;
-                array = new byte[1];
-            }
-            else if (addressformatter.IsWord) {
-                WordLen = S7Consts.S7WLWord; 
-                array = new byte[2];
-            }
-            else if (addressformatter.IsDouble)
-            {
-                WordLen = S7Consts.S7WLDWord;
-                array = new byte[4];
-            }
-                
-
-            Amount = 1;
-
-            if (addressformatter.IsBit)
-                Start = (addressformatter.Byte * 8) + addressformatter.Bit;
-            else
-                Start = addressformatter.Byte;
-
-            if (addressformatter.IsDB)
-                DBNumber = addressformatter.DBNumber;
-        }
-
-        // Address lost focus
+        #region GUI events
         private void txt_Address_LostFocus(object sender, RoutedEventArgs e)
         {
             TextBox box = (TextBox)sender;
@@ -232,47 +286,6 @@ namespace Dimat_WPF
             CreateFormatMenu();
         }
 
-        private void CreateFormatMenu()
-        {
-            // Last selected value
-            object selected = null;
-            if (cmb_Format.Items.Count > 0)
-                selected = cmb_Format.SelectedItem;
-
-            // New menu
-            cmb_Format.Items.Clear();
-
-            if (addressformatter.IsValid)
-            {
-                if (addressformatter.IsBit)
-                {
-                    cmb_Format.Items.Add("BOOL");
-                }
-                else if (addressformatter.IsByte || addressformatter.IsWord)
-                {
-                    cmb_Format.Items.Add("BINARY");
-                    cmb_Format.Items.Add("DECIMAL +/-");
-                    cmb_Format.Items.Add("DECIMAL");                    
-                    cmb_Format.Items.Add("CHARACTER");
-                }
-                else if (addressformatter.IsDouble)
-                {
-                    cmb_Format.Items.Add("BINARY");
-                    cmb_Format.Items.Add("DECIMAL +/-");
-                    cmb_Format.Items.Add("DECIMAL");
-                    cmb_Format.Items.Add("CHARACTER");
-                    cmb_Format.Items.Add("FLOAT");
-                }
-
-                // Set last selected
-                if (selected != null && cmb_Format.Items.Contains(selected))
-                    cmb_Format.SelectedItem = selected;
-                else
-                    cmb_Format.SelectedIndex = 0;
-            }
-
-        }
-
         private void txt_Actual_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Read();
@@ -283,6 +296,10 @@ namespace Dimat_WPF
             if (addressformatter.IsValid && cmb_Format.SelectedIndex >= 0)
                 FormatValue();
         }
+
+        #endregion
+
+        #region Select / Deselect row
 
         private void lblSelect_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -302,6 +319,39 @@ namespace Dimat_WPF
         {
             _selected = false;
             lblSelect.Style = (Style)Resources["RowButton"];
+        }
+
+        #endregion
+
+        private void txt_Value_LostFocus(object sender, RoutedEventArgs e)
+        {
+            ValidateInputValue();
+        }
+
+        private void ValidateInputValue()
+        {
+            string input = txt_Value.Text;
+
+            if (!string.IsNullOrEmpty(input))
+            { 
+                try
+                {
+
+                    //switch (cmb_Format.SelectedValue.ToString())
+                    //{
+                    //    case "BOOL":
+                    //        bool ptest = bool.Parse(input);
+                    //        break;
+                    //    case "DECIMAL":
+
+                    //}
+             
+                }
+                catch (Exception ex)
+                {
+                    IsWriteValid = false;
+                }
+            }
         }
     }
 }
