@@ -76,7 +76,10 @@ namespace Dimat_WPF
                     txt_Actual.Text = GetBinS();
                     break;
                 case "DECIMAL":
-                    txt_Actual.Text = GetDecS();
+                    txt_Actual.Text = GetUDecS();
+                    break;
+                case "DECIMAL +/-":
+                    txt_Actual.Text = GetSDecS();
                     break;
                 case "CHARACTER":
                     txt_Actual.Text = GetCharS();
@@ -95,7 +98,8 @@ namespace Dimat_WPF
             return b.ToString();
         }
 
-        public string GetDecS()
+
+        public string GetSDecS()
         {
             string i = "[Error]";
 
@@ -109,6 +113,26 @@ namespace Dimat_WPF
                     break;
                 case 4:
                     i = S7.GetDIntAt(array, 0).ToString();
+                    break;
+            }
+
+            return i;
+        }
+
+        public string GetUDecS()
+        {
+            string i = "[Error]";
+
+            switch (array.Length)
+            {
+                case 1:
+                    i = S7.GetUSIntAt(array, 0).ToString();
+                    break;
+                case 2:
+                    i = S7.GetUIntAt(array, 0).ToString();
+                    break;
+                case 4:
+                    i = S7.GetUDIntAt(array, 0).ToString();
                     break;
             }
 
@@ -227,12 +251,14 @@ namespace Dimat_WPF
                 else if (addressformatter.IsByte || addressformatter.IsWord)
                 {
                     cmb_Format.Items.Add("BINARY");
-                    cmb_Format.Items.Add("DECIMAL");
+                    cmb_Format.Items.Add("DECIMAL +/-");
+                    cmb_Format.Items.Add("DECIMAL");                    
                     cmb_Format.Items.Add("CHARACTER");
                 }
                 else if (addressformatter.IsDouble)
                 {
                     cmb_Format.Items.Add("BINARY");
+                    cmb_Format.Items.Add("DECIMAL +/-");
                     cmb_Format.Items.Add("DECIMAL");
                     cmb_Format.Items.Add("CHARACTER");
                     cmb_Format.Items.Add("FLOAT");
