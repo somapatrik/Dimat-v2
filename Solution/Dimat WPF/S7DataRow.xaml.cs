@@ -77,7 +77,6 @@ namespace Dimat_WPF
 
         }
 
-
         private void SetReading()
         {
             if (addressformatter.IsInput)
@@ -331,21 +330,54 @@ namespace Dimat_WPF
         private void ValidateInputValue()
         {
             string input = txt_Value.Text;
+            bool result = false;
 
             if (!string.IsNullOrEmpty(input))
             { 
                 try
                 {
 
-                    //switch (cmb_Format.SelectedValue.ToString())
-                    //{
-                    //    case "BOOL":
-                    //        bool ptest = bool.Parse(input);
-                    //        break;
-                    //    case "DECIMAL":
+                    switch (cmb_Format.SelectedValue.ToString())
+                    {
+                        case "BOOL":
+                            bool ptest = bool.TryParse(input, out result);
+                            break;
 
-                    //}
-             
+                        case "DECIMAL +/-":
+                            int sint;
+                            // B W D differences for INT
+                            switch (array.Length)
+                            {
+                                case 1:
+
+                                    if (int.TryParse(input, out sint) && sint < 128 && sint > -128)
+                                        result = true;
+                                    else
+                                        result = false;
+                                                                               
+
+                                    break;
+                                case 2:
+
+                                    if (int.TryParse(input, out sint))
+
+                                case 4:
+                                    break;
+
+                            }
+
+                            break;
+                        case "DECIMAL":
+                            int itest;
+                            result = int.TryParse(input, out itest);
+                            break;
+
+                        case "FLOAT":
+                            float ftest;
+                            result = float.TryParse(input, out ftest);
+                            break;
+                    }
+
                 }
                 catch (Exception ex)
                 {
