@@ -340,7 +340,7 @@ namespace Dimat_WPF
                     switch (cmb_Format.SelectedValue.ToString())
                     {
                         case "BOOL":
-                            bool ptest = bool.TryParse(input, out result);
+                            bool bool_test = bool.TryParse(input, out result);
                             break;
 
                         case "DECIMAL +/-":
@@ -350,13 +350,13 @@ namespace Dimat_WPF
                                 16 bit       –32768         32767
                                 32 bit     –2147483648   2147483647
                             */
-                            int sint;
+                            int sint_test;
 
                             switch (array.Length)
                             {
                                 case 1:
 
-                                    if (int.TryParse(input, out sint) && sint >= -128 && sint < 128)
+                                    if (int.TryParse(input, out sint_test) && sint_test >= -128 && sint_test < 128)
                                         result = true;
                                     else
                                         result = false;
@@ -366,7 +366,7 @@ namespace Dimat_WPF
 
                                 case 2:
 
-                                    if (int.TryParse(input, out sint) && sint >= -32768 && sint < 32767)
+                                    if (int.TryParse(input, out sint_test) && sint_test >= -32768 && sint_test < 32767)
                                         result = true;
                                     else
                                         result = false;
@@ -375,7 +375,7 @@ namespace Dimat_WPF
 
                                 case 4:
 
-                                    if (int.TryParse(input, out sint))
+                                    if (int.TryParse(input, out sint_test))
                                         result = true;
                                     else
                                         result = false;
@@ -386,8 +386,46 @@ namespace Dimat_WPF
 
                             break;
                         case "DECIMAL":
-                            int itest;
-                            result = int.TryParse(input, out itest);
+                            /*
+                             Number of bits  Min.value     Max.value
+                                 8 bit          0             255
+                                 16 bit         0           65 535
+                                 32 bit         0        4 294 967 295
+                             */
+                            uint uint_test;
+
+                            switch (array.Length)
+                            {
+                                case 1:
+
+                                    if (uint.TryParse(input, out uint_test) && uint_test < 255)
+                                        result = true;
+                                    else
+                                        result = false;
+
+
+                                    break;
+
+                                case 2:
+
+                                    if (uint.TryParse(input, out uint_test) && uint_test < 65535)
+                                        result = true;
+                                    else
+                                        result = false;
+
+                                    break;
+
+                                case 4:
+
+                                    if (uint.TryParse(input, out uint_test))
+                                        result = true;
+                                    else
+                                        result = false;
+
+                                    break;
+
+                            }
+
                             break;
 
                         case "FLOAT":
