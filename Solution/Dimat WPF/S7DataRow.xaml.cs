@@ -344,24 +344,42 @@ namespace Dimat_WPF
                             break;
 
                         case "DECIMAL +/-":
+                            /*
+                            Number of bits  Min.value     Max.value
+                                8 bit         -128           127
+                                16 bit       –32768         32767
+                                32 bit     –2147483648   2147483647
+                            */
                             int sint;
-                            // B W D differences for INT
+
                             switch (array.Length)
                             {
                                 case 1:
 
-                                    if (int.TryParse(input, out sint) && sint < 128 && sint > -128)
+                                    if (int.TryParse(input, out sint) && sint >= -128 && sint < 128)
                                         result = true;
                                     else
                                         result = false;
                                                                                
 
                                     break;
+
                                 case 2:
 
-                                    if (int.TryParse(input, out sint))
+                                    if (int.TryParse(input, out sint) && sint >= -32768 && sint < 32767)
+                                        result = true;
+                                    else
+                                        result = false;
+
+                                    break;
 
                                 case 4:
+
+                                    if (int.TryParse(input, out sint))
+                                        result = true;
+                                    else
+                                        result = false;
+
                                     break;
 
                             }
