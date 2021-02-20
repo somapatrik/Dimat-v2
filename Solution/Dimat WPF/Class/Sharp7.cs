@@ -821,16 +821,16 @@ namespace Sharp7
 		#endregion
 
 		#region Get/Set 32 bit signed value (S7 DInt) -2147483648..2147483647
-		public static int GetDIntAt(byte[] Buffer, int Pos)
+		public static uint GetDIntAt(byte[] Buffer, int Pos)
 		{
-			int Result;
+			uint Result;
 			Result = Buffer[Pos]; Result <<= 8;
 			Result += Buffer[Pos + 1]; Result <<= 8;
 			Result += Buffer[Pos + 2]; Result <<= 8;
 			Result += Buffer[Pos + 3];
 			return Result;
 		}
-		public static void SetDIntAt(byte[] Buffer, int Pos, int Value)
+		public static void SetDIntAt(byte[] Buffer, int Pos, uint Value)
 		{
 			Buffer[Pos + 3] = (byte)(Value & 0xFF);
 			Buffer[Pos + 2] = (byte)((Value >> 8) & 0xFF);
@@ -1104,7 +1104,7 @@ namespace Sharp7
 		public static void SetTODAt(byte[] Buffer, int Pos, DateTime Value)
 		{
 			TimeSpan Time = Value.TimeOfDay;
-			SetDIntAt(Buffer, Pos, (Int32)Math.Round(Time.TotalMilliseconds));
+			SetDIntAt(Buffer, Pos, (uint)Math.Round(Time.TotalMilliseconds));
 		}
 		#endregion
 
@@ -1179,7 +1179,7 @@ namespace Sharp7
 			byte Sec = (byte)Value.Second;
 			byte Dow = (byte)(Value.DayOfWeek + 1);
 
-			Int32 NanoSecs = Value.Millisecond * 1000000;
+			uint NanoSecs = (uint)Value.Millisecond * 1000000;
 
 			var bytes_short = BitConverter.GetBytes(Year);
 
@@ -1305,7 +1305,7 @@ namespace Sharp7
 
 		public static void SetS7TimespanAt(byte[] Buffer, int Pos, TimeSpan Value)
 		{
-			SetDIntAt(Buffer, Pos, (Int32)Value.TotalMilliseconds);
+			SetDIntAt(Buffer, Pos, (uint)Value.TotalMilliseconds);
 		}
 
 		public static TimeSpan GetS7TimespanAt(byte[] Buffer, int pos)
@@ -3044,7 +3044,7 @@ namespace Sharp7
 						Info.BlkLang = PDU[43];
 						Info.BlkType = PDU[44];
 						Info.BlkNumber = S7.GetWordAt(PDU, 45);
-						Info.LoadSize = S7.GetDIntAt(PDU, 47);
+						Info.LoadSize = (int)S7.GetDIntAt(PDU, 47);
 						Info.CodeDate = SiemensTimestamp(S7.GetWordAt(PDU, 59));
 						Info.IntfDate = SiemensTimestamp(S7.GetWordAt(PDU, 65));
 						Info.SBBLength = S7.GetWordAt(PDU, 67);
@@ -3355,8 +3355,8 @@ namespace Sharp7
 			{
 				Info.MaxPduLength = S7.GetIntAt(PDU, 2);
 				Info.MaxConnections = S7.GetIntAt(PDU, 4);
-				Info.MaxMpiRate = S7.GetDIntAt(PDU, 6);
-				Info.MaxBusRate = S7.GetDIntAt(PDU, 10);
+				Info.MaxMpiRate = (int)S7.GetDIntAt(PDU, 6);
+				Info.MaxBusRate = (int)S7.GetDIntAt(PDU, 10);
 			}
 			if (_LastError == 0)
 				Time_ms = Environment.TickCount - Elapsed;
