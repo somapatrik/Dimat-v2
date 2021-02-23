@@ -28,14 +28,14 @@ namespace Dimat_WPF
         private S7Client client;
 
         // PLC callback
-        public S7Client.S7CliCompletion PlcCallBack = new S7Client.S7CliCompletion(PlcEventCallBack);
+        static S7Client.S7CliCompletion PlcCallBack = new S7Client.S7CliCompletion(PlcEventCallBack);
 
         // client.connected lock
         object ConnectedLock = new object();
 
         // Check PLC connection timer
         Timer StatusWatch;
-        int WatchStatusTime = 500;
+        int WatchStatusTime = 3000;
         AutoResetEvent WatchReset = new AutoResetEvent(false);
                 
         public int ID
@@ -56,7 +56,10 @@ namespace Dimat_WPF
 
         private static void PlcEventCallBack(IntPtr UserPtr, int opCode, int opResult)
        {
-            
+            if (opCode == 0)
+            {
+                //hovno
+            }
        }
 
         public S7PlcDetail(int ID)
@@ -68,8 +71,9 @@ namespace Dimat_WPF
             
             // Connection to PLC
             client = new S7Client();
-            client.SetAsCallBack(PlcCallBack, IntPtr.Zero);
-            
+            client.SetAsCallBack(PlcEventCallBack, IntPtr.Zero);
+            //client.SetAsCallBack(PlcCallBack, IntPtr.Zero);
+
             // Set timer for status watching
             StatusWatch = new System.Threading.Timer(StatusWatchCallBack, WatchReset, Timeout.Infinite, WatchStatusTime);
 

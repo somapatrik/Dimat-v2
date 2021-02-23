@@ -447,6 +447,7 @@ namespace Dimat_WPF
                     }
 
 
+                    txt_Value.Style = result ? (Style)Resources["AddressBox"] : (Style)Resources["AddressBoxNOK"];
                     IsWriteValid = result;
 
                 }

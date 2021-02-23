@@ -86,6 +86,9 @@
         <Setter Property="IsReadOnly" Value="True"/>
         <Setter Property="Margin" Value="0"/>
     </Style>
+    
+    
+    
 
     
     <Style x:Key="TopMenuButton" TargetType="Label">
