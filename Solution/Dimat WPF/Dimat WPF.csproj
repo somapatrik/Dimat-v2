@@ -239,7 +239,15 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PreBuildEvent>echo Copy dll from  $(ProjectDir)DLL 
+xcopy "$(ProjectDir)DLL\*.dll" /Y
+
+if $(PlatformName)  == x86 (
+echo "Copy dll for x86"
+xcopy "$(ProjectDir)DLL\86\snap7.dll" /Y
+) else (
+echo "Copy dll for x64"
+xcopy "$(ProjectDir)DLL\64\snap7.dll" /Y
+)</PreBuildEvent>
   </PropertyGroup>
 </Project>
