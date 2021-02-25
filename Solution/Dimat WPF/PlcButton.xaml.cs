@@ -25,8 +25,6 @@ namespace Dimat_WPF
         public S7PLC s7plc;
         Timer pingwatch;
 
-        Point StartPosition;
-
         public PlcButton(S7PLC plc)
         {
             InitializeComponent();

@@ -13,8 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Dimat_WPF.Class;
-using Sharp7;
+//using Sharp7;
 using System.Threading;
+using Snap7;
 
 namespace Dimat_WPF
 {
@@ -26,9 +27,6 @@ namespace Dimat_WPF
 
         // PLC client
         private S7Client client;
-
-        // PLC callback
-        static S7Client.S7CliCompletion PlcCallBack = new S7Client.S7CliCompletion(PlcEventCallBack);
 
         // client.connected lock
         object ConnectedLock = new object();
@@ -51,16 +49,9 @@ namespace Dimat_WPF
         private bool IsConnected()
         {
             lock (ConnectedLock)
-                return client.Connected;
+                return client.Connected();
         }
 
-        private static void PlcEventCallBack(IntPtr UserPtr, int opCode, int opResult)
-       {
-            if (opCode == 0)
-            {
-                //hovno
-            }
-       }
 
         public S7PlcDetail(int ID)
         {
@@ -71,8 +62,6 @@ namespace Dimat_WPF
             
             // Connection to PLC
             client = new S7Client();
-            client.SetAsCallBack(PlcEventCallBack, IntPtr.Zero);
-            //client.SetAsCallBack(PlcCallBack, IntPtr.Zero);
 
             // Set timer for status watching
             StatusWatch = new System.Threading.Timer(StatusWatchCallBack, WatchReset, Timeout.Infinite, WatchStatusTime);
@@ -148,7 +137,7 @@ namespace Dimat_WPF
         // Connect button
         private void lblConnect_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (client.Connected)
+            if (client.Connected())
                 DisconnectAction();
             else
                 ConnectAction();

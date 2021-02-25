@@ -13,7 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Sharp7;
+//using Sharp7;
+using Snap7;
 
 namespace Dimat_WPF
 {
@@ -65,7 +66,7 @@ namespace Dimat_WPF
                 GridRow.Dispatcher.Invoke(()=>
                 {
                     txt_Actual.Text = "";
-                    if (addressformatter.IsValid && client.Connected && client.ReadArea(Area, DBNumber, Start, Amount, WordLen, array) == 0)
+                    if (addressformatter.IsValid && client.Connected() && client.ReadArea(Area, DBNumber, Start, Amount, WordLen, array) == 0)
                     {
                         FormatValue();
                         //ValidateInputValue();
@@ -82,32 +83,32 @@ namespace Dimat_WPF
         private void SetReading()
         {
             if (addressformatter.IsInput)
-                Area = S7Consts.S7AreaPE;
+                Area = S7Client.S7AreaPE;
             else if (addressformatter.IsOutput)
-                Area = S7Consts.S7AreaPA;
+                Area = S7Client.S7AreaPA;
             else if (addressformatter.IsMerker)
-                Area = S7Consts.S7AreaMK;
+                Area = S7Client.S7AreaMK;
             else if (addressformatter.IsDB)
-                Area = S7Consts.S7AreaDB;
+                Area = S7Client.S7AreaDB;
 
             if (addressformatter.IsBit)
             {
-                WordLen = S7Consts.S7WLBit;
+                WordLen = S7Client.S7WLBit;
                 array = new byte[1];
             }
             else if (addressformatter.IsByte)
             {
-                WordLen = S7Consts.S7WLByte;
+                WordLen = S7Client.S7WLByte;
                 array = new byte[1];
             }
             else if (addressformatter.IsWord)
             {
-                WordLen = S7Consts.S7WLWord;
+                WordLen = S7Client.S7WLWord;
                 array = new byte[2];
             }
             else if (addressformatter.IsDouble)
             {
-                WordLen = S7Consts.S7WLDWord;
+                WordLen = S7Client.S7WLDWord;
                 array = new byte[4];
             }
 

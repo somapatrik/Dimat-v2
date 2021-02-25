@@ -130,6 +130,7 @@
     <Compile Include="S7PlcDetail.xaml.cs">
       <DependentUpon>S7PlcDetail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Class\snap7.net.cs" />
     <Compile Include="StyledCombo.xaml.cs">
       <DependentUpon>StyledCombo.xaml</DependentUpon>
     </Compile>
