@@ -59,18 +59,18 @@ namespace Dimat_WPF
             client = PlcClient;
         }
         
-        private async void Read()
+        public async void Read()
         {
             await Task.Run(() =>
             {
-                GridRow.Dispatcher.Invoke(()=>
+                GridRow.Dispatcher.Invoke(() =>
                 {
                     txt_Actual.Text = "";
                     if (addressformatter.IsValid && client.Connected() && client.ReadArea(Area, DBNumber, Start, Amount, WordLen, array) == 0)
                     {
                         FormatValue();
-                        //ValidateInputValue();
-                    } 
+                        ValidateInputValue();
+                    }
                 });
             });
         }

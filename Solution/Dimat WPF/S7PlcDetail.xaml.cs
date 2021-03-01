@@ -27,14 +27,19 @@ namespace Dimat_WPF
 
         // PLC client
         private S7Client client;
+        S7MultiVar multivar;
 
         // client.connected lock
         object ConnectedLock = new object();
 
         // Check PLC connection timer
         Timer StatusWatch;
-        int WatchStatusTime = 3000;
+        int WatchStatusTime = 1000;
         AutoResetEvent WatchReset = new AutoResetEvent(false);
+
+        // Reading
+        Timer ReadingData;
+        int ReadingTime = 50;
                 
         public int ID
         {
@@ -52,23 +57,23 @@ namespace Dimat_WPF
                 return client.Connected();
         }
 
-
         public S7PlcDetail(int ID)
         {
             InitializeComponent();
 
             // Gets PLC data
             plc = new S7PLC(ID);
-            
             // Connection to PLC
             client = new S7Client();
-
+            //Reading variables
+            multivar = new S7MultiVar(client);
             // Set timer for status watching
-            StatusWatch = new System.Threading.Timer(StatusWatchCallBack, WatchReset, Timeout.Infinite, WatchStatusTime);
 
+            StatusWatch = new System.Threading.Timer(StatusWatchCallBack, WatchReset, Timeout.Infinite, WatchStatusTime);
+            //Set Reading timer
+            ReadingData = new System.Threading.Timer(ReadingCallBack, null, Timeout.Infinite, ReadingTime);
             // Fills GUI
             SetGUI();
-
             // Create rows
             CreateRow();
         }
@@ -122,9 +127,47 @@ namespace Dimat_WPF
             });
         }
 
+        // Reading variable code
+        private void EnableReading(bool enable)
+        {
+            if (enable)
+                ReadingData.Change(0, ReadingTime);
+            else
+                ReadingData.Change(Timeout.Infinite, Timeout.Infinite);
+        }
+
+        private void ReadingCallBack(object state)
+        {
+            EnableReading(false);
+
+            try
+            {
+                StackData.Dispatcher.Invoke(() => {
+                foreach (S7DataRow row in StackData.Children)
+                    {  
+                      row.Read();
+                    }
+                });
+
+            } 
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                Thread.Sleep(1000);   
+                EnableReading(true);
+            }
+
+            
+        }
+
         private void SetGUI()
         {
             btnDisconnect.Visibility = Visibility.Collapsed;
+            btnReadingStart.Visibility = Visibility.Collapsed;
+            btnReadingPause.Visibility = Visibility.Collapsed;
 
             lblname.Content = plc.Name;
             lblIP.Content = plc.IP;
@@ -134,7 +177,7 @@ namespace Dimat_WPF
 
         }
 
-        // Connect button
+        #region Connect / disconnect button
         private void lblConnect_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (client.Connected())
@@ -149,6 +192,8 @@ namespace Dimat_WPF
             client.Disconnect();
             btnDisconnect.Visibility = Visibility.Collapsed;
             btnConnect.Visibility = Visibility.Visible;
+            btnReadingStart.Visibility = Visibility.Collapsed;
+            btnReadingPause.Visibility = Visibility.Collapsed;
             lblPlcStatus.Style = (Style)Resources["ColorLabelNOK"];
             lblPlcStatus.Content = "Disconnected";
         }
@@ -159,10 +204,14 @@ namespace Dimat_WPF
             {
                 btnDisconnect.Visibility = Visibility.Visible;
                 btnConnect.Visibility = Visibility.Collapsed;
+                btnReadingStart.Visibility = Visibility.Visible;
                 EnableWatch(true);
             }
         }
 
+        #endregion
+
+        #region Functions groups
         private void lblGroupFunctions_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (GridFunctions.Visibility == Visibility.Visible)
@@ -192,11 +241,15 @@ namespace Dimat_WPF
             }
         }
 
+        // Danger waring confirmation
         private void DangerButton_Clicked(object sender, MouseButtonEventArgs e)
         {
             GridDanger.Visibility = Visibility.Collapsed;
         }
 
+        #endregion
+
+        #region New row
         private void btnNewRow_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             CreateRow();
@@ -207,7 +260,9 @@ namespace Dimat_WPF
             S7DataRow row = new S7DataRow(ref client);
             StackData.Children.Add(row);
         }
+        #endregion
 
+        #region PLC functions
         private void PlcStop_Clicked(object sender, MouseButtonEventArgs e)
         {
             client.PlcStop();
@@ -218,6 +273,13 @@ namespace Dimat_WPF
             client.PlcHotStart();
         }
 
+        private void btnColdStart_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            client.PlcColdStart();
+        }
+        #endregion
+
+        #region Top menu
         private void btnSelectAll_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             foreach (S7DataRow row in StackData.Children)
@@ -245,5 +307,21 @@ namespace Dimat_WPF
 
             MarkDelete.Clear();
         }
+
+        private void btnReadingStart_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            EnableReading(true);
+            btnReadingStart.Visibility = Visibility.Collapsed;
+            btnReadingPause.Visibility = Visibility.Visible;
+        }
+
+        private void btnReadingPause_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            EnableReading(false);
+            btnReadingStart.Visibility = Visibility.Visible;
+            btnReadingPause.Visibility = Visibility.Collapsed;
+        }
+        #endregion
+
     }
 }
