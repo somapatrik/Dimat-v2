@@ -39,7 +39,8 @@ namespace Dimat_WPF
 
         // Reading
         Timer ReadingData;
-        int ReadingTime = 50;
+        int ReadingTime = 100;
+        bool KillReading;
                 
         public int ID
         {
@@ -68,14 +69,14 @@ namespace Dimat_WPF
             //Reading variables
             multivar = new S7MultiVar(client);
             // Set timer for status watching
-
             StatusWatch = new System.Threading.Timer(StatusWatchCallBack, WatchReset, Timeout.Infinite, WatchStatusTime);
             //Set Reading timer
             ReadingData = new System.Threading.Timer(ReadingCallBack, null, Timeout.Infinite, ReadingTime);
             // Fills GUI
             SetGUI();
             // Create rows
-            CreateRow();
+            for (int i = 0; i < 25; i++)
+                CreateRow();
         }
 
 
@@ -138,29 +139,68 @@ namespace Dimat_WPF
 
         private void ReadingCallBack(object state)
         {
+            Task.Run(() => { 
             EnableReading(false);
 
             try
             {
                 StackData.Dispatcher.Invoke(() => {
-                foreach (S7DataRow row in StackData.Children)
-                    {  
-                      row.Read();
+                    multivar = new S7MultiVar(client);
+                    double rowcount = StackData.Children.Count;
+
+                    if (rowcount > 0)
+                    {
+
+                        int varcount = 0;
+
+                        foreach (S7DataRow row in StackData.Children)
+                        {
+                            if (row.IsReadValid) 
+                            {
+                                multivar.Add(row.AddressInfo.Area,
+                                    row.AddressInfo.WordLen,
+                                    row.AddressInfo.DBNumber,
+                                    row.AddressInfo.Start,
+                                    row.AddressInfo.Amount,
+                                    ref row.array);
+
+                                varcount++;
+
+                                if (varcount == 19)
+                                {
+                                    varcount = 0;
+                                    multivar.Read();
+                                    //multivar = new S7MultiVar(client);
+                                    multivar.Clear();
+                                }
+                            }
+                        }
+
+                        if (varcount != 0)
+                        {
+                            multivar.Read();
+                            multivar.Clear();
+                        }
+
+                            foreach (S7DataRow row in StackData.Children)
+                                row.UpdateValue();
+
                     }
                 });
-
-            } 
+        } 
             catch (Exception ex)
             {
 
             }
             finally
             {
-                Thread.Sleep(1000);   
-                EnableReading(true);
-            }
-
-            
+                if (!KillReading)
+                {
+                    Thread.Sleep(50);
+                    EnableReading(true);
+}
+            }   
+});
         }
 
         private void SetGUI()
@@ -168,6 +208,7 @@ namespace Dimat_WPF
             btnDisconnect.Visibility = Visibility.Collapsed;
             btnReadingStart.Visibility = Visibility.Collapsed;
             btnReadingPause.Visibility = Visibility.Collapsed;
+            btnReadOnce.Visibility = Visibility.Collapsed;
 
             lblname.Content = plc.Name;
             lblIP.Content = plc.IP;
@@ -188,12 +229,16 @@ namespace Dimat_WPF
 
         private void DisconnectAction()
         {
+            KillReading = true;
             EnableWatch(false);
             client.Disconnect();
+
             btnDisconnect.Visibility = Visibility.Collapsed;
             btnConnect.Visibility = Visibility.Visible;
             btnReadingStart.Visibility = Visibility.Collapsed;
             btnReadingPause.Visibility = Visibility.Collapsed;
+            btnReadOnce.Visibility = Visibility.Collapsed;
+
             lblPlcStatus.Style = (Style)Resources["ColorLabelNOK"];
             lblPlcStatus.Content = "Disconnected";
         }
@@ -205,6 +250,7 @@ namespace Dimat_WPF
                 btnDisconnect.Visibility = Visibility.Visible;
                 btnConnect.Visibility = Visibility.Collapsed;
                 btnReadingStart.Visibility = Visibility.Visible;
+                btnReadOnce.Visibility = Visibility.Visible;
                 EnableWatch(true);
             }
         }
@@ -280,6 +326,8 @@ namespace Dimat_WPF
         #endregion
 
         #region Top menu
+
+        // Select all
         private void btnSelectAll_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             foreach (S7DataRow row in StackData.Children)
@@ -288,12 +336,14 @@ namespace Dimat_WPF
             }
         }
 
+        // Unselect all
         private void btnUnselectAll_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             foreach (S7DataRow row in StackData.Children)
                 row.Selected = false;
         }
 
+        // Delete selected
         private void btnDeleteSelected_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             List<S7DataRow> MarkDelete = new List<S7DataRow>();
@@ -308,20 +358,33 @@ namespace Dimat_WPF
             MarkDelete.Clear();
         }
 
+        // Start reading
         private void btnReadingStart_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            KillReading = false;
             EnableReading(true);
             btnReadingStart.Visibility = Visibility.Collapsed;
             btnReadingPause.Visibility = Visibility.Visible;
+            btnReadOnce.Visibility = Visibility.Collapsed;
         }
 
+        // Pause reading
         private void btnReadingPause_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            KillReading = true;
             EnableReading(false);
             btnReadingStart.Visibility = Visibility.Visible;
             btnReadingPause.Visibility = Visibility.Collapsed;
+            btnReadOnce.Visibility = Visibility.Visible;
         }
-        #endregion
 
+        // Read once
+        private void btnReadOnce_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            KillReading = true;
+            EnableReading(true);
+        }
+
+        #endregion
     }
 }

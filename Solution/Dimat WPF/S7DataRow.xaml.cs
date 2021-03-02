@@ -21,7 +21,8 @@ namespace Dimat_WPF
 
     public partial class S7DataRow : UserControl
     {
-        // Row selected
+        #region Selected row property
+
         private bool _selected;
         public bool Selected
         {
@@ -36,6 +37,8 @@ namespace Dimat_WPF
             get { return _selected; }
         }
 
+        #endregion
+
         // Connection to PLC
         S7Client client;
 
@@ -43,12 +46,15 @@ namespace Dimat_WPF
         AddressFormatter addressformatter = new AddressFormatter();
 
         // Address information
-        int Area;
-        int DBNumber;
-        int Start;
-        int Amount;
-        int WordLen;
-        byte[] array;
+        public AddressInfo AddressInfo;
+
+        // Actual value from PLC
+        public byte[] array;
+
+        public bool IsReadValid
+        {
+            get { return addressformatter.IsValid; }
+        }
 
         // Write information
         bool IsWriteValid;
@@ -57,6 +63,8 @@ namespace Dimat_WPF
         {
             InitializeComponent();
             client = PlcClient;
+            txt_Address.Text = "DB1.DBD0";
+            txt_Address_LostFocus(txt_Address, null);
         }
         
         public async void Read()
@@ -66,7 +74,24 @@ namespace Dimat_WPF
                 GridRow.Dispatcher.Invoke(() =>
                 {
                     txt_Actual.Text = "";
-                    if (addressformatter.IsValid && client.Connected() && client.ReadArea(Area, DBNumber, Start, Amount, WordLen, array) == 0)
+                    if (addressformatter.IsValid && client.Connected() && 
+                        client.ReadArea(AddressInfo.Area, AddressInfo.DBNumber, AddressInfo.Start, AddressInfo.Amount, AddressInfo.WordLen, array) == 0)
+                    {
+                        FormatValue();
+                        ValidateInputValue();
+                    }
+                });
+            });
+        }
+
+        public async void UpdateValue()
+        {
+            await Task.Run(() =>
+            {
+                GridRow.Dispatcher.Invoke(() =>
+                {
+                    txt_Actual.Text = "";
+                    if (addressformatter.IsValid && client.Connected())
                     {
                         FormatValue();
                         ValidateInputValue();
@@ -82,46 +107,48 @@ namespace Dimat_WPF
 
         private void SetReading()
         {
+            AddressInfo = new AddressInfo();
+
             if (addressformatter.IsInput)
-                Area = S7Client.S7AreaPE;
+                AddressInfo.Area = S7Client.S7AreaPE;
             else if (addressformatter.IsOutput)
-                Area = S7Client.S7AreaPA;
+                AddressInfo.Area = S7Client.S7AreaPA;
             else if (addressformatter.IsMerker)
-                Area = S7Client.S7AreaMK;
+                AddressInfo.Area = S7Client.S7AreaMK;
             else if (addressformatter.IsDB)
-                Area = S7Client.S7AreaDB;
+                AddressInfo.Area = S7Client.S7AreaDB;
 
             if (addressformatter.IsBit)
             {
-                WordLen = S7Client.S7WLBit;
+                AddressInfo.WordLen = S7Client.S7WLBit;
                 array = new byte[1];
             }
             else if (addressformatter.IsByte)
             {
-                WordLen = S7Client.S7WLByte;
+                AddressInfo.WordLen = S7Client.S7WLByte;
                 array = new byte[1];
             }
             else if (addressformatter.IsWord)
             {
-                WordLen = S7Client.S7WLWord;
+                AddressInfo.WordLen = S7Client.S7WLWord;
                 array = new byte[2];
             }
             else if (addressformatter.IsDouble)
             {
-                WordLen = S7Client.S7WLDWord;
+                AddressInfo.WordLen = S7Client.S7WLDWord;
                 array = new byte[4];
             }
 
 
-            Amount = 1;
+            AddressInfo.Amount = 1;
 
             if (addressformatter.IsBit)
-                Start = (addressformatter.Byte * 8) + addressformatter.Bit;
+                AddressInfo.Start = (addressformatter.Byte * 8) + addressformatter.Bit;
             else
-                Start = addressformatter.Byte;
+                AddressInfo.Start = addressformatter.Byte;
 
             if (addressformatter.IsDB)
-                DBNumber = addressformatter.DBNumber;
+                AddressInfo.DBNumber = addressformatter.DBNumber;
         }
 
         private void CreateFormatMenu()
