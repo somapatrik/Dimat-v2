@@ -9,12 +9,14 @@
     <UserControl.Resources>
         <ResourceDictionary Source="Styles.xaml"/>
     </UserControl.Resources>
+    
     <Grid x:Name="GroupGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Grid>
+        
+        <Grid Style="{StaticResource GroupBar}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="auto"/>
@@ -24,5 +26,6 @@
         </Grid>
 
         <StackPanel Grid.Row="1" x:Name="ButtonStack" Orientation="Vertical"/>
+        
     </Grid>
 </UserControl>

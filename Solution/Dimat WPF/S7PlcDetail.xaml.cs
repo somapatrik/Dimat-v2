@@ -283,7 +283,6 @@ namespace Dimat_WPF
             {
                 GridProperties.Visibility = Visibility.Visible;
                 lblGroupPropertiesArrow.Content = "6";
-
             }
         }
 

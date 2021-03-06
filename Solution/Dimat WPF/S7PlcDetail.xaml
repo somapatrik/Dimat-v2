@@ -56,18 +56,10 @@
 
                         <Label x:Name="btnDeleteSelected" ToolTip="Delete selected" FontFamily="Segoe MDL2 Assets" Content="&#xE74D;" Style="{StaticResource RowButton}" MouseLeftButtonUp="btnDeleteSelected_MouseLeftButtonUp"/>
                         <Label x:Name="btnSave" ToolTip="Save table" FontFamily="Segoe MDL2 Assets" Content="&#xE74E;" Style="{StaticResource RowButton}" />
-                    
+
                     </StackPanel>
 
-                    <!--<StackPanel Orientation="Horizontal"  Margin="30 0">
-                    
-                        <Label x:Name="btnReadAll" ToolTip="Read all" FontFamily="Segoe MDL2 Assets"  Content="&#xE895;" Style="{StaticResource RowButton}"/>
-                        <Label x:Name="btnWriteAll" ToolTip="Write all" FontFamily="Segoe MDL2 Assets"  Content="&#xE898;&#xE898;" Style="{StaticResource RowButton}" />
-
-                    </StackPanel>-->
-
                     <StackPanel Orientation="Horizontal" Margin="50 0">
-
                         <Label x:Name="btnConnect" ToolTip="Connect to PLC" FontFamily="Segoe MDL2 Assets"  Content="&#xE7E8;" Style="{StaticResource RowButtonConnected}" MouseLeftButtonUp="lblConnect_MouseLeftButtonUp"/>
                         <Label x:Name="btnDisconnect" ToolTip="Disconnect from PLC" FontFamily="Segoe MDL2 Assets"  Content="&#xF83D;" Style="{StaticResource RowButtonDisconnected}" MouseLeftButtonUp="lblConnect_MouseLeftButtonUp"/>
                         <Label x:Name="btnReadingStart" ToolTip="Reading from PLC" FontFamily="Segoe MDL2 Assets"  Content="&#xE768;" Style="{StaticResource RowButton}" MouseLeftButtonUp="btnReadingStart_MouseLeftButtonUp"/>
@@ -98,17 +90,13 @@
             </Grid.RowDefinitions>
             <StackPanel Orientation="Vertical">
                 <Label x:Name="lblPlcStatus" Content="PLC status" Style="{StaticResource ColorLabelNOK}"/>
-                <!--<Label x:Name="lblConnect" Content="Connect" MouseLeftButtonUp="lblConnect_MouseLeftButtonUp" Style="{StaticResource ColorButton}"/>-->
             </StackPanel>
 
-
-            <Grid Grid.Row="1"  MouseLeftButtonUp="lblGroupProperties_MouseLeftButtonUp">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Label x:Name="lblGroupPropertiesArrow" FontFamily="Marlett" Content="6" Style="{StaticResource DetailGroupName}"/>
-                <Label Grid.Column="1" x:Name="lblGroupProperties" Content="Properties" Style="{StaticResource DetailGroupName}"/>
+            <Grid Grid.Row="1"  MouseLeftButtonUp="lblGroupProperties_MouseLeftButtonUp" Style="{StaticResource GroupBar}">
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="lblGroupPropertiesArrow" FontFamily="Marlett" Content="6" Style="{StaticResource DetailGroupName}"/>
+                    <Label x:Name="lblGroupProperties" Content="Properties" Style="{StaticResource DetailGroupName}"/>
+                </StackPanel>
             </Grid>
             
             <!--CPU info-->
@@ -142,13 +130,11 @@
 
             </Grid>
 
-            <Grid Grid.Row="3" MouseLeftButtonUp="lblGroupFunctions_MouseLeftButtonUp">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Label x:Name="lblGroupFunctionsArrow" FontFamily="Marlett" Content="6" Style="{StaticResource DetailGroupName}"/>
-                <Label Grid.Column="1" x:Name="lblGroupFunctions" Content="Functions" Style="{StaticResource DetailGroupName}"/>
+            <Grid Grid.Row="3" MouseLeftButtonUp="lblGroupFunctions_MouseLeftButtonUp" Style="{StaticResource GroupBar}">
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="lblGroupFunctionsArrow" FontFamily="Marlett" Content="6" Style="{StaticResource DetailGroupName}"/>
+                    <Label x:Name="lblGroupFunctions" Content="Functions" Style="{StaticResource DetailGroupName}"/>
+                </StackPanel>
             </Grid>
             
             <!--Start/Stop info-->

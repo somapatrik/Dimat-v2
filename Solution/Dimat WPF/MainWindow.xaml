@@ -48,7 +48,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition x:Name="col_LeftMenu" Width="250px"/>
-                <ColumnDefinition MaxWidth="1"/>
+                <ColumnDefinition MaxWidth="2"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
            
@@ -90,15 +90,14 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
+                
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                     <StackPanel x:Name="BookmarkStack" Orientation="Horizontal"/>
-                    </ScrollViewer>
+                </ScrollViewer>
 
                 <!--Rightside plc detail-->
-                <Grid Grid.Row="1" x:Name="GridPlcDetail">
-                    
-                </Grid>
-                
+                <Grid Grid.Row="1" x:Name="GridPlcDetail"/>
+
             </Grid>
         
         </Grid>

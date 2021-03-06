@@ -88,9 +88,6 @@
     </Style>
     
     
-    
-
-    
     <Style x:Key="TopMenuButton" TargetType="Label">
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Padding" Value="10 5"/>
@@ -221,13 +218,7 @@
     </Style>
 
     <Style x:Key="PLCGroupName" TargetType="Label">
-        <Setter Property="BorderThickness" Value="0 3 0 0"/>
         <Setter Property="Foreground" Value="White"/>
-        <!--<Setter Property="Background" Value="#FF495162"/>-->
-        <Setter Property="Background" Value="#FF1a4b85"/>
-        <Setter Property="BorderBrush" Value="#FF2E3440"/>
-        <Setter Property="Padding" Value="5"/>
-        <Setter Property="FontWeight" Value="Bold"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Cursor" Value="Hand"/>
@@ -238,10 +229,6 @@
 
     <Style x:Key="PLCGroupButton" TargetType="Label">
         <Setter Property="Foreground" Value="White"/>
-        <Setter Property="BorderThickness" Value="0 3 0 0"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="FontWeight" Value="Bold"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Cursor" Value="Hand"/>
@@ -251,11 +238,9 @@
     </Style>
 
     <Style x:Key="PLCListButton" TargetType="Label">
-        <Setter Property="Foreground" Value="gray"/>
+        <Setter Property="Foreground" Value="Gray"/>
         <Setter Property="VerticalContentAlignment" Value="Top"/>
-        <Setter Property="Margin" Value="0 1 1 0"/>
         <Setter Property="Padding" Value="7 0"/>
-        <Setter Property="FontWeight" Value="Bold"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Cursor" Value="Hand"/>
@@ -297,20 +282,21 @@
         <Setter Property="MinWidth" Value="50 "/>
     </Style>
 
-    <Style x:Key="DetailGroupName" TargetType="Label">
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Background" Value="#1a4b85"/>
-        <Setter Property="BorderBrush" Value="#FF2E3440"/>
-        <Setter Property="Padding" Value="4"/>
-        <Setter Property="Margin" Value="0 1 0 1"/>
-        <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    <Style x:Key="GroupBar" TargetType="Grid">
+        <Setter Property="Background" Value="#D01a4b85"/>
+        <Setter Property="Margin" Value="0"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Cursor" Value="Hand"/>
-                <Setter Property="Background" Value="#276fc5"/>
+                <Setter Property="Background" Value="#FF1a4b85"/>
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DetailGroupName" TargetType="Label">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
     <Style x:Key="DangerText" TargetType="TextBlock">
