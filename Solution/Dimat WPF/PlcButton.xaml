@@ -12,7 +12,7 @@
         <ResourceDictionary Source="Styles.xaml"/>
     </UserControl.Resources>
 
-    <Grid MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave">
+    <Grid MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5pt"/>
             <ColumnDefinition/>
@@ -28,11 +28,16 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
+            
             <Label x:Name="lbl_PLCInfo" Content="Plc info" HorizontalAlignment="Left" Style="{StaticResource PlcButtonLabelSecondary}"/>
-            <Label x:Name="lbl_DeletePLC" Grid.Column="1" Content="x" Style="{StaticResource PLCListButton}"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" >
+                <Label x:Name="lblEdit" FontFamily="Segoe MDL2 Assets" Content="&#xE70F;" Style="{StaticResource PLCListButton}" MouseLeftButtonDown="lblEdit_MouseLeftButtonDown"/>
+                <Label x:Name="lblDelete" FontFamily="Segoe MDL2 Assets" Content="&#xE711;" Style="{StaticResource PLCListButton}" MouseLeftButtonUp="lbl_DeletePLC_MouseLeftButtonUp"/>
+            </StackPanel>
         </Grid>
 
-        <Label Grid.Row="1" Grid.Column="1" x:Name="lbl_PLCName" Content="PLC name" HorizontalAlignment="Center" Style="{StaticResource PlcButtonLabel}"/>
+        <Label Grid.Row="1" Grid.Column="1" x:Name="lbl_PLCName" Content="PLC name" HorizontalAlignment="Center" Style="{StaticResource PlcButtonLabel}" />
 
         <Label Grid.Row="2" Grid.Column="1" x:Name="lbl_PLCIP" Content="PLC ip"  HorizontalAlignment="Right" Style="{StaticResource PlcButtonLabelSecondary}"/>
 

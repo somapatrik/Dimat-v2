@@ -130,23 +130,8 @@
 
     <Style x:Key="PlcButtonLabelSecondary" BasedOn="{StaticResource PlcButtonLabel}" TargetType="Label">
         <Setter Property="Foreground" Value="DarkGray"/>
-        <Setter Property="Padding" Value="1"/>
-        <Setter Property="Margin" Value="2 0"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
-
-    <!--<Style x:Key="EliteButtonBlue" BasedOn="{StaticResource ColorButton}" TargetType="Label">
-        <Setter Property="BorderBrush" Value="#FF057af0"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Background" Value="#3f057af0"/>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Background" Value="#FF057af0"/>
-                <Setter Property="Foreground" Value="Black"/>
-                <Setter Property="Cursor" Value="Hand"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>-->
 
     <Style x:Key="RowButton" TargetType="Label">
         <Setter Property="Foreground" Value="WhiteSmoke"/>
@@ -239,13 +224,13 @@
 
     <Style x:Key="PLCListButton" TargetType="Label">
         <Setter Property="Foreground" Value="Gray"/>
-        <Setter Property="VerticalContentAlignment" Value="Top"/>
         <Setter Property="Padding" Value="7 0"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Cursor" Value="Hand"/>
                 <Setter Property="Foreground" Value="White"/>
-                <Setter Property="Background" Value="#FF495162"/>
+                <!--<Setter Property="Background" Value="#FF495162"/>-->
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -269,7 +254,6 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Foreground" Value="White"/>
-
                 <Setter Property="Cursor" Value="Hand"/>
             </Trigger>
         </Style.Triggers>

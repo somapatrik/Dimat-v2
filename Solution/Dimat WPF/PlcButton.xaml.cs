@@ -23,7 +23,12 @@ namespace Dimat_WPF
     {
 
         public S7PLC s7plc;
+
+        int PingTime = 2500;
         Timer pingwatch;
+
+        public event EventHandler DeleteClicked;
+        public event EventHandler EditClicked;
 
         public PlcButton(S7PLC plc)
         {
@@ -35,49 +40,71 @@ namespace Dimat_WPF
             lbl_PLCIP.Content = s7plc.IP;
             lbl_PLCInfo.Content = s7plc.TypeName;
 
-            lbl_DeletePLC.Visibility = Visibility.Collapsed;
+            lblDelete.Visibility = Visibility.Collapsed;
+            lblEdit.Visibility = Visibility.Collapsed;
 
 
-            pingwatch = new Timer(new TimerCallback(PingCall), null, 3000, 5000);
+            pingwatch = new Timer(PingCall, null, PingTime, PingTime);
         }
 
 
-        private async void PingCall(object state)
+        private void PingCall(object state)
         {
-            await Task.Run(() =>
+            pingwatch.Change(Timeout.Infinite, Timeout.Infinite);
+            
+            try
             {
-                Ping ping = new Ping();
-                try
-                {
-                    PingReply reply = ping.Send(s7plc.IP, 300);
-                    PlcStatusButton.Dispatcher.Invoke(() =>
-                    {
-                        PlcStatusButton.Style = reply.Status == IPStatus.Success ?  (Style)Resources["PlcButtonPingOK"] : (Style)Resources["PlcButtonPingNOK"] ;
-                    });
-                }
-                catch (Exception ex)
-                {
-                    PlcStatusButton.Dispatcher.Invoke(() =>
-                    {
-                        PlcStatusButton.Style = (Style)Resources["PlcButtonPingNOK"];
-                    });
 
-                }
-            });
+                    Ping ping = new Ping();
+                    try
+                    {
+                        PingReply reply = ping.Send(s7plc.IP, 300);
+                        PlcStatusButton.Dispatcher.Invoke(() =>
+                        {
+                            PlcStatusButton.Style = reply.Status == IPStatus.Success ? (Style)Resources["PlcButtonPingOK"] : (Style)Resources["PlcButtonPingNOK"];
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        PlcStatusButton.Dispatcher.Invoke(() =>
+                        {
+                            PlcStatusButton.Style = (Style)Resources["PlcButtonPingNOK"];
+                        });
+
+                    }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                pingwatch.Change(PingTime, PingTime);
+            }
         }
 
         private void Grid_MouseEnter(object sender, MouseEventArgs e)
         {
-            lbl_DeletePLC.Visibility = Visibility.Visible;
+            lblDelete.Visibility = Visibility.Visible;
+            lblEdit.Visibility = Visibility.Visible;
             brd_PlcButton.Style = (Style)Resources["PlcButtonBorderActive"];
         }
 
         private void Grid_MouseLeave(object sender, MouseEventArgs e)
         {
-            lbl_DeletePLC.Visibility = Visibility.Collapsed;
+            lblDelete.Visibility = Visibility.Collapsed;
+            lblEdit.Visibility = Visibility.Collapsed;
             brd_PlcButton.Style = (Style)Resources["PlcButtonBorder"];
         }
 
-      
+        private void lbl_DeletePLC_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            DeleteClicked?.Invoke(s7plc.ID, e); 
+        }
+
+        private void lblEdit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            EditClicked?.Invoke(s7plc.ID, e);
+        }
     }
 }
