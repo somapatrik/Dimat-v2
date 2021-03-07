@@ -199,10 +199,8 @@ namespace Dimat_WPF
             
         }
 
-        private async void PingCall(object state)
+        private void PingCall(object state)
         {
-            await Task.Run(() =>
-            {
                 Ping ping = new Ping();
                 try
                 {
@@ -220,7 +218,6 @@ namespace Dimat_WPF
                     });
 
                 }
-            });
         }
     }
 }

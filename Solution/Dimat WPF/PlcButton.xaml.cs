@@ -99,12 +99,12 @@ namespace Dimat_WPF
 
         private void lbl_DeletePLC_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            DeleteClicked?.Invoke(s7plc.ID, e); 
+            DeleteClicked?.Invoke(s7plc, e); 
         }
 
         private void lblEdit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            EditClicked?.Invoke(s7plc.ID, e);
+            EditClicked?.Invoke(s7plc, e);
         }
     }
 }

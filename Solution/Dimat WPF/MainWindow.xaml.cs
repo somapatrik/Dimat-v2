@@ -46,7 +46,19 @@ namespace Dimat_WPF
         {
             group.AddPlc_Clicked += AddPlc_Group_Clicked;
             group.Plc_DoubleClicked += Group_Plc_DoubleClicked;
+            group.DeleteClicked += Group_DeleteClicked;
+            group.EditClicked += Group_EditClicked;
             PlcStack.Children.Add(group);
+        }
+
+        private void Group_EditClicked(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Group_DeleteClicked(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void Group_Plc_DoubleClicked(object sender, EventArgs e)

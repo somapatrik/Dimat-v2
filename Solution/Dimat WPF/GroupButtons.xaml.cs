@@ -26,6 +26,10 @@ namespace Dimat_WPF
 
         public event EventHandler AddPlc_Clicked;
         public event EventHandler Plc_DoubleClicked;
+
+        public event EventHandler DeleteClicked;
+        public event EventHandler EditClicked;
+
         Point StartPosition;
         private void Inicialization()
         {
@@ -78,10 +82,22 @@ namespace Dimat_WPF
                     button.PreviewMouseMove += PLC_PreviewMouseMove;
                     button.PreviewMouseLeftButtonDown += PLC_PreviewMouseLeftButtonDown;
                     button.MouseDoubleClick += Button_MouseDoubleClick;
+                    button.DeleteClicked += Button_DeleteClicked;
+                    button.EditClicked += Button_EditClicked;
                     plcbuttons.Add(button);
                 }
             }
             GenerateButtons();
+        }
+
+        private void Button_EditClicked(object sender, EventArgs e)
+        {
+            EditClicked?.Invoke(sender, e);
+        }
+
+        private void Button_DeleteClicked(object sender, EventArgs e)
+        {
+            DeleteClicked?.Invoke(sender, e);
         }
 
         private void Button_MouseDoubleClick(object sender, MouseButtonEventArgs e)
