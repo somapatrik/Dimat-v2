@@ -39,11 +39,16 @@ namespace Dimat_WPF
         IPAddress PLCIP;
         int ID_GROUP;
 
-        public AddPlc(int GROUP_ID)
+        bool _Edit;
+
+        public AddPlc(int GROUP_ID, bool Edit = false)
         {
             InitializeComponent();
+            
+            _Edit = Edit;
             ID_GROUP = GROUP_ID;
-            pingwatch = new Timer(new TimerCallback(PingCall), pingenabled, 0, 700);
+
+            pingwatch = new Timer(new TimerCallback(PingCall), pingenabled, 0, 1000);
             SaveAvailable();
         }
 
