@@ -12,6 +12,13 @@ namespace Dimat_WPF
     class DBGlobal
     {
 
+        public void DeletePlc(int ID)
+        {
+            DBLite db = new DBLite("delete from S7_PLC where ID=@ID");
+            db.AddParameter("ID", ID, DbType.Int32);
+            db.Exec();
+        }
+
         public int GetLastGroupID()
         {
             DBLite db = new DBLite("select max(rowid) from PLC_GROUP;");

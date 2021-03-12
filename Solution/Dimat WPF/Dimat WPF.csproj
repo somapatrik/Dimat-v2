@@ -125,6 +125,9 @@
     </ApplicationDefinition>
     <Compile Include="Class\AddressFormatter.cs" />
     <Compile Include="Class\AddressInfo.cs" />
+    <Compile Include="DeletePlc.xaml.cs">
+      <DependentUpon>DeletePlc.xaml</DependentUpon>
+    </Compile>
     <Compile Include="S7DataRow.xaml.cs">
       <DependentUpon>S7DataRow.xaml</DependentUpon>
     </Compile>
@@ -140,6 +143,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Bookmark.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DeletePlc.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

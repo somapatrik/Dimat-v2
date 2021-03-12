@@ -58,7 +58,10 @@ namespace Dimat_WPF
 
         private void Group_DeleteClicked(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            S7PLC plc = (S7PLC)sender;
+            DeletePlc delete = new DeletePlc(plc.ID);
+            delete.Close += AddPlc_CloseClicked;
+            ShowPopup(delete);
         }
 
         private void Group_Plc_DoubleClicked(object sender, EventArgs e)

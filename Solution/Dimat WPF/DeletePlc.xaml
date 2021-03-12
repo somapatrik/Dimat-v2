@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="Dimat_WPF.DeletePlc"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Dimat_WPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary Source="Styles.xaml"/>
+    </UserControl.Resources>
+    
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Orientation="Vertical">
+            <Label Content="Delete PLC?" Foreground="White" FontSize="30px"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label x:Name="lbl_Yes" Content="Yes" MouseLeftButtonUp="lbl_Yes_MouseLeftButtonUp" Style="{StaticResource ColorButton}" FontSize="25px"/>
+                <Label x:Name="lbl_No" Content="No" MouseLeftButtonUp="lbl_No_MouseLeftButtonUp" Style="{StaticResource ColorButton}" FontSize="25px"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
