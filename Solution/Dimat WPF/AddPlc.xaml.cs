@@ -151,17 +151,35 @@ namespace Dimat_WPF
         // IP
         private void lblIP_TextChanged(object sender, TextChangedEventArgs e)
        {
-            if (!IPAddress.TryParse(lblIP.Text, out PLCIP))
+            if (!_Edit)
             {
-                lblIP.Style = (Style)Resources["DarkBoxNOK"];
-                ValidIP = false;
-                pingenabled = false;
+                if (!IPAddress.TryParse(lblIP.Text, out PLCIP))
+                {
+                    lblIP.Style = (Style)Resources["DarkBoxNOK"];
+                    ValidIP = false;
+                    pingenabled = false;
+                }
+                else
+                {
+                    lblIP.Style = (Style)Resources["DarkBox"];
+                    ValidIP = true;
+                    pingenabled = true;
+                }
             }
             else
             {
-                lblIP.Style = (Style)Resources["DarkBox"];
-                ValidIP = true;
-                pingenabled = true;
+                if (!IPAddress.TryParse(lblIP.Text, out PLCIP))
+                {
+                    lblIP.Style = (Style)Resources["DarkBoxNOK"];
+                    ValidIP = false;
+                    pingenabled = false;
+                }
+                else
+                {
+                    lblIP.Style = (Style)Resources["DarkBox"];
+                    ValidIP = true;
+                    pingenabled = true;
+                }
             }
 
             SaveAvailable();
