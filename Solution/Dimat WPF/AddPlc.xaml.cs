@@ -40,16 +40,55 @@ namespace Dimat_WPF
         int ID_GROUP;
 
         bool _Edit;
+        S7PLC _PLCedit;
 
-        public AddPlc(int GROUP_ID, bool Edit = false)
+        public AddPlc(int GROUP_ID)
         {
             InitializeComponent();
-            
-            _Edit = Edit;
             ID_GROUP = GROUP_ID;
 
             pingwatch = new Timer(new TimerCallback(PingCall), pingenabled, 0, 1000);
             SaveAvailable();
+        }
+
+        public AddPlc(S7PLC plc)
+        {
+            InitializeComponent();
+            _Edit = true;
+            _PLCedit = plc;
+
+            pingwatch = new Timer(new TimerCallback(PingCall), pingenabled, 0, 1000);
+            FillFromDB();
+            SaveAvailable();
+        }
+
+        private void FillFromDB()
+        {
+            txtName.Text = _PLCedit.Name;
+            txtDesc.Text = _PLCedit.Description;
+            txtRack.Text = _PLCedit.Rack.ToString();
+            txtSlot.Text = _PLCedit.Slot.ToString();
+
+            switch (_PLCedit.TypeName)
+            {
+                case "S7-300":
+                    TypeButton1.Style = (Style)Resources["ColorButtonOK"];
+                    PLCtype = TypeButton1.Tag.ToString();
+                    break;
+                case "S7-400":
+                    TypeButton2.Style = (Style)Resources["ColorButtonOK"];
+                    PLCtype = TypeButton1.Tag.ToString();
+                    break;
+                case "S7-1200":
+                    TypeButton2.Style = (Style)Resources["ColorButtonOK"];
+                    PLCtype = TypeButton1.Tag.ToString();
+                    break;
+                case "S7-1500":
+                    TypeButton2.Style = (Style)Resources["ColorButtonOK"];
+                    PLCtype = TypeButton1.Tag.ToString();
+                    break;
+            }
+
         }
 
         // Close button event
@@ -60,14 +99,31 @@ namespace Dimat_WPF
 
         private void txtName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (txtName.Text.Length < 4 || !dbhelp.IsPlcNameAvailable(txtName.Text))
+            if (!_Edit)
             {
-                txtName.Style = (Style)Resources["DarkBoxNOK"];
-                ValidName = false;
-            } else
+                if (txtName.Text.Length < 4 || !dbhelp.IsPlcNameAvailable(txtName.Text))
+                {
+                    txtName.Style = (Style)Resources["DarkBoxNOK"];
+                    ValidName = false;
+                }
+                else
+                {
+                    txtName.Style = (Style)Resources["DarkBox"];
+                    ValidName = true;
+                }
+            }
+            else
             {
-                txtName.Style = (Style)Resources["DarkBox"];
-                ValidName = true;
+                if (txtName.Text.Length < 4 || dbhelp.IsUpdatePlcIpAvailable(txtName.Text, _PLCedit.ID))
+                {
+                    txtName.Style = (Style)Resources["DarkBoxNOK"];
+                    ValidName = false;
+                }
+                else
+                {
+                    txtName.Style = (Style)Resources["DarkBox"];
+                    ValidName = true;
+                }
             }
             SaveAvailable();
         }
@@ -106,10 +162,10 @@ namespace Dimat_WPF
                 lblIP.Style = (Style)Resources["DarkBox"];
                 ValidIP = true;
                 pingenabled = true;
-;
             }
 
             SaveAvailable();
+
             lbls7.Style = (Style)Resources["ColorButton"];
         } 
 

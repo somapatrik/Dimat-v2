@@ -63,8 +63,8 @@ namespace Dimat_WPF
         {
             InitializeComponent();
             client = PlcClient;
-            txt_Address.Text = "DB1.DBD0";
-            txt_Address_LostFocus(txt_Address, null);
+            //txt_Address.Text = "DB1.DBD0";
+            //txt_Address_LostFocus(txt_Address, null);
         }
         
         public async void Read()

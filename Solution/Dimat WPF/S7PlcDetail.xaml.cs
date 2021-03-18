@@ -75,7 +75,7 @@ namespace Dimat_WPF
             // Fills GUI
             SetGUI();
             // Create rows
-            for (int i = 0; i < 25; i++)
+            //for (int i = 0; i < 25; i++)
                 CreateRow();
         }
 

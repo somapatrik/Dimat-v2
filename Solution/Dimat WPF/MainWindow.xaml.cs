@@ -51,11 +51,16 @@ namespace Dimat_WPF
             PlcStack.Children.Add(group);
         }
 
+        // Edit PLC
         private void Group_EditClicked(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            S7PLC plc = (S7PLC)sender;
+            AddPlc edit = new AddPlc(plc);
+            edit.CloseClicked += AddPlc_CloseClicked;
+            ShowPopup(edit);
         }
 
+        // Delete PLC
         private void Group_DeleteClicked(object sender, EventArgs e)
         {
             S7PLC plc = (S7PLC)sender;
@@ -64,6 +69,7 @@ namespace Dimat_WPF
             ShowPopup(delete);
         }
 
+        // Open PLC detail
         private void Group_Plc_DoubleClicked(object sender, EventArgs e)
         {
             S7PLC plc = ((PlcButton)sender).s7plc;

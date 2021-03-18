@@ -85,10 +85,27 @@ namespace Dimat_WPF
             return lg;
         }
 
+        public bool IsUpdatePlcNameAvailable(string name, int ID)
+        {
+            DBLite db = new DBLite("SELECT * FROM S7_PLC WHERE NAME = @name AND ID<>@ID");
+            db.AddParameter("name", name.Trim(), DbType.String);
+            db.AddParameter("ID", ID, DbType.Int32);
+            DataTable dt = db.ExecTable();
+            return dt.Rows.Count > 0 ? false : true;
+        }
+
         public bool IsPlcNameAvailable(string name)
         {
             DBLite db = new DBLite("select * from S7_PLC where NAME like @name");
             db.AddParameter("name", name.Trim(), DbType.String);
+            DataTable dt = db.ExecTable();
+            return dt.Rows.Count > 0 ? false : true;
+        }
+        public bool IsUpdatePlcIpAvailable(string ip, int ID)
+        {
+            DBLite db = new DBLite("select * from S7_PLC where IP like @ip AND ID<>@ID");
+            db.AddParameter("ip", ip.Trim(), DbType.String);
+            db.AddParameter("ID", ID, DbType.Int32);
             DataTable dt = db.ExecTable();
             return dt.Rows.Count > 0 ? false : true;
         }
