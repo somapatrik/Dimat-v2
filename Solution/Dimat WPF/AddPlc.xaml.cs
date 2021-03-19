@@ -68,6 +68,7 @@ namespace Dimat_WPF
             txtDesc.Text = _PLCedit.Description;
             txtRack.Text = _PLCedit.Rack.ToString();
             txtSlot.Text = _PLCedit.Slot.ToString();
+            lblIP.Text = _PLCedit.IP;
 
             switch (_PLCedit.TypeName)
             {
@@ -89,6 +90,8 @@ namespace Dimat_WPF
                     break;
             }
 
+
+
         }
 
         // Close button event
@@ -97,6 +100,7 @@ namespace Dimat_WPF
             CloseClicked?.Invoke(this, null);
         }
 
+        // Name changed
         private void txtName_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!_Edit)
@@ -114,7 +118,7 @@ namespace Dimat_WPF
             }
             else
             {
-                if (txtName.Text.Length < 4 || dbhelp.IsUpdatePlcIpAvailable(txtName.Text, _PLCedit.ID))
+                if (txtName.Text.Length < 4 || !dbhelp.IsUpdatePlcIpAvailable(txtName.Text, _PLCedit.ID))
                 {
                     txtName.Style = (Style)Resources["DarkBoxNOK"];
                     ValidName = false;
@@ -128,7 +132,7 @@ namespace Dimat_WPF
             SaveAvailable();
         }
 
-        // Type
+        // Type clicked
         private void TypeButton_Click(object sender, MouseButtonEventArgs e)
         {
             TypeButton1.Style = (Style)Resources["ColorButton"];
@@ -168,17 +172,17 @@ namespace Dimat_WPF
             }
             else
             {
-                if (!IPAddress.TryParse(lblIP.Text, out PLCIP))
-                {
-                    lblIP.Style = (Style)Resources["DarkBoxNOK"];
-                    ValidIP = false;
-                    pingenabled = false;
-                }
-                else
+                if (IPAddress.TryParse(lblIP.Text, out PLCIP) && dbhelp.IsUpdatePlcIpAvailable(lblIP.Text, _PLCedit.ID))
                 {
                     lblIP.Style = (Style)Resources["DarkBox"];
                     ValidIP = true;
                     pingenabled = true;
+                }
+                else
+                {
+                    lblIP.Style = (Style)Resources["DarkBoxNOK"];
+                    ValidIP = false;
+                    pingenabled = false;
                 }
             }
 
