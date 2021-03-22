@@ -83,12 +83,12 @@ namespace Dimat_WPF
                     ValidType = true;
                     break;
                 case "S7-1200":
-                    TypeButton2.Style = (Style)Resources["ColorButtonOK"];
+                    TypeButton3.Style = (Style)Resources["ColorButtonOK"];
                     PLCtype = TypeButton1.Tag.ToString();
                     ValidType = true;
                     break;
                 case "S7-1500":
-                    TypeButton2.Style = (Style)Resources["ColorButtonOK"];
+                    TypeButton4.Style = (Style)Resources["ColorButtonOK"];
                     PLCtype = TypeButton1.Tag.ToString();
                     ValidType = true;
                     break;
