@@ -176,6 +176,34 @@ namespace Dimat_WPF.Class
             _id = GetLastPlcID();
         }
 
+        public void Update()
+        {
+            StringBuilder query = new StringBuilder();
+
+            query.AppendLine("UPDATE S7_PLC");
+            query.AppendLine("SET");
+            query.AppendLine("NAME = @NAME,");
+            query.AppendLine("DESCRIPTION = @DESCRIPTION,");
+            query.AppendLine("IP = @IP,");
+            query.AppendLine("RACK = @RACK,");
+            query.AppendLine("SLOT = @SLOT,");
+            query.AppendLine("TYPE = @TYPE");
+            query.AppendLine("WHERE ID = @ID");
+
+            DBLite db = new DBLite(query.ToString());
+            db.AddParameter("ID", _id, DbType.Int32);
+            db.AddParameter("NAME", _Name, DbType.String);
+            db.AddParameter("DESCRIPTION", _Description, DbType.String);
+            db.AddParameter("IP", _IP, DbType.String);
+            db.AddParameter("RACK", _Rack, DbType.String);
+            db.AddParameter("SLOT", _Slot, DbType.String);
+            db.AddParameter("TYPE", _PlcType, DbType.String);
+
+            db.Exec();
+
+            LoadFromDB();
+        }
+
         public bool IsGroupAvailable(int ID_Group)
         {
             if (ID_Group == 0)

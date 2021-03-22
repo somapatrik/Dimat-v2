@@ -75,23 +75,24 @@ namespace Dimat_WPF
                 case "S7-300":
                     TypeButton1.Style = (Style)Resources["ColorButtonOK"];
                     PLCtype = TypeButton1.Tag.ToString();
+                    ValidType = true;
                     break;
                 case "S7-400":
                     TypeButton2.Style = (Style)Resources["ColorButtonOK"];
                     PLCtype = TypeButton1.Tag.ToString();
+                    ValidType = true;
                     break;
                 case "S7-1200":
                     TypeButton2.Style = (Style)Resources["ColorButtonOK"];
                     PLCtype = TypeButton1.Tag.ToString();
+                    ValidType = true;
                     break;
                 case "S7-1500":
                     TypeButton2.Style = (Style)Resources["ColorButtonOK"];
                     PLCtype = TypeButton1.Tag.ToString();
+                    ValidType = true;
                     break;
             }
-
-
-
         }
 
         // Close button event
@@ -259,14 +260,27 @@ namespace Dimat_WPF
             { 
                 if (ValidName && ValidIP && ValidType && ValidRack && ValidSlot)
                 {
-                    S7PLC plc = new S7PLC(txtName.Text, lblIP.Text, int.Parse(txtRack.Text), int.Parse(txtSlot.Text), PLCtype);
-                    plc.Description = !string.IsNullOrEmpty(txtDesc.Text) ? txtDesc.Text : "";
-                    plc.Insert();
-                    if (plc.IsGroupAvailable(ID_GROUP))
-                        plc.UpdateGroup(ID_GROUP);
+                    if (!_Edit) 
+                    { 
+                        S7PLC plc = new S7PLC(txtName.Text, lblIP.Text, int.Parse(txtRack.Text), int.Parse(txtSlot.Text), PLCtype);
+                        plc.Description = !string.IsNullOrEmpty(txtDesc.Text) ? txtDesc.Text : "";
+                        plc.Insert();
+                        if (plc.IsGroupAvailable(ID_GROUP))
+                            plc.UpdateGroup(ID_GROUP);
+                    }
+                    else
+                    {
+                        _PLCedit.Name = txtName.Text;
+                        _PLCedit.IP = lblIP.Text;
+                        _PLCedit.Rack = int.Parse(txtRack.Text);
+                        _PLCedit.Slot = int.Parse(txtSlot.Text);
+                        _PLCedit.Description = txtDesc.Text;
+                        _PLCedit.Type = PLCtype;
+                        _PLCedit.Update();
+                    }
 
                     Close_clicked(null, null);
-            }
+                }
             } catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -278,8 +292,7 @@ namespace Dimat_WPF
             if (ValidName && ValidIP && ValidType && ValidRack && ValidSlot)
                 lblSave.Visibility = Visibility.Visible;
             else
-                lblSave.Visibility = Visibility.Collapsed;
-            
+                lblSave.Visibility = Visibility.Collapsed;        
         }
 
         private void PingCall(object state)
