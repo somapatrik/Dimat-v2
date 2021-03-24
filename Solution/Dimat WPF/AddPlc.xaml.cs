@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static Dimat_WPF.Class.S7PLC;
+//using static Dimat_WPF.Class.S7PLC;
 using System.Threading;
 using System.Net.NetworkInformation;
 using Sharp7;

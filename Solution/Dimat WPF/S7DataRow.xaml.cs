@@ -21,24 +21,7 @@ namespace Dimat_WPF
 
     public partial class S7DataRow : UserControl
     {
-        #region Selected row property
-
-        private bool _selected;
-        public bool Selected
-        {
-            set 
-            {
-                if (value)
-                    SelectRow();
-                else
-                    Unselectrow();
-            }
-            
-            get { return _selected; }
-        }
-
-        #endregion
-
+       
         // Connection to PLC
         S7Client client;
 
@@ -51,22 +34,45 @@ namespace Dimat_WPF
         // Actual value from PLC
         public byte[] array;
 
+        #region Selected row property
+
+        private bool _selected;
+        public bool Selected
+        {
+            set
+            {
+                if (value)
+                    SelectRow();
+                else
+                    Unselectrow();
+            }
+
+            get { return _selected; }
+        }
+
+        #endregion
+
+        #region Database for data property
+
+        public string Description { get { return txt_Desc.Text; } }
+        public string Address { get { return txt_Address.Text; } }
+        public string Format { get { return cmb_Format.Text; } }
+
+        #endregion
+
         public bool IsReadValid
         {
             get { return addressformatter.IsValid; }
         }
 
-        // Write information
         bool IsWriteValid;
 
         public S7DataRow(ref S7Client PlcClient)
         {
             InitializeComponent();
             client = PlcClient;
-            //txt_Address.Text = "DB1.DBD0";
-            //txt_Address_LostFocus(txt_Address, null);
         }
-        
+
         public async void Read()
         {
             await Task.Run(() =>
@@ -334,6 +340,11 @@ namespace Dimat_WPF
                 
         }
 
+        private void txt_Value_LostFocus(object sender, RoutedEventArgs e)
+        {
+            ValidateInputValue();
+        }
+
         #endregion
 
         #region Select / Deselect row
@@ -359,11 +370,6 @@ namespace Dimat_WPF
         }
 
         #endregion
-
-        private void txt_Value_LostFocus(object sender, RoutedEventArgs e)
-        {
-            ValidateInputValue();
-        }
 
         private void ValidateInputValue()
         {

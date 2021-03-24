@@ -25,6 +25,9 @@ namespace Dimat_WPF
         // PLC from DB
         public S7PLC plc;
 
+        // Database
+        DBGlobal dbglob = new DBGlobal();
+
         // PLC client
         private S7Client client;
         S7MultiVar multivar;
@@ -76,7 +79,7 @@ namespace Dimat_WPF
             SetGUI();
             // Create rows
             //for (int i = 0; i < 25; i++)
-                CreateRow();
+            CreateRow();
         }
 
 
@@ -128,7 +131,6 @@ namespace Dimat_WPF
             });
         }
 
-        // Reading variable code
         private void EnableReading(bool enable)
         {
             if (enable)
@@ -385,5 +387,28 @@ namespace Dimat_WPF
         }
 
         #endregion
+
+        // Save button
+        private void btnSave_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            SaveRows();
+        }
+
+        private void SaveRows()
+        {
+            try
+            {
+                dbglob.MarkOldRows(ID);
+                foreach (S7DataRow row in StackData.Children)
+                    if (row.IsReadValid)
+                        dbglob.SaveRow(ID, row.Description, row.Address, row.Format);
+                dbglob.DeleteOldRows(ID);
+
+            } catch (Exception ex)
+            {
+                dbglob.UnmarkOldRows(ID);
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

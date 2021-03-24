@@ -11,6 +11,51 @@ namespace Dimat_WPF
 {
     class DBGlobal
     {
+        public void DeleteOldRows(int PLC_ID)
+        {
+            DBLite db = new DBLite("DELETE FROM S7_PLC_Signal WHERE PLC=@id AND IsDelete=true");
+            db.AddParameter("id", PLC_ID, DbType.Int32);
+            db.Exec();
+        }
+
+        public void MarkOldRows(int PLC_ID)
+        {
+            DBLite db = new DBLite("UPDATE S7_PLC_Signal SET IsDelete=true where PLC=@id");
+            db.AddParameter("id", PLC_ID, DbType.Int32);
+            db.Exec();
+        }
+
+        public void UnmarkOldRows(int PLC_ID)
+        {
+            DBLite db = new DBLite("UPDATE S7_PLC_Signal SET IsDelete=false where PLC=@id AND IsDelete=true");
+            db.AddParameter("id", PLC_ID, DbType.Int32);
+            db.Exec();
+        }
+
+        public void SaveRow(int PLC_ID, string Desc, string Address, string Format)
+        {
+
+            StringBuilder query = new StringBuilder();
+            query.AppendLine("INSERT INTO S7_PLC_Signal (");
+            query.AppendLine("PLC,");
+            query.AppendLine("ADDRESS,");
+            query.AppendLine("DESCRIPTION,");
+            query.AppendLine("FORMAT");
+            query.AppendLine(")VALUES(");
+            query.AppendLine("@id,");
+            query.AppendLine("@address,");
+            query.AppendLine("@desc,");
+            query.AppendLine("@format");
+            query.AppendLine(");");
+
+            DBLite db = new DBLite(query.ToString());
+            db.AddParameter("id", PLC_ID, DbType.Int32);
+            db.AddParameter("address", Address, DbType.String);
+            db.AddParameter("desc", Desc, DbType.String);
+            db.AddParameter("format", Format, DbType.String);
+
+            db.Exec();
+        }
 
         public void DeletePlc(int ID)
         {

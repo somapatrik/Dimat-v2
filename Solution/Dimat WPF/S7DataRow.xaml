@@ -13,18 +13,21 @@
 
     <Grid x:Name="GridRow">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition />
+            <ColumnDefinition Width="auto"/>    <!--Select row button-->
+            <ColumnDefinition/>                 <!--Description-->
+            <ColumnDefinition/>                 <!--Address-->
+            <ColumnDefinition/>     
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
+        
         <Label Grid.Column="0" x:Name="lblSelect" Style="{StaticResource RowButton}" MouseLeftButtonUp="lblSelect_MouseLeftButtonUp"/>
-        <TextBox Grid.Column="1" x:Name="txt_Address" Style="{StaticResource AddressBox}" LostFocus="txt_Address_LostFocus"/>
-        <ComboBox Grid.Column="2" x:Name="cmb_Format"   Style="{StaticResource ComboBoxFlatStyle}" SelectionChanged="cmb_Format_SelectionChanged" />
-        <TextBox Grid.Column="3" x:Name="txt_Actual"  Style="{StaticResource ActualBox}" MouseDoubleClick="txt_Actual_MouseDoubleClick"/>
-        <TextBox Grid.Column="4" x:Name="txt_Value"  Style="{StaticResource AddressBox}" LostFocus="txt_Value_LostFocus"/>
-        <Label Grid.Column="5" x:Name="btnWrite" ToolTip="Write" FontFamily="Segoe MDL2 Assets" Content="&#xE898;" Style="{StaticResource RowButton}"/>
+        <TextBox Grid.Column="1" x:Name="txt_Desc" Style="{StaticResource AddressBox}" />
+        <TextBox Grid.Column="2" x:Name="txt_Address" Style="{StaticResource AddressBox}" LostFocus="txt_Address_LostFocus"/>
+        <ComboBox Grid.Column="3" x:Name="cmb_Format"   Style="{StaticResource ComboBoxFlatStyle}" SelectionChanged="cmb_Format_SelectionChanged" />
+        <TextBox Grid.Column="4" x:Name="txt_Actual"  Style="{StaticResource ActualBox}" MouseDoubleClick="txt_Actual_MouseDoubleClick"/>
+        <TextBox Grid.Column="5" x:Name="txt_Value"  Style="{StaticResource AddressBox}" LostFocus="txt_Value_LostFocus"/>
+        <Label Grid.Column="6" x:Name="btnWrite" ToolTip="Write" FontFamily="Segoe MDL2 Assets" Content="&#xE898;" Style="{StaticResource RowButton}"/>
     </Grid>
 </UserControl>

@@ -55,7 +55,7 @@
                         <Label x:Name="btnNewRow" ToolTip="Add row" FontFamily="Segoe MDL2 Assets" Content="&#xE710;" Style="{StaticResource RowButton}" MouseLeftButtonUp="btnNewRow_MouseLeftButtonUp"/>
 
                         <Label x:Name="btnDeleteSelected" ToolTip="Delete selected" FontFamily="Segoe MDL2 Assets" Content="&#xE74D;" Style="{StaticResource RowButton}" MouseLeftButtonUp="btnDeleteSelected_MouseLeftButtonUp"/>
-                        <Label x:Name="btnSave" ToolTip="Save table" FontFamily="Segoe MDL2 Assets" Content="&#xE74E;" Style="{StaticResource RowButton}" />
+                        <Label x:Name="btnSave" ToolTip="Save table" FontFamily="Segoe MDL2 Assets" Content="&#xE74E;" Style="{StaticResource RowButton}" MouseLeftButtonUp="btnSave_MouseLeftButtonUp" />
 
                     </StackPanel>
 
