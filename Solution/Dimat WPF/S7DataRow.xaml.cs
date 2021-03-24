@@ -54,9 +54,29 @@ namespace Dimat_WPF
 
         #region Database for data property
 
-        public string Description { get { return txt_Desc.Text; } }
-        public string Address { get { return txt_Address.Text; } }
-        public string Format { get { return cmb_Format.Text; } }
+        public string Description 
+        { 
+            get { return txt_Desc.Text; } 
+            set { txt_Desc.Text = value; }
+        }
+        public string Address 
+        { 
+            get { return txt_Address.Text; } 
+            set 
+            { 
+                txt_Address.Text = value; 
+                txt_Address_LostFocus(txt_Address, null); 
+            }
+        }
+        public string Format 
+        { 
+            get { return cmb_Format.Text; }
+            set
+            {
+                if (cmb_Format.Items.Contains(value))
+                    cmb_Format.SelectedItem = value;
+            }
+        }
 
         #endregion
 

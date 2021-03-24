@@ -16,6 +16,7 @@ using Dimat_WPF.Class;
 //using Sharp7;
 using System.Threading;
 using Snap7;
+using System.Data;
 
 namespace Dimat_WPF
 {
@@ -78,10 +79,22 @@ namespace Dimat_WPF
             // Fills GUI
             SetGUI();
             // Create rows
-            //for (int i = 0; i < 25; i++)
+            LoadRows();
             CreateRow();
         }
 
+        private void LoadRows()
+        {
+            DataTable dt = dbglob.LoadRows(ID);
+            foreach (DataRow row in dt.Rows)
+            {
+                string desc = row["DESCRIPTION"].ToString();
+                string add = row["ADDRESS"].ToString();
+                string format = row["FORMAT"].ToString();
+
+                CreateRowWithData(add, desc, format);
+            }            
+        }
 
         private void EnableWatch(bool enable)
         {
@@ -307,6 +320,16 @@ namespace Dimat_WPF
             S7DataRow row = new S7DataRow(ref client);
             StackData.Children.Add(row);
         }
+
+        private void CreateRowWithData(string add, string desc , string format)
+        {
+            S7DataRow row = new S7DataRow(ref client);
+            row.Description = desc;
+            row.Address = add;
+            row.Format = format;
+            StackData.Children.Add(row);
+        }
+
         #endregion
 
         #region PLC functions
@@ -384,29 +407,36 @@ namespace Dimat_WPF
         {
             KillReading = true;
             EnableReading(true);
-        }
-
-        #endregion
-
+        } 
+        
         // Save button
         private void btnSave_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             SaveRows();
         }
 
+        #endregion
+
+
         private void SaveRows()
         {
             try
             {
-                dbglob.MarkOldRows(ID);
+                // Add new rows to database
                 foreach (S7DataRow row in StackData.Children)
                     if (row.IsReadValid)
                         dbglob.SaveRow(ID, row.Description, row.Address, row.Format);
+
+                // Delete old rows
                 dbglob.DeleteOldRows(ID);
+
+                // Set rows as old
+                dbglob.MarkOldRows(ID);
 
             } catch (Exception ex)
             {
-                dbglob.UnmarkOldRows(ID);
+                // Failed - remove new rows
+                dbglob.DeleteNewRows(ID);
                 MessageBox.Show(ex.Message);
             }
         }

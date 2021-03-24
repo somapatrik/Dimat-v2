@@ -11,23 +11,35 @@ namespace Dimat_WPF
 {
     class DBGlobal
     {
+
+        #region PLC data rows
+
+        public DataTable LoadRows(int PLC_ID)
+        {
+            DBLite db = new DBLite("SELECT DESCRIPTION, ADDRESS, FORMAT FROM S7_PLC_Signal WHERE PLC=@id");
+            db.AddParameter("id", PLC_ID, DbType.Int32);
+            DataTable dt = db.ExecTable();
+            return dt;
+
+        }
+
+        public void DeleteNewRows(int PLC_ID)
+        {
+            DBLite db = new DBLite("DELETE FROM S7_PLC_Signal WHERE PLC=@id AND NEW=true");
+            db.AddParameter("id", PLC_ID, DbType.Int32);
+            db.Exec();
+        }
+
         public void DeleteOldRows(int PLC_ID)
         {
-            DBLite db = new DBLite("DELETE FROM S7_PLC_Signal WHERE PLC=@id AND IsDelete=true");
+            DBLite db = new DBLite("DELETE FROM S7_PLC_Signal WHERE PLC=@id AND NEW=false");
             db.AddParameter("id", PLC_ID, DbType.Int32);
             db.Exec();
         }
 
         public void MarkOldRows(int PLC_ID)
         {
-            DBLite db = new DBLite("UPDATE S7_PLC_Signal SET IsDelete=true where PLC=@id");
-            db.AddParameter("id", PLC_ID, DbType.Int32);
-            db.Exec();
-        }
-
-        public void UnmarkOldRows(int PLC_ID)
-        {
-            DBLite db = new DBLite("UPDATE S7_PLC_Signal SET IsDelete=false where PLC=@id AND IsDelete=true");
+            DBLite db = new DBLite("UPDATE S7_PLC_Signal SET NEW=false where PLC=@id");
             db.AddParameter("id", PLC_ID, DbType.Int32);
             db.Exec();
         }
@@ -40,12 +52,14 @@ namespace Dimat_WPF
             query.AppendLine("PLC,");
             query.AppendLine("ADDRESS,");
             query.AppendLine("DESCRIPTION,");
-            query.AppendLine("FORMAT");
+            query.AppendLine("FORMAT,");
+            query.AppendLine("NEW");
             query.AppendLine(")VALUES(");
             query.AppendLine("@id,");
             query.AppendLine("@address,");
             query.AppendLine("@desc,");
-            query.AppendLine("@format");
+            query.AppendLine("@format,");
+            query.AppendLine("true");
             query.AppendLine(");");
 
             DBLite db = new DBLite(query.ToString());
@@ -56,6 +70,8 @@ namespace Dimat_WPF
 
             db.Exec();
         }
+
+        #endregion
 
         public void DeletePlc(int ID)
         {
