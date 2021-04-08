@@ -16,6 +16,7 @@
             <ColumnDefinition/>
             <ColumnDefinition MaxWidth="1"/>
             <ColumnDefinition Width="300px"/>
+            <ColumnDefinition Width="70px"/>
         </Grid.ColumnDefinitions>
 
         <GridSplitter HorizontalAlignment="Stretch" Grid.Column="1" Background="#FF495162"/>
@@ -171,6 +172,18 @@
             </Grid>
 
         </Grid>
+        
+        <!--Right side menu -->
+        <Grid Grid.Column="3" Background="#1F000000">
 
+            <StackPanel Orientation="Vertical">
+                <Label FontFamily="Segoe MDL2 Assets" Content="&#xE946;" Style="{StaticResource DetailSideButton}"/>
+                <Label FontFamily="Segoe MDL2 Assets" Content="&#xE783;" Style="{StaticResource DetailSideButton}"/>
+                <Label FontFamily="Segoe MDL2 Assets" Content="&#xE70B;" Style="{StaticResource DetailSideButton}"/>
+                <Label Content="PLC" Style="{StaticResource DetailSideButton}"/>
+            </StackPanel>
+            
+        </Grid>
+        
     </Grid>
 </UserControl>

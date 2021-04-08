@@ -295,8 +295,25 @@
         <Setter Property="Margin" Value="10"/>
     </Style>
 
+    <Style x:Key="DetailSideButton" TargetType="Label">
+        <Setter Property="Foreground" Value="#7FFFFFFF"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="28px"/>
+        <Setter Property="Padding" Value="0 15"/>
+        <Setter Property="BorderBrush" Value="#FF495162"/>
+        <Setter Property="BorderThickness" Value=".5"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="#1FFFFFFF"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 
     <!-- Flat ComboBox -->
+    
     <SolidColorBrush x:Key="ComboBoxNormalBorderBrush" Color="#FF2E3440" />
     <SolidColorBrush x:Key="ComboBoxNormalBackgroundBrush" Color="#FF495162" />
     <SolidColorBrush x:Key="ComboBoxDisabledForegroundBrush" Color="#888" />
@@ -411,6 +428,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
     <!-- End of Flat ComboBox -->
 
 

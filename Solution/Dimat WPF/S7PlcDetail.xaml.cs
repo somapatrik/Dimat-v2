@@ -85,6 +85,9 @@ namespace Dimat_WPF
 
         private void LoadRows()
         {
+            try
+            {
+
             DataTable dt = dbglob.LoadRows(ID);
             foreach (DataRow row in dt.Rows)
             {
@@ -93,7 +96,12 @@ namespace Dimat_WPF
                 string format = row["FORMAT"].ToString();
 
                 CreateRowWithData(add, desc, format);
-            }            
+            }
+
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void EnableWatch(bool enable)
@@ -416,7 +424,6 @@ namespace Dimat_WPF
         }
 
         #endregion
-
 
         private void SaveRows()
         {

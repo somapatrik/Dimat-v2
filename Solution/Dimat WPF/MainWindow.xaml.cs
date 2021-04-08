@@ -24,6 +24,9 @@ namespace Dimat_WPF
         List<Bookmark> UsedBookmarks = new List<Bookmark>();
         List<S7PlcDetail> UsedS7Details = new List<S7PlcDetail>();
 
+        private enum MenuTag { None, PLC, Settings};
+        private MenuTag OpenedMenu;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -229,5 +232,31 @@ namespace Dimat_WPF
                 AddGroup(grp);
             }
         }
+
+        private void btnMenuPLC_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            ToogleLeftMenu(MenuTag.PLC);
+        }
+
+        private void ToogleLeftMenu(MenuTag tag)
+        {
+            if (OpenedMenu == tag)
+            {
+                // Same menu => Toogle
+                GridLeftMenu.Visibility = GridLeftMenu.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+                col_LeftMenu.Width = GridLeftMenu.Visibility == Visibility.Visible ? new GridLength(250, GridUnitType.Pixel) : new GridLength(0, GridUnitType.Pixel);
+                col_LeftMenuGripper.Width = GridLeftMenu.Visibility == Visibility.Visible ? new GridLength(2, GridUnitType.Pixel) : new GridLength(0, GridUnitType.Pixel);
+            }
+            else
+            {
+                // Change and open
+                GridLeftMenu.Visibility = Visibility.Visible;
+                col_LeftMenu.Width = new GridLength(250, GridUnitType.Pixel);
+                col_LeftMenuGripper.Width = new GridLength(2, GridUnitType.Pixel);
+            }
+
+            OpenedMenu = tag;
+        }
+
     }
 }

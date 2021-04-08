@@ -38,23 +38,33 @@
         
         <!--Main menu-->
         <StackPanel Orientation="Horizontal" Background="#FF313742">
-            <Label Content="Menu"  Style="{StaticResource TopMenuButton}"/>
-            <Label Content="Menu2" Style="{StaticResource TopMenuButton}"/>
-            <Label Content="About" Style="{StaticResource TopMenuButton}"/>
+            <Label Content=""/>
+            <!--<Label Content="Menu2" Style="{StaticResource TopMenuButton}"/>
+            <Label Content="About" Style="{StaticResource TopMenuButton}"/>-->
         </StackPanel>
         
         <!--Main columns-->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="70px"/>
                 <ColumnDefinition x:Name="col_LeftMenu" Width="250px"/>
-                <ColumnDefinition MaxWidth="2"/>
+                <ColumnDefinition x:Name="col_LeftMenuGripper" MaxWidth="2"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-           
             
+            <!--Left side menu-->
+            <Grid Background="#1F000000">
+
+                <StackPanel Orientation="Vertical">
+                    <Label Content="PLC" x:Name="btnMenuPLC" MouseLeftButtonUp="btnMenuPLC_MouseLeftButtonUp"  Style="{StaticResource DetailSideButton}"/>
+                    <Label FontFamily="Segoe MDL2 Assets" Content="&#xE713;" Style="{StaticResource DetailSideButton}"/>
+                </StackPanel>
+
+            </Grid>
+
+
             <!--Left Menu-->
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" x:Name="GridLeftMenu">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="auto"/>
