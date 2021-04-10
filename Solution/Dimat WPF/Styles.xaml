@@ -296,7 +296,7 @@
     </Style>
 
     <Style x:Key="DetailSideButton" TargetType="Label">
-        <Setter Property="Foreground" Value="#7FFFFFFF"/>
+        <Setter Property="Foreground" Value="#5FFFFFFF"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="28px"/>
         <Setter Property="Padding" Value="0 15"/>
@@ -309,6 +309,11 @@
                 <Setter Property="Background" Value="#1FFFFFFF"/>
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DetailSideButtonActive" TargetType="Label" BasedOn="{StaticResource DetailSideButton}">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="#1fFFFFFF"/>
     </Style>
 
 

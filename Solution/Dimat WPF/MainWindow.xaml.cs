@@ -30,6 +30,10 @@ namespace Dimat_WPF
         public MainWindow()
         {
             InitializeComponent();
+
+            // Close left menu
+            ToogleLeftMenu(MenuTag.None);
+            // Create PLC list
             PopulatePlcList();
         }
 
@@ -184,6 +188,8 @@ namespace Dimat_WPF
             }
         }
 
+        #region Popup
+
         private void ShowPopup(UserControl control)
         {
             GridPopup.Children.Clear();
@@ -198,6 +204,8 @@ namespace Dimat_WPF
             GridPopup.Children.Clear();
             GridPopup.Visibility = Visibility.Collapsed;
         }
+
+        #endregion
 
         private void BtnShowAddGroup_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -220,7 +228,7 @@ namespace Dimat_WPF
                 ValidGroup = true;
             }
         }
-
+       
         private void btnAddGroup_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (ValidGroup)
@@ -233,29 +241,49 @@ namespace Dimat_WPF
             }
         }
 
+        // PLC left clicked
         private void btnMenuPLC_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            ToogleLeftMenu(MenuTag.PLC);
+            RefreshPlcList();
+            ToogleLeftMenu(MenuTag.PLC, sender);
         }
 
-        private void ToogleLeftMenu(MenuTag tag)
+        private void ToogleLeftMenu(MenuTag tag, object clickedbutton = null)
         {
+            DeselectSideMenu();
+
+            // Compare required menu with actual one
             if (OpenedMenu == tag)
-            {
                 // Same menu => Toogle
                 GridLeftMenu.Visibility = GridLeftMenu.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
-                col_LeftMenu.Width = GridLeftMenu.Visibility == Visibility.Visible ? new GridLength(250, GridUnitType.Pixel) : new GridLength(0, GridUnitType.Pixel);
-                col_LeftMenuGripper.Width = GridLeftMenu.Visibility == Visibility.Visible ? new GridLength(2, GridUnitType.Pixel) : new GridLength(0, GridUnitType.Pixel);
-            }
             else
-            {
-                // Change and open
+                // Just open
                 GridLeftMenu.Visibility = Visibility.Visible;
+
+
+            if (GridLeftMenu.Visibility == Visibility.Visible)
+            {
                 col_LeftMenu.Width = new GridLength(250, GridUnitType.Pixel);
                 col_LeftMenuGripper.Width = new GridLength(2, GridUnitType.Pixel);
+
+                if (clickedbutton != null)
+                    ((Label)clickedbutton).Style = (Style)Resources["DetailSideButtonActive"];
+            } 
+            else
+            {
+                col_LeftMenu.Width = new GridLength(0, GridUnitType.Pixel);
+                col_LeftMenuGripper.Width = new GridLength(0, GridUnitType.Pixel);
             }
 
+            
+
             OpenedMenu = tag;
+        }
+
+        private void DeselectSideMenu()
+        {
+            foreach (Label button in StackLeftSideMenu.Children)
+                button.Style = (Style)Resources["DetailSideButton"];
         }
 
     }

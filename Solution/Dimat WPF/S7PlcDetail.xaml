@@ -45,6 +45,7 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Label x:Name="lblname" Content="Plc name" Style="{StaticResource ColorLabel}" />
                     <Label x:Name="lblIP" Content="IP" Style="{StaticResource ColorLabel}" />
+                    <Label x:Name="lblPlcStatus" Content="PLC status" Style="{StaticResource ColorLabelNOK}"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5 0 0 0">
@@ -89,9 +90,10 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Vertical">
+            
+            <!--<StackPanel Orientation="Vertical">
                 <Label x:Name="lblPlcStatus" Content="PLC status" Style="{StaticResource ColorLabelNOK}"/>
-            </StackPanel>
+            </StackPanel>-->
 
             <Grid Grid.Row="1"  MouseLeftButtonUp="lblGroupProperties_MouseLeftButtonUp" Style="{StaticResource GroupBar}">
                 <StackPanel Orientation="Horizontal">
@@ -180,7 +182,6 @@
                 <Label FontFamily="Segoe MDL2 Assets" Content="&#xE946;" Style="{StaticResource DetailSideButton}"/>
                 <Label FontFamily="Segoe MDL2 Assets" Content="&#xE783;" Style="{StaticResource DetailSideButton}"/>
                 <Label FontFamily="Segoe MDL2 Assets" Content="&#xE70B;" Style="{StaticResource DetailSideButton}"/>
-                <Label Content="PLC" Style="{StaticResource DetailSideButton}"/>
             </StackPanel>
             
         </Grid>

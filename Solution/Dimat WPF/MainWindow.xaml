@@ -37,7 +37,7 @@
         </Grid>
         
         <!--Main menu-->
-        <StackPanel Orientation="Horizontal" Background="#FF313742">
+        <StackPanel Orientation="Horizontal" Background="#1F000000">
             <Label Content=""/>
             <!--<Label Content="Menu2" Style="{StaticResource TopMenuButton}"/>
             <Label Content="About" Style="{StaticResource TopMenuButton}"/>-->
@@ -55,7 +55,7 @@
             <!--Left side menu-->
             <Grid Background="#1F000000">
 
-                <StackPanel Orientation="Vertical">
+                <StackPanel x:Name="StackLeftSideMenu" Orientation="Vertical">
                     <Label Content="PLC" x:Name="btnMenuPLC" MouseLeftButtonUp="btnMenuPLC_MouseLeftButtonUp"  Style="{StaticResource DetailSideButton}"/>
                     <Label FontFamily="Segoe MDL2 Assets" Content="&#xE713;" Style="{StaticResource DetailSideButton}"/>
                 </StackPanel>
@@ -119,7 +119,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Content="Version" Style="{StaticResource FooterButton}"/>
+            <Label Grid.Column="0" Content="v0.0" Style="{StaticResource FooterButton}"/>
             <Label Grid.Column="2" Content="Database" Style="{StaticResource FooterButton}" HorizontalAlignment="Right"/>
         </Grid>
 
