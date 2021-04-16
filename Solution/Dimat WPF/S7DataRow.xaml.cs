@@ -34,6 +34,9 @@ namespace Dimat_WPF
         // Actual value from PLC
         public byte[] array;
 
+        // Value to PLC
+        public byte[] writearray;
+
         #region Selected row property
 
         private bool _selected;
@@ -128,7 +131,14 @@ namespace Dimat_WPF
 
         private async void Write()
         {
+            await Task.Run(()=> 
+            {
+                //if (addressformatter.IsValid && client.Connected() && IsWriteValid &&
+                //client.WriteArea(AddressInfo.Area, AddressInfo.DBNumber, AddressInfo.Start, AddressInfo.Amount, AddressInfo.WordLen)
+                //{
 
+                //}   
+            });
         }
 
         private void SetReading()
@@ -395,6 +405,8 @@ namespace Dimat_WPF
         {
             string input = txt_Value.Text;
             bool result = false;
+            //writearray = null;
+            writearray = new byte[array.Length];
 
             // Test values
             bool bool_test;
@@ -402,7 +414,7 @@ namespace Dimat_WPF
             uint uint_test;
             float float_test;
 
-            if (!string.IsNullOrEmpty(input))
+            if (!string.IsNullOrEmpty(input) && addressformatter.IsValid)
             { 
                 try
                 {
@@ -411,6 +423,11 @@ namespace Dimat_WPF
                     {
                         case "BOOL":
                             bool_test = bool.TryParse(input, out result);
+                            
+                            //writearray = new byte[array.Length] ;
+                            if (result)
+                                S7.SetBitAt(ref writearray, 0, addressformatter.Bit, bool_test);
+
                             break;
 
                         case "DECIMAL +/-":
@@ -429,7 +446,9 @@ namespace Dimat_WPF
                                         result = true;
                                     else
                                         result = false;
-                                                                               
+                                                           
+                                    if (result)
+                                        S7.SetSIntAt(writearray, 0, sint_test);
 
                                     break;
 
@@ -440,6 +459,9 @@ namespace Dimat_WPF
                                     else
                                         result = false;
 
+                                    if (result)
+                                        S7.SetIntAt(writearray, 0, (short)sint_test);
+
                                     break;
 
                                 case 4:
@@ -448,6 +470,9 @@ namespace Dimat_WPF
                                         result = true;
                                     else
                                         result = false;
+
+                                    if (result)
+                                        S7.SetDIntAt(writearray, 0, sint_test);
 
                                     break;
 
@@ -471,7 +496,9 @@ namespace Dimat_WPF
                                     else
                                         result = false;
 
-
+                                    if (result)
+                                        S7.SetUSIntAt(writearray, 0, Byte.Parse(input));
+                                            
                                     break;
 
                                 case 2:
@@ -480,6 +507,9 @@ namespace Dimat_WPF
                                         result = true;
                                     else
                                         result = false;
+
+                                    if (result)
+                                        S7.SetUIntAt(writearray, 0, ushort.Parse(input));
 
                                     break;
 
@@ -490,6 +520,8 @@ namespace Dimat_WPF
                                     else
                                         result = false;
 
+                                    S7.SetUDIntAt(writearray, 0, uint_test);
+
                                     break;
                             }
 
@@ -497,6 +529,10 @@ namespace Dimat_WPF
 
                         case "FLOAT":
                             result = float.TryParse(input, out float_test);
+
+                            if (result)
+                                S7.SetRealAt(writearray, 0, float_test);
+
                             break;
                     }
 
