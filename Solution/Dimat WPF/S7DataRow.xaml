@@ -28,6 +28,6 @@
         <ComboBox Grid.Column="3" x:Name="cmb_Format"   Style="{StaticResource ComboBoxFlatStyle}" SelectionChanged="cmb_Format_SelectionChanged" />
         <TextBox Grid.Column="4" x:Name="txt_Actual"  Style="{StaticResource ActualBox}" MouseDoubleClick="txt_Actual_MouseDoubleClick"/>
         <TextBox Grid.Column="5" x:Name="txt_Value"  Style="{StaticResource AddressBox}" LostFocus="txt_Value_LostFocus"/>
-        <Label Grid.Column="6" x:Name="btnWrite" ToolTip="Write" FontFamily="Segoe MDL2 Assets" Content="&#xE898;" Style="{StaticResource RowButton}"/>
+        <Label Grid.Column="6" x:Name="btnWrite" ToolTip="Write" FontFamily="Segoe MDL2 Assets" Content="&#xE898;" MouseLeftButtonUp="btnWrite_MouseLeftButtonUp" Style="{StaticResource RowButton}"/>
     </Grid>
 </UserControl>

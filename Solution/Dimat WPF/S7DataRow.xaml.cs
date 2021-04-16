@@ -133,11 +133,9 @@ namespace Dimat_WPF
         {
             await Task.Run(()=> 
             {
-                //if (addressformatter.IsValid && client.Connected() && IsWriteValid &&
-                //client.WriteArea(AddressInfo.Area, AddressInfo.DBNumber, AddressInfo.Start, AddressInfo.Amount, AddressInfo.WordLen)
-                //{
+                if (addressformatter.IsValid && client.Connected() && IsWriteValid)
+                    client.WriteArea(AddressInfo.Area, AddressInfo.DBNumber, AddressInfo.Start, AddressInfo.Amount, AddressInfo.WordLen, writearray);
 
-                //}   
             });
         }
 
@@ -546,6 +544,11 @@ namespace Dimat_WPF
                     IsWriteValid = false;
                 }
             }
+        }
+
+        private void btnWrite_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Write();
         }
     }
 }
