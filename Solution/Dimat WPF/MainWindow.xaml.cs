@@ -275,8 +275,6 @@ namespace Dimat_WPF
                 col_LeftMenuGripper.Width = new GridLength(0, GridUnitType.Pixel);
             }
 
-            
-
             OpenedMenu = tag;
         }
 

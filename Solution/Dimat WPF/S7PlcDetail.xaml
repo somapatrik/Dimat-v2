@@ -14,8 +14,8 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition MaxWidth="1"/>
-            <ColumnDefinition Width="300px"/>
+            <ColumnDefinition MaxWidth="1" x:Name="col_RightMenuGripper"/>
+            <ColumnDefinition Width="300px" x:Name="col_RightMenu"/>
             <ColumnDefinition Width="70px"/>
         </Grid.ColumnDefinitions>
 
@@ -82,20 +82,14 @@
 
         <!--Right side-->
         <Grid Grid.Column="2" x:Name="GridRightSideInfo">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
             <StackPanel Grid.Row="5" x:Name="StackControls" Orientation="Vertical"/>
-
         </Grid>
 
         <!--Right side menu -->
         <Grid Grid.Column="3" Background="#1F000000">
 
-            <StackPanel Orientation="Vertical">
-                <Label FontFamily="Segoe MDL2 Assets" Content="&#xE946;" Style="{StaticResource DetailSideButton}"/>
+            <StackPanel x:Name="StackRightSideMenu" Orientation="Vertical">
+                <Label x:Name="btnProperties" FontFamily="Segoe MDL2 Assets" Content="&#xE946;" MouseLeftButtonUp="btnProperties_MouseLeftButtonUp"  Style="{StaticResource DetailSideButton}"/>
                 <Label FontFamily="Segoe MDL2 Assets" Content="&#xE783;" Style="{StaticResource DetailSideButton}"/>
                 <Label FontFamily="Segoe MDL2 Assets" Content="&#xE70B;" Style="{StaticResource DetailSideButton}"/>
             </StackPanel>

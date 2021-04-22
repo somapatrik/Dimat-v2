@@ -26,6 +26,9 @@ namespace Dimat_WPF
         // PLC from DB
         public S7PLC plc;
 
+        private enum MenuDetailTag {None, Properties};
+        private MenuDetailTag OpenedMenu;
+
         // Database
         DBGlobal dbglob = new DBGlobal();
 
@@ -74,6 +77,7 @@ namespace Dimat_WPF
             plc = new S7PLC(ID);
             // Connection to PLC
             client = new S7Client();
+            
             //Reading variables
             multivar = new S7MultiVar(client);
             // S7 Properties control
@@ -244,6 +248,9 @@ namespace Dimat_WPF
 
             //lblGroupProperties_MouseLeftButtonUp(null, null);
             //lblGroupFunctions_MouseLeftButtonUp(null, null);
+
+            // Close left menu
+            ToogleMenu(MenuDetailTag.None);
         }
 
         #region Connect / disconnect button
@@ -285,44 +292,6 @@ namespace Dimat_WPF
 
         #endregion
 
-        //#region Functions groups
-
-        //private void lblGroupFunctions_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    if (GridFunctions.Visibility == Visibility.Visible)
-        //    {
-        //        GridFunctions.Visibility = Visibility.Collapsed;
-        //        lblGroupFunctionsArrow.Content = "4";
-        //    }
-        //    else
-        //    {
-        //        GridFunctions.Visibility = Visibility.Visible;
-        //        lblGroupFunctionsArrow.Content = "6";
-        //    }
-        //}
-
-        //private void lblGroupProperties_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    if (GridProperties.Visibility == Visibility.Visible)
-        //    {
-        //        GridProperties.Visibility = Visibility.Collapsed;
-        //        lblGroupPropertiesArrow.Content = "4";
-        //    }
-        //    else
-        //    {
-        //        GridProperties.Visibility = Visibility.Visible;
-        //        lblGroupPropertiesArrow.Content = "6";
-        //    }
-        //}
-
-        //// Danger waring confirmation
-        //private void DangerButton_Clicked(object sender, MouseButtonEventArgs e)
-        //{
-        //    GridDanger.Visibility = Visibility.Collapsed;
-        //}
-
-        //#endregion
-
         #region New row
         private void btnNewRow_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -344,23 +313,6 @@ namespace Dimat_WPF
             StackData.Children.Add(row);
         }
 
-        #endregion
-
-        #region PLC functions
-        private void PlcStop_Clicked(object sender, MouseButtonEventArgs e)
-        {
-            client.PlcStop();
-        }
-
-        private void HotStart_Clicked(object sender, MouseButtonEventArgs e)
-        {
-            client.PlcHotStart();
-        }
-
-        private void btnColdStart_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            client.PlcColdStart();
-        }
         #endregion
 
         #region Top menu
@@ -453,5 +405,47 @@ namespace Dimat_WPF
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void btnProperties_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            ToogleMenu(MenuDetailTag.Properties, sender);
+        }
+
+        private void ToogleMenu(MenuDetailTag tag, object clickedbutton = null)
+        {
+            DeselectSideMenu();
+
+            // Compare required menu with actual one
+            if (OpenedMenu == tag)
+                // Same menu => Toogle
+                GridRightSideInfo.Visibility = GridRightSideInfo.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+            else
+                // Just open
+                GridRightSideInfo.Visibility = Visibility.Visible;
+
+
+            if (GridRightSideInfo.Visibility == Visibility.Visible)
+            {
+                col_RightMenu.Width = new GridLength(300, GridUnitType.Pixel);
+                col_RightMenuGripper.Width = new GridLength(1, GridUnitType.Pixel);
+
+                if (clickedbutton != null)
+                    ((Label)clickedbutton).Style = (Style)Resources["DetailSideButtonActive"];
+            }
+            else
+            {
+                col_RightMenu.Width = new GridLength(0, GridUnitType.Pixel);
+                col_RightMenuGripper.Width = new GridLength(0, GridUnitType.Pixel);
+            }
+
+            OpenedMenu = tag;
+        }
+
+        private void DeselectSideMenu()
+        {
+            foreach (Label button in StackRightSideMenu.Children)
+                button.Style = (Style)Resources["DetailSideButton"];
+        }
+
     }
 }
