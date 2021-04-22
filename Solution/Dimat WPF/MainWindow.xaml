@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dimat_WPF"
         mc:Ignorable="d"
-        Title="S7 Dimat - Diagnostic and maintenance tool" Height="650" Width="1300"
+        Title="Diagnostic and maintenance tool" Height="650" Width="1300"
         Background="#FF2E3440"
         Foreground="White"
         FontSize="14"

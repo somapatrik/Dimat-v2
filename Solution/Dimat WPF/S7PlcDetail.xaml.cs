@@ -45,7 +45,11 @@ namespace Dimat_WPF
         Timer ReadingData;
         int ReadingTime = 100;
         bool KillReading;
-                
+
+        // Control
+        S7Properties properties;
+
+
         public int ID
         {
             get { return plc.ID; }
@@ -72,6 +76,8 @@ namespace Dimat_WPF
             client = new S7Client();
             //Reading variables
             multivar = new S7MultiVar(client);
+            // S7 Properties control
+            properties = new S7Properties(ref client);
             // Set timer for status watching
             StatusWatch = new System.Threading.Timer(StatusWatchCallBack, WatchReset, Timeout.Infinite, WatchStatusTime);
             //Set Reading timer
@@ -143,11 +149,8 @@ namespace Dimat_WPF
                 S7Client.S7CpInfo cpinfo = new S7Client.S7CpInfo();
                 client.GetCpInfo(ref cpinfo);
 
-                lbl_ASname.Content = cpuinfo.ASName;
-                lbl_Modulname.Content = cpuinfo.ModuleName;
-                lbl_Modultype.Content = cpuinfo.ModuleTypeName;
-                lbl_Serialnumber.Content = cpuinfo.SerialNumber;
-                lbl_MaxConnections.Content = cpinfo.MaxConnections.ToString();
+                // Show values
+                properties.UpdateValues(cpuinfo.ASName, cpuinfo.ModuleName, cpuinfo.ModuleTypeName, cpuinfo.SerialNumber, cpinfo.MaxConnections.ToString());
 
             });
         }
@@ -228,6 +231,9 @@ namespace Dimat_WPF
 
         private void SetGUI()
         {
+
+            StackControls.Children.Add(properties);
+
             btnDisconnect.Visibility = Visibility.Collapsed;
             btnReadingStart.Visibility = Visibility.Collapsed;
             btnReadingPause.Visibility = Visibility.Collapsed;
@@ -236,9 +242,8 @@ namespace Dimat_WPF
             lblname.Content = plc.Name;
             lblIP.Content = plc.IP;
 
-            lblGroupProperties_MouseLeftButtonUp(null, null);
-            lblGroupFunctions_MouseLeftButtonUp(null, null);
-
+            //lblGroupProperties_MouseLeftButtonUp(null, null);
+            //lblGroupFunctions_MouseLeftButtonUp(null, null);
         }
 
         #region Connect / disconnect button
@@ -280,42 +285,43 @@ namespace Dimat_WPF
 
         #endregion
 
-        #region Functions groups
-        private void lblGroupFunctions_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            if (GridFunctions.Visibility == Visibility.Visible)
-            {
-                GridFunctions.Visibility = Visibility.Collapsed;
-                lblGroupFunctionsArrow.Content = "4";
-            }
-            else
-            {
-                GridFunctions.Visibility = Visibility.Visible;
-                lblGroupFunctionsArrow.Content = "6";
-            }
-        }
+        //#region Functions groups
 
-        private void lblGroupProperties_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            if (GridProperties.Visibility == Visibility.Visible)
-            {
-                GridProperties.Visibility = Visibility.Collapsed;
-                lblGroupPropertiesArrow.Content = "4";
-            }
-            else
-            {
-                GridProperties.Visibility = Visibility.Visible;
-                lblGroupPropertiesArrow.Content = "6";
-            }
-        }
+        //private void lblGroupFunctions_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (GridFunctions.Visibility == Visibility.Visible)
+        //    {
+        //        GridFunctions.Visibility = Visibility.Collapsed;
+        //        lblGroupFunctionsArrow.Content = "4";
+        //    }
+        //    else
+        //    {
+        //        GridFunctions.Visibility = Visibility.Visible;
+        //        lblGroupFunctionsArrow.Content = "6";
+        //    }
+        //}
 
-        // Danger waring confirmation
-        private void DangerButton_Clicked(object sender, MouseButtonEventArgs e)
-        {
-            GridDanger.Visibility = Visibility.Collapsed;
-        }
+        //private void lblGroupProperties_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (GridProperties.Visibility == Visibility.Visible)
+        //    {
+        //        GridProperties.Visibility = Visibility.Collapsed;
+        //        lblGroupPropertiesArrow.Content = "4";
+        //    }
+        //    else
+        //    {
+        //        GridProperties.Visibility = Visibility.Visible;
+        //        lblGroupPropertiesArrow.Content = "6";
+        //    }
+        //}
 
-        #endregion
+        //// Danger waring confirmation
+        //private void DangerButton_Clicked(object sender, MouseButtonEventArgs e)
+        //{
+        //    GridDanger.Visibility = Visibility.Collapsed;
+        //}
+
+        //#endregion
 
         #region New row
         private void btnNewRow_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

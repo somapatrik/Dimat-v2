@@ -135,6 +135,9 @@
       <DependentUpon>S7PlcDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="Class\snap7.net.cs" />
+    <Compile Include="S7Properties.xaml.cs">
+      <DependentUpon>S7Properties.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StyledCombo.xaml.cs">
       <DependentUpon>StyledCombo.xaml</DependentUpon>
     </Compile>
@@ -189,6 +192,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="S7PlcDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="S7Properties.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
