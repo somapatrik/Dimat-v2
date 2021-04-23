@@ -21,6 +21,7 @@ namespace Dimat_WPF
     {
         DBGlobal dbglobal = new DBGlobal();
         bool ValidGroup;
+
         List<Bookmark> UsedBookmarks = new List<Bookmark>();
         List<S7PlcDetail> UsedS7Details = new List<S7PlcDetail>();
 
@@ -30,7 +31,6 @@ namespace Dimat_WPF
         public MainWindow()
         {
             InitializeComponent();
-
             // Close left menu
             ToogleLeftMenu(MenuTag.None);
             // Create PLC list
@@ -80,87 +80,81 @@ namespace Dimat_WPF
         private void Group_Plc_DoubleClicked(object sender, EventArgs e)
         {
             S7PLC plc = ((PlcButton)sender).s7plc;
-            AddBookmark(plc.ID);
+            S7PlcDetail detail = new S7PlcDetail(plc.ID);
+            AddBookmark(plc.ID,detail);
         }
 
         #region Bookmark
 
-        private void AddBookmark(int ID)
+        private void AddBookmark(int ID, UserControl userControl = null)
         {
             Bookmark old = UsedBookmarks.Find(o => o.ID == ID);
+            
             if (old == null)
             {
+                // Create bookmark and add control to it
                 Bookmark bookmark = new Bookmark(ID);
                 bookmark.CloseClicked += Bookmark_CloseClicked;
                 bookmark.NameClicked += Bookmark_NameClicked;
+
+                bookmark.userControl = userControl != null ? userControl: null;
+                
+                // Add GUI
                 BookmarkStack.Children.Add(bookmark);
                 UsedBookmarks.Add(bookmark);
-                AddPlcDetail(ID);
+                SelectBookmark(bookmark);
+                FocusControl(userControl);
             } else
             {
-                FocusDetail(ID);
+                SelectBookmark(old);
+                FocusControl(old.userControl);
             }
         }
 
-        private void RemoveBookmark(int ID)
+        private void RemoveBookmark(Bookmark bookmark)
         {
-            Bookmark bookmark = UsedBookmarks.Find(o => o.ID == ID);
             BookmarkStack.Children.Remove(bookmark);
             UsedBookmarks.Remove(bookmark);
+            HideAllControls();
         }
 
         private void Bookmark_NameClicked(object sender, EventArgs e)
         {
-            FocusDetail((int)sender);
+            Bookmark clicked = (Bookmark)sender;
+            SelectBookmark(clicked);
+            FocusControl(clicked.userControl);
         }
 
         private void Bookmark_CloseClicked(object sender, EventArgs e)
         {
-            RemoveBookmark((int)sender);
-            RemoveDetail((int)sender);
+            Bookmark clicked = (Bookmark)sender;
+            RemoveBookmark(clicked);
         }
 
-        private void SelectBookmark(int ID)
+        private void SelectBookmark(Bookmark toselect)
         {
             foreach (Bookmark bookmark in BookmarkStack.Children)
-            {
-                if (bookmark.ID == ID)
-                    bookmark.Select();
-                else
-                    bookmark.Unselect();
-            }
+                bookmark.Unselect();
+
+            toselect.Select();
         }
 
         #endregion
 
         #region Plc detail
 
-        private void AddPlcDetail(int ID)
+        private void FocusControl(UserControl userControl)
         {
-            S7PlcDetail detail = new S7PlcDetail(ID);
-            UsedS7Details.Add(detail);
-            FocusDetail(detail);
+            if (!GridPlcDetail.Children.Contains(userControl))
+            {
+                HideAllControls();
+                GridPlcDetail.Children.Add(userControl);
+            }
         }
 
-        private void RemoveDetail(int ID)
-        {
-            S7PlcDetail detail = UsedS7Details.Find(o => o.ID == ID);
-            GridPlcDetail.Children.Remove(detail);
-            UsedS7Details.Remove(detail);
-        }
-
-        private void FocusDetail(int ID)
-        {
-            S7PlcDetail detail = UsedS7Details.Find(o => o.ID == ID);
-            if (detail != null)
-                FocusDetail(detail);
-        }
-
-        private void FocusDetail(S7PlcDetail detail)
+        private void HideAllControls()
         {
             GridPlcDetail.Children.Clear();
-            GridPlcDetail.Children.Add(detail);
-            SelectBookmark(detail.ID);
         }
 
         #endregion

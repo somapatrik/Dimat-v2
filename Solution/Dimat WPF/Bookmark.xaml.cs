@@ -25,6 +25,8 @@ namespace Dimat_WPF
         public event EventHandler CloseClicked;
         public event EventHandler NameClicked;
 
+        public UserControl userControl;
+
         public Bookmark(int ID)
         {
             InitializeComponent();
@@ -60,12 +62,12 @@ namespace Dimat_WPF
         }
         private void Close_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            CloseClicked?.Invoke(ID, null);
+            CloseClicked?.Invoke(this, null);
         }
 
         private void Name_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            NameClicked?.Invoke(ID, null);
+            NameClicked?.Invoke(this, null);
         }
     }
 }

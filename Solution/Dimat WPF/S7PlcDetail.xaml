@@ -90,8 +90,7 @@
 
             <StackPanel x:Name="StackRightSideMenu" Orientation="Vertical">
                 <Label x:Name="btnProperties" FontFamily="Segoe MDL2 Assets" Content="&#xE946;" MouseLeftButtonUp="btnProperties_MouseLeftButtonUp"  Style="{StaticResource DetailSideButton}"/>
-                <Label FontFamily="Segoe MDL2 Assets" Content="&#xE783;" Style="{StaticResource DetailSideButton}"/>
-                <Label FontFamily="Segoe MDL2 Assets" Content="&#xE70B;" Style="{StaticResource DetailSideButton}"/>
+                <Label x:Name="btnNotes" FontFamily="Segoe MDL2 Assets" Content="&#xE70B;" Style="{StaticResource DetailSideButton}"/>
             </StackPanel>
 
         </Grid>
