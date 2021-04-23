@@ -18,11 +18,13 @@
         
         <Grid Style="{StaticResource GroupBar}">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <Label x:Name="lbl_Groupname" MouseLeftButtonUp="GroupName_clicked" Style="{StaticResource PLCGroupName}"/>
-            <Label x:Name="lbl_AddPLC" Grid.Column="1" Content="+" MouseLeftButtonUp="AddPLC_clicked" Style="{StaticResource PLCGroupButton}"/>
+            <Label x:Name="lbl_Arrow" Grid.Column="0" FontFamily="Marlett" Content="6" MouseLeftButtonUp="GroupName_clicked" Style="{StaticResource PLCGroupName}"/>
+            <Label x:Name="lbl_Groupname" Grid.Column="1" MouseLeftButtonUp="GroupName_clicked" Style="{StaticResource PLCGroupName}"/>
+            <Label x:Name="lbl_AddPLC" Grid.Column="2" Content="+" MouseLeftButtonUp="AddPLC_clicked" Style="{StaticResource PLCGroupButton}"/>
         </Grid>
 
         <StackPanel Grid.Row="1" x:Name="ButtonStack" Orientation="Vertical"/>

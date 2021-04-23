@@ -141,7 +141,7 @@ namespace Dimat_WPF
 
         #endregion
 
-        #region Plc detail
+        #region Control focus
 
         private void FocusControl(UserControl userControl)
         {

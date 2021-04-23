@@ -92,7 +92,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Viewbox>
-                        <TextBlock Text="!FREE MONEY!" Style="{StaticResource DangerText}"/>
+                        <TextBlock Text="WARNING!" Style="{StaticResource DangerText}"/>
                     </Viewbox>
                     <TextBlock Grid.Row="1" Text="Using these functions can cause damage or harm. Please be careful." TextWrapping="Wrap" Style="{StaticResource DangerText}"/>
                     <Label Grid.Row="2" Content="I understand" MouseLeftButtonUp="DangerButton_Clicked" Style="{StaticResource DangerButton}"/>

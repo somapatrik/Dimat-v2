@@ -56,17 +56,24 @@ namespace Dimat_WPF
         private void CreateGroupName()
         {
             if (ID_GROUP == 0)
-            {
                 lbl_Groupname.Content = "";
-            } else
-            {
+            else
                 lbl_Groupname.Content = dbglob.GetGroupName(ID_GROUP);
-            }
         }
 
         private void GroupName_clicked(object sender, MouseButtonEventArgs e)
         {
-            ButtonStack.Visibility = ButtonStack.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+            if (ButtonStack.Visibility == Visibility.Visible)
+            {
+                ButtonStack.Visibility = Visibility.Collapsed;
+                lbl_Arrow.Content = "4";
+            }
+            else
+            {
+                ButtonStack.Visibility = Visibility.Visible;
+                lbl_Arrow.Content = "6";
+            }
+
         }
 
         private void LoadGroup()
