@@ -4,6 +4,7 @@
 
     <Style x:Key="DarkBox" TargetType="TextBox">
         <Setter Property="Background" Value="#FF495162"/>
+        <!--<Setter Property="Background" Value="#373e47"/>-->
         <Setter Property="Foreground" Value="WhiteSmoke"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Margin" Value="0 2.5"/>
@@ -163,8 +164,9 @@
 
     <Style x:Key="ColorLabel" TargetType="Label">
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="BorderBrush" Value="#FF495162"/>
-        <Setter Property="Foreground" Value="WhiteSmoke"/>
+        <!--<Setter Property="BorderBrush" Value="#FF495162"/>-->
+        <Setter Property="BorderBrush" Value="#808b98"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="Padding" Value="10 5"/>
         <Setter Property="Margin" Value="0 2.5 0 2.5"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -195,7 +197,8 @@
     </Style>
 
     <Style x:Key="PlcButtonPingOK" TargetType="Border">
-        <Setter Property="Background" Value="LimeGreen"/>
+        <!--<Setter Property="Background" Value="LimeGreen"/>-->
+        <Setter Property="Background" Value="#39d353"/>
     </Style>
 
     <Style x:Key="PlcButtonPingNOK" TargetType="Border">
@@ -207,7 +210,8 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Cursor" Value="Hand"/>
-                <Setter Property="Background" Value="#1a4b85"/>
+                <!--<Setter Property="Background" Value="#1a4b85"/>-->
+                <Setter Property="Background" Value="#316dca"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -240,7 +244,7 @@
     </Style>
 
     <Style x:Key="BookmarkSelected" TargetType="Border">
-        <Setter Property="Background" Value="#FF1a4b85"/>
+        <Setter Property="Background" Value="#2C62B5"/>
     </Style>
 
     <Style x:Key="BookmarkNormal" TargetType="Border">
@@ -267,12 +271,14 @@
     </Style>
 
     <Style x:Key="GroupBar" TargetType="Grid">
-        <Setter Property="Background" Value="#D01a4b85"/>
+        <!--<Setter Property="Background" Value="#D01a4b85"/>-->
+        <Setter Property="Background" Value="#2C62B5"/>
         <Setter Property="Margin" Value="0"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Cursor" Value="Hand"/>
-                <Setter Property="Background" Value="#FF1a4b85"/>
+                <!--<Setter Property="Background" Value="#FF1a4b85"/>-->
+                <Setter Property="Background" Value="#316dca"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -296,11 +302,12 @@
     </Style>
 
     <Style x:Key="DetailSideButton" TargetType="Label">
-        <Setter Property="Foreground" Value="#5FFFFFFF"/>
+        <Setter Property="Foreground" Value="#AFFFFFFF"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="28px"/>
         <Setter Property="Padding" Value="0 15"/>
-        <Setter Property="BorderBrush" Value="#FF495162"/>
+        <Setter Property="BorderBrush" Value="#5B6271"/>
+        <!--<Setter Property="BorderBrush" Value="#808b98"/>-->
         <Setter Property="BorderThickness" Value=".5"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
