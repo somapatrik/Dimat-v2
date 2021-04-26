@@ -14,7 +14,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition MaxWidth="1" x:Name="col_RightMenuGripper"/>
+            <ColumnDefinition MaxWidth="2" x:Name="col_RightMenuGripper"/>
             <ColumnDefinition Width="300px" x:Name="col_RightMenu"/>
             <ColumnDefinition Width="70px"/>
         </Grid.ColumnDefinitions>

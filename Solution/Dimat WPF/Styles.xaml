@@ -211,7 +211,7 @@
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Cursor" Value="Hand"/>
                 <!--<Setter Property="Background" Value="#1a4b85"/>-->
-                <Setter Property="Background" Value="#316dca"/>
+                <Setter Property="Background" Value="#2c62b5"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -244,7 +244,7 @@
     </Style>
 
     <Style x:Key="BookmarkSelected" TargetType="Border">
-        <Setter Property="Background" Value="#2C62B5"/>
+        <Setter Property="Background" Value="#2758A2"/>
     </Style>
 
     <Style x:Key="BookmarkNormal" TargetType="Border">
@@ -272,13 +272,13 @@
 
     <Style x:Key="GroupBar" TargetType="Grid">
         <!--<Setter Property="Background" Value="#D01a4b85"/>-->
-        <Setter Property="Background" Value="#2C62B5"/>
+        <Setter Property="Background" Value="#2758A2"/>
         <Setter Property="Margin" Value="0"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Cursor" Value="Hand"/>
                 <!--<Setter Property="Background" Value="#FF1a4b85"/>-->
-                <Setter Property="Background" Value="#316dca"/>
+                <Setter Property="Background" Value="#2c62b5"/>
             </Trigger>
         </Style.Triggers>
     </Style>
