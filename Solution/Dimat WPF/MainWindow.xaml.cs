@@ -28,34 +28,25 @@ namespace Dimat_WPF
         private enum MenuTag { None, PLC, Settings};
         private MenuTag OpenedMenu;
 
+        PlcList PlcListControl = new PlcList();
+
         public MainWindow()
         {
             InitializeComponent();
             // Close left menu
             ToogleLeftMenu(MenuTag.None);
             // Create PLC list
-            PopulatePlcList();
+            //PopulatePlcList();
+            SetPlcList();
+
         }
 
-        private void PopulatePlcList()
+        private void SetPlcList()
         {
-            GroupButtons nogroup = new GroupButtons();
-            AddGroup(nogroup);
-
-            foreach (PlcGroup grp in dbglobal.GetGroupList())
-            {
-                GroupButtons group = new GroupButtons(grp.ID);
-                AddGroup(group);
-            }
-        }
-
-        private void AddGroup(GroupButtons group)
-        {
-            group.AddPlc_Clicked += AddPlc_Group_Clicked;
-            group.Plc_DoubleClicked += Group_Plc_DoubleClicked;
-            group.DeleteClicked += Group_DeleteClicked;
-            group.EditClicked += Group_EditClicked;
-            PlcStack.Children.Add(group);
+            PlcListControl.AddPlc_Clicked += AddPlc_Group_Clicked;
+            PlcListControl.EditClicked += Group_EditClicked;
+            PlcListControl.Plc_DoubleClicked += Group_Plc_DoubleClicked;
+            PlcListControl.DeleteClicked += Group_DeleteClicked;
         }
 
         // Edit PLC
@@ -171,15 +162,7 @@ namespace Dimat_WPF
         private void AddPlc_CloseClicked(object sender, EventArgs e)
         {
             HidePopup();
-            RefreshPlcList();
-        }
-
-        private void RefreshPlcList()
-        {
-            foreach (GroupButtons group in PlcStack.Children)
-            {
-                group.Refresh();
-            }
+            PlcListControl.RefreshPlcList();
         }
 
         #region Popup
@@ -203,42 +186,25 @@ namespace Dimat_WPF
 
         private void BtnShowAddGroup_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            txtGroupName.Visibility = txtGroupName.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
-            btnAddGroup.Visibility = btnAddGroup.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
-        }
-
-        private void txtGroupName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (txtGroupName.Text.Length < 4 | !dbglobal.IsGroupNameAvailable(txtGroupName.Text))
-            {
-                txtGroupName.Style = (Style)Resources["DarkBoxNOK"];
-                btnAddGroup.IsEnabled = false;
-                ValidGroup = false;
-            }
-            else
-            {
-                txtGroupName.Style = (Style)Resources["DarkBox"];
-                btnAddGroup.IsEnabled = true;
-                ValidGroup = true;
-            }
+            //txtGroupName.Visibility = txtGroupName.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
+            //btnAddGroup.Visibility = btnAddGroup.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
         }
        
         private void btnAddGroup_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (ValidGroup)
             {
-                dbglobal.CreateGroup(txtGroupName.Text);
-                txtGroupName.Text = "";
-                txtGroupName.Style = (Style)Resources["DarkBox"];
-                GroupButtons grp = new GroupButtons(dbglobal.GetLastGroupID());
-                AddGroup(grp);
+                //dbglobal.CreateGroup(txtGroupName.Text);
+                //txtGroupName.Text = "";
+                //txtGroupName.Style = (Style)Resources["DarkBox"];
+                //GroupButtons grp = new GroupButtons(dbglobal.GetLastGroupID());
+                //AddGroup(grp);
             }
         }
 
         // PLC left clicked
         private void btnMenuPLC_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            RefreshPlcList();
             ToogleLeftMenu(MenuTag.PLC, sender);
         }
 
@@ -247,14 +213,31 @@ namespace Dimat_WPF
             DeselectSideMenu();
 
             // Compare required menu with actual one
-            if (OpenedMenu == tag)
+            if (OpenedMenu == tag) 
+            { 
                 // Same menu => Toogle
                 GridLeftMenu.Visibility = GridLeftMenu.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+            }
             else
+            { 
                 // Just open
                 GridLeftMenu.Visibility = Visibility.Visible;
 
+                // 
+                switch (tag)
+                {
+                    case MenuTag.None:
+                        break;
+                    case MenuTag.PLC:
+                        LeftMenuStack.Children.Clear();
+                        LeftMenuStack.Children.Add(PlcListControl);
+                        break;
+                    default:
+                        break;
+                }
+            }
 
+            // Set original dimensions of the menu
             if (GridLeftMenu.Visibility == Visibility.Visible)
             {
                 col_LeftMenu.Width = new GridLength(250, GridUnitType.Pixel);

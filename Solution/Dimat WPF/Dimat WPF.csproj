@@ -128,6 +128,9 @@
     <Compile Include="DeletePlc.xaml.cs">
       <DependentUpon>DeletePlc.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PlcList.xaml.cs">
+      <DependentUpon>PlcList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="S7DataRow.xaml.cs">
       <DependentUpon>S7DataRow.xaml</DependentUpon>
     </Compile>
@@ -186,6 +189,10 @@
     <Page Include="PlcButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlcList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="S7DataRow.xaml">
       <SubType>Designer</SubType>

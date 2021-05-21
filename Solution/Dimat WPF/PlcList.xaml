@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="Dimat_WPF.PlcList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Dimat_WPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary Source="Styles.xaml"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+    <!-- SubMenu -->
+        <Grid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Label Grid.Column="0" x:Name="BtnShowAddGroup" Content="+" ToolTip="Add group" MouseLeftButtonUp="BtnShowAddGroup_MouseLeftButtonUp" Style="{StaticResource ColorButton}"/>
+            </StackPanel>
+        </Grid>
+        
+    <!-- Add group -->
+        <Grid Grid.Row="1" x:Name="GridAddGroup" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBox Grid.Row="0" x:Name="txtGroupName" Visibility="Visible" TextChanged="txtGroupName_TextChanged" Style="{StaticResource DarkBox}"/>
+            <Label Grid.Row="1" x:Name="btnAddGroup" Visibility="Visible"  Content="Create group" MouseLeftButtonUp="btnAddGroup_MouseLeftButtonUp" Style="{StaticResource ColorButton}"/>
+        </Grid>
+        
+        
+
+        <!--Plc list-->
+        <StackPanel x:Name="PlcStack" Grid.Row="2" Orientation="Vertical"/>
+
+    </Grid>
+</UserControl>

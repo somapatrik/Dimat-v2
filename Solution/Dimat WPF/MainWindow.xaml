@@ -65,20 +65,18 @@
 
             <!--Left Menu-->
             <Grid Grid.Column="1" x:Name="GridLeftMenu">
-                <Grid.RowDefinitions>
+                <!--<Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+                </Grid.RowDefinitions>-->
 
                 <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
-                    <StackPanel x:Name="PlcStack" Orientation="Vertical"/>
+                    <!--<StackPanel x:Name="PlcStack" Orientation="Vertical"/>-->
+                    <StackPanel x:Name="LeftMenuStack" Orientation="Vertical"/>
                 </ScrollViewer>
 
                 <!--Group menu-->
-                <Grid Grid.Row="1">
+                <!--<Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition/>
@@ -87,7 +85,7 @@
                     <Label Grid.Column="0" x:Name="BtnShowAddGroup" Content="+" ToolTip="Add group" MouseLeftButtonUp="BtnShowAddGroup_MouseLeftButtonUp" Style="{StaticResource ColorButton}"/>
                     <TextBox Grid.Column="1" x:Name="txtGroupName" Visibility="Collapsed" TextChanged="txtGroupName_TextChanged" Style="{StaticResource DarkBox}"/>
                     <Label Grid.Column="2" x:Name="btnAddGroup" Visibility="Collapsed" Content="Add group" MouseLeftButtonUp="btnAddGroup_MouseLeftButtonUp" Style="{StaticResource ColorButton}"/>
-                </Grid>
+                </Grid>-->
 
             </Grid>
 
@@ -120,7 +118,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Content="v2.0" Style="{StaticResource FooterButton}"/>
-            <Label Grid.Column="2" Content="Database" Style="{StaticResource FooterButton}" HorizontalAlignment="Right"/>
+            <Label Grid.Column="2" Content="Created by retarded asshole" Style="{StaticResource FooterButton}" HorizontalAlignment="Right"/>
         </Grid>
 
         <!--Popup grid-->
