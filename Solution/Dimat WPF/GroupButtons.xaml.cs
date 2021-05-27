@@ -26,9 +26,9 @@ namespace Dimat_WPF
 
         public event EventHandler AddPlc_Clicked;
         public event EventHandler Plc_DoubleClicked;
-
         public event EventHandler DeleteClicked;
         public event EventHandler EditClicked;
+        public event EventHandler Deleted;
 
         Point StartPosition;
         private void Inicialization()
@@ -41,6 +41,9 @@ namespace Dimat_WPF
             Inicialization();
 
             ID_GROUP = GROUP_ID;
+
+            if (GROUP_ID == 0)
+                lbl_Groupname.ContextMenu = null;
 
             CreateGroupName();
             LoadGroup();
@@ -178,5 +181,15 @@ namespace Dimat_WPF
         }
 
         #endregion
+
+        private void btnDeleteGroup_Click(object sender, RoutedEventArgs e)
+        {
+           MessageBoxResult result = MessageBox.Show("Delete group \"" + lbl_Groupname.Content + "\" ?", "Delete group", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+           if (result == MessageBoxResult.Yes)
+            {
+                dbglob.DeleteGroup(ID_GROUP);
+                Deleted?.Invoke(this, null);
+            }
+        }
     }
 }

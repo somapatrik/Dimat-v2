@@ -55,6 +55,7 @@ namespace Dimat_WPF
             group.Plc_DoubleClicked += Group_Plc_DoubleClicked;
             group.DeleteClicked += Group_DeleteClicked;
             group.EditClicked += Group_EditClicked;
+            group.Deleted += Group_Deleted;
             PlcStack.Children.Add(group);
         }
 
@@ -88,6 +89,14 @@ namespace Dimat_WPF
         private void Group_DeleteClicked(object sender, EventArgs e)
         {
             DeleteClicked?.Invoke(sender, e);
+        }
+
+        //Delete group
+        private void Group_Deleted(object sender, EventArgs e)
+        {
+            GroupButtons delgroup = (GroupButtons)sender;
+            PlcStack.Children.Remove(delgroup);
+            RefreshPlcList();   
         }
 
         #endregion

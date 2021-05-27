@@ -14,6 +14,18 @@ namespace Dimat_WPF
 
         #region PLC data rows
 
+        public void DeleteGroup(int GROUP_ID)
+        {
+            DBLite db = new DBLite("UPDATE S7_PLC SET GROUP_ID=NULL WHERE GROUP_ID=@groupid");
+            db.AddParameter("groupid", GROUP_ID, DbType.Int32);
+            db.Exec();
+
+            db = new DBLite("DELETE FROM PLC_GROUP WHERE ID=@groupid");
+            db.AddParameter("groupid", GROUP_ID, DbType.Int32);
+            db.Exec();
+
+        }
+
         public DataTable LoadRows(int PLC_ID)
         {
             DBLite db = new DBLite("SELECT DESCRIPTION, ADDRESS, FORMAT FROM S7_PLC_Signal WHERE PLC=@id");
