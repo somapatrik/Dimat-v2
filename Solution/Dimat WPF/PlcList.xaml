@@ -24,8 +24,8 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                <Label ToolTip="" FontFamily="Segoe MDL2 Assets" Content="&#xE936;" Style="{StaticResource ColorButton}"/>
-                <Label ToolTip="" FontFamily="Segoe MDL2 Assets" Content="&#xE937;" Style="{StaticResource ColorButton}"/>
+                <Label x:Name="btnCollapse" ToolTip="" FontFamily="Segoe MDL2 Assets" Content="&#xE936;" MouseLeftButtonUp="btnCollapse_MouseLeftButtonUp" Style="{StaticResource ColorButton}"/>
+                <Label x:Name="btnExpand" ToolTip="" FontFamily="Segoe MDL2 Assets" Content="&#xE937;" MouseLeftButtonUp="btnExpand_MouseLeftButtonUp" Style="{StaticResource ColorButton}"/>
             </StackPanel>
             <StackPanel Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Right">
                 <Label x:Name="BtnShowAddGroup" FontFamily="Segoe MDL2 Assets" Content="&#xE948;" ToolTip="Add group" MouseLeftButtonUp="BtnShowAddGroup_MouseLeftButtonUp" Style="{StaticResource ColorButton}"/>

@@ -34,6 +34,8 @@ namespace Dimat_WPF
             InitializeComponent();
             // Create PLC list
             PopulatePlcList();
+
+            btnExpand.Visibility = Visibility.Collapsed;
         }
         private void PopulatePlcList()
         {
@@ -59,10 +61,10 @@ namespace Dimat_WPF
         public void RefreshPlcList()
         {
             foreach (GroupButtons group in PlcStack.Children)
-            {
                 group.Refresh();
-            }
         }
+
+        #region Button events
 
         // Add PLC
         private void AddPlc_Group_Clicked(object sender, EventArgs e)
@@ -87,6 +89,8 @@ namespace Dimat_WPF
         {
             DeleteClicked?.Invoke(sender, e);
         }
+
+        #endregion
 
         private void BtnShowAddGroup_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -119,6 +123,22 @@ namespace Dimat_WPF
                 GroupButtons grp = new GroupButtons(dbglobal.GetLastGroupID());
                 AddGroup(grp);
             }
+        }
+
+        private void btnCollapse_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            foreach (GroupButtons group in PlcStack.Children)
+                group.Collapse();
+            btnCollapse.Visibility = Visibility.Collapsed;
+            btnExpand.Visibility = Visibility.Visible;
+        }
+
+        private void btnExpand_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            foreach (GroupButtons group in PlcStack.Children)
+                group.Expand();
+            btnCollapse.Visibility = Visibility.Visible;
+            btnExpand.Visibility = Visibility.Collapsed;
         }
     }
 }

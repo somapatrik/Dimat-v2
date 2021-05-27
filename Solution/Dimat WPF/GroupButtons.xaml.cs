@@ -64,16 +64,21 @@ namespace Dimat_WPF
         private void GroupName_clicked(object sender, MouseButtonEventArgs e)
         {
             if (ButtonStack.Visibility == Visibility.Visible)
-            {
-                ButtonStack.Visibility = Visibility.Collapsed;
-                lbl_Arrow.Content = "4";
-            }
+                Collapse();
             else
-            {
-                ButtonStack.Visibility = Visibility.Visible;
-                lbl_Arrow.Content = "6";
-            }
+                Expand();
+        }
 
+        public void Collapse()
+        {
+            ButtonStack.Visibility = Visibility.Collapsed;
+            lbl_Arrow.Content = "4";
+        }
+
+        public void Expand()
+        {
+            ButtonStack.Visibility = Visibility.Visible;
+            lbl_Arrow.Content = "6";
         }
 
         private void LoadGroup()
