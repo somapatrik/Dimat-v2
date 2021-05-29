@@ -88,7 +88,7 @@ namespace Dimat_WPF
             get { return addressformatter.IsValid; }
         }
 
-        bool IsWriteValid;
+        public bool IsWriteValid;
 
         public S7DataRow(ref S7Client PlcClient)
         {
