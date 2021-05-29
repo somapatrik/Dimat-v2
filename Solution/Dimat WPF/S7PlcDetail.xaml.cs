@@ -255,7 +255,7 @@ namespace Dimat_WPF
                                         row.AddressInfo.DBNumber,
                                         row.AddressInfo.Start,
                                         row.AddressInfo.Amount,
-                                        ref row.array);
+                                        ref row.writearray);
 
                             // Every 20 row, create a new object
                             if (validrowcount % 20 == 0)
@@ -265,6 +265,9 @@ namespace Dimat_WPF
                             }
                                 
                         }
+                    
+                    if (validrowcount % 20 != 0)
+                        writestack.Add(write);
 
                     foreach (S7MultiVar writevar in writestack)
                         writevar.Write();
