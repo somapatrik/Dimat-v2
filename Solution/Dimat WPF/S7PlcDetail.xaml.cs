@@ -172,65 +172,115 @@ namespace Dimat_WPF
             Task.Run(() => { 
             EnableReading(false);
 
-            try
-            {
-                StackData.Dispatcher.Invoke(() => {
-                    multivar = new S7MultiVar(client);
-                    double rowcount = StackData.Children.Count;
+                try
+                {
+                    StackData.Dispatcher.Invoke(() => {
+                        multivar = new S7MultiVar(client);
+                        double rowcount = StackData.Children.Count;
 
-                    if (rowcount > 0)
-                    {
-
-                        int varcount = 0;
-
-                        foreach (S7DataRow row in StackData.Children)
+                        if (rowcount > 0)
                         {
-                            if (row.IsReadValid) 
-                            {
-                                multivar.Add(row.AddressInfo.Area,
-                                    row.AddressInfo.WordLen,
-                                    row.AddressInfo.DBNumber,
-                                    row.AddressInfo.Start,
-                                    row.AddressInfo.Amount,
-                                    ref row.array);
 
-                                varcount++;
-
-                                if (varcount == 19)
-                                {
-                                    varcount = 0;
-                                    multivar.Read();
-                                    //multivar = new S7MultiVar(client);
-                                    multivar.Clear();
-                                }
-                            }
-                        }
-
-                        if (varcount != 0)
-                        {
-                            multivar.Read();
-                            multivar.Clear();
-                        }
+                            int varcount = 0;
 
                             foreach (S7DataRow row in StackData.Children)
-                                row.UpdateValue();
+                            {
+                                if (row.IsReadValid) 
+                                {
+                                    multivar.Add(row.AddressInfo.Area,
+                                        row.AddressInfo.WordLen,
+                                        row.AddressInfo.DBNumber,
+                                        row.AddressInfo.Start,
+                                        row.AddressInfo.Amount,
+                                        ref row.array);
 
-                    }
-                });
-        } 
-            catch (Exception ex)
-            {
+                                    varcount++;
 
-            }
-            finally
-            {
-                if (!KillReading)
+                                    if (varcount == 19)
+                                    {
+                                        varcount = 0;
+                                        multivar.Read();
+                                        //multivar = new S7MultiVar(client);
+                                        multivar.Clear();
+                                    }
+                                }
+                            }
+
+                            if (varcount != 0)
+                            {
+                                multivar.Read();
+                                multivar.Clear();
+                            }
+
+                                foreach (S7DataRow row in StackData.Children)
+                                    row.UpdateValue();
+
+                        }
+                    });
+            } 
+                catch (Exception ex)
                 {
-                    Thread.Sleep(50);
-                    EnableReading(true);
-}
-            }   
-});
+
+                }
+                finally
+                {
+                    if (!KillReading)
+                    {
+                        Thread.Sleep(50);
+                        EnableReading(true);
+                    }
+                }   
+            });
+        }
+
+        private void WriteAction()
+        {
+            S7MultiVar write = new S7MultiVar(client);
+
+            try
+            {
+                List<S7MultiVar> writestack = new List<S7MultiVar>();
+                List<S7DataRow> rowstack = new List<S7DataRow>();
+
+                StackData.Dispatcher.Invoke(()=> 
+                {
+                    int validrowcount = 0;
+                    foreach (S7DataRow row in StackData.Children)
+                        if (row.IsReadValid && row.IsWriteValid)
+                        {
+                            validrowcount++;
+                            rowstack.Add(row);
+                            write.Add(row.AddressInfo.Area,
+                                        row.AddressInfo.WordLen,
+                                        row.AddressInfo.DBNumber,
+                                        row.AddressInfo.Start,
+                                        row.AddressInfo.Amount,
+                                        ref row.writearray);
+
+                            // Every 20 row, create a new object
+                            if (validrowcount % 20 == 0)
+                            {
+                                writestack.Add(write);
+                                write = new S7MultiVar(client);
+                            }
+                                
+                        }
+                    
+                    if (validrowcount % 20 != 0)
+                        writestack.Add(write);
+
+                    foreach (S7MultiVar writevar in writestack)
+                        writevar.Write();
+
+
+                            
+                });
+
+            }catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Kurva!");
+            }
+
         }
 
         private void SetGUI()
@@ -242,6 +292,7 @@ namespace Dimat_WPF
             btnReadingStart.Visibility = Visibility.Collapsed;
             btnReadingPause.Visibility = Visibility.Collapsed;
             btnReadOnce.Visibility = Visibility.Collapsed;
+            btnWriteAll.Visibility = Visibility.Collapsed;
 
             lblname.Content = plc.Name;
             lblIP.Content = plc.IP;
@@ -273,6 +324,7 @@ namespace Dimat_WPF
             btnReadingStart.Visibility = Visibility.Collapsed;
             btnReadingPause.Visibility = Visibility.Collapsed;
             btnReadOnce.Visibility = Visibility.Collapsed;
+            btnWriteAll.Visibility = Visibility.Collapsed;
 
             lblPlcStatus.Style = (Style)Resources["ColorLabelNOK"];
             lblPlcStatus.Content = "Disconnected";
@@ -286,6 +338,7 @@ namespace Dimat_WPF
                 btnConnect.Visibility = Visibility.Collapsed;
                 btnReadingStart.Visibility = Visibility.Visible;
                 btnReadOnce.Visibility = Visibility.Visible;
+                btnWriteAll.Visibility = Visibility.Visible;
                 EnableWatch(true);
             }
         }
@@ -447,5 +500,9 @@ namespace Dimat_WPF
                 button.Style = (Style)Resources["DetailSideButton"];
         }
 
+        private void btnWriteAll_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            WriteAction();
+        }
     }
 }

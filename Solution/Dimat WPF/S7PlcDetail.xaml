@@ -67,7 +67,7 @@
                         <Label x:Name="btnReadingStart" ToolTip="Reading from PLC" FontFamily="Segoe MDL2 Assets"  Content="&#xE768;" Style="{StaticResource RowButton}" MouseLeftButtonUp="btnReadingStart_MouseLeftButtonUp"/>
                         <Label x:Name="btnReadOnce" ToolTip="Read once from PLC" FontFamily="Segoe MDL2 Assets"  Content="&#xE893;" Style="{StaticResource RowButton}" MouseLeftButtonUp="btnReadOnce_MouseLeftButtonUp"/>
                         <Label x:Name="btnReadingPause" ToolTip="Stop reading" FontFamily="Segoe MDL2 Assets"  Content="&#xE769;" Style="{StaticResource RowButton}" MouseLeftButtonUp="btnReadingPause_MouseLeftButtonUp"/>
-                        <Label x:Name="btnWriteAll" ToolTip="Write all to PLC" FontFamily="Segoe MDL2 Assets"  Content="&#xE898;&#xE898;" Style="{StaticResource RowButton}" />
+                        <Label x:Name="btnWriteAll" ToolTip="Write all to PLC" FontFamily="Segoe MDL2 Assets"  Content="&#xE898;&#xE898;" MouseLeftButtonUp="btnWriteAll_MouseLeftButtonUp" Style="{StaticResource RowButton}" />
                     </StackPanel>
 
                 </StackPanel>
