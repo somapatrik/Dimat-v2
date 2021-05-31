@@ -54,39 +54,18 @@
             
             <!--Left side menu-->
             <Grid Background="#1F000000">
-
                 <StackPanel x:Name="StackLeftSideMenu" Orientation="Vertical">
                     <Label Content="PLC" x:Name="btnMenuPLC" MouseLeftButtonUp="btnMenuPLC_MouseLeftButtonUp"  Style="{StaticResource DetailSideButton}"/>
+                    <!--<Label Content="IT" Style="{StaticResource DetailSideButton}"/>-->
                     <Label FontFamily="Segoe MDL2 Assets" Content="&#xE713;" Style="{StaticResource DetailSideButton}"/>
                 </StackPanel>
-
             </Grid>
-
 
             <!--Left Menu-->
             <Grid Grid.Column="1" x:Name="GridLeftMenu">
-                <!--<Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>-->
-
                 <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
-                    <!--<StackPanel x:Name="PlcStack" Orientation="Vertical"/>-->
                     <StackPanel x:Name="LeftMenuStack" Orientation="Vertical"/>
                 </ScrollViewer>
-
-                <!--Group menu-->
-                <!--<Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" x:Name="BtnShowAddGroup" Content="+" ToolTip="Add group" MouseLeftButtonUp="BtnShowAddGroup_MouseLeftButtonUp" Style="{StaticResource ColorButton}"/>
-                    <TextBox Grid.Column="1" x:Name="txtGroupName" Visibility="Collapsed" TextChanged="txtGroupName_TextChanged" Style="{StaticResource DarkBox}"/>
-                    <Label Grid.Column="2" x:Name="btnAddGroup" Visibility="Collapsed" Content="Add group" MouseLeftButtonUp="btnAddGroup_MouseLeftButtonUp" Style="{StaticResource ColorButton}"/>
-                </Grid>-->
-
             </Grid>
 
             <!--GridSplitter-->

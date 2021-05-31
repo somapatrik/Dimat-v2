@@ -32,11 +32,12 @@ namespace Dimat_WPF
         public PlcList()
         {
             InitializeComponent();
+
             // Create PLC list
             PopulatePlcList();
-
             btnExpand.Visibility = Visibility.Collapsed;
         }
+
         private void PopulatePlcList()
         {
             GroupButtons nogroup = new GroupButtons();
