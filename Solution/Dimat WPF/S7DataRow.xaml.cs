@@ -370,7 +370,8 @@ namespace Dimat_WPF
 
         private void txt_Value_LostFocus(object sender, RoutedEventArgs e)
         {
-            ValidateInputValue();
+            if (addressformatter.IsValid)
+                ValidateInputValue();
         }
 
         #endregion
