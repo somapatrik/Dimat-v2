@@ -351,7 +351,7 @@ namespace Dimat_WPF
 
         private void txt_Actual_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Read();
+            //Read();
         }
 
         private void cmb_Format_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -404,7 +404,6 @@ namespace Dimat_WPF
         {
             string input = txt_Value.Text;
             bool result = false;
-            //writearray = null;
             writearray = new byte[array.Length];
 
             // Test values
@@ -422,8 +421,6 @@ namespace Dimat_WPF
                     {
                         case "BOOL":
                             bool_test = bool.TryParse(input, out result);
-                            
-                            //writearray = new byte[array.Length] ;
                             if (result)
                                 S7.SetBitAt(ref writearray, 0, addressformatter.Bit, bool_test);
 
@@ -544,6 +541,10 @@ namespace Dimat_WPF
                 {
                     IsWriteValid = false;
                 }
+            }
+            else
+            {
+                IsWriteValid = false;
             }
         }
 
