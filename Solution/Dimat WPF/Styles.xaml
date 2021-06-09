@@ -177,8 +177,8 @@
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="BorderBrush" Value="IndianRed"/>
         <Setter Property="Foreground" Value="IndianRed"/>
-        <Setter Property="Padding" Value="10 5"/>
-        <Setter Property="Margin" Value="5 2.5 5 2.5"/>
+        <!--<Setter Property="Padding" Value="10 5"/>-->
+        <!--<Setter Property="Margin" Value="5 2.5 5 2.5"/>-->
     </Style>
 
     <Style x:Key="ColorLabelOK" BasedOn="{StaticResource ColorLabel}" TargetType="Label">
