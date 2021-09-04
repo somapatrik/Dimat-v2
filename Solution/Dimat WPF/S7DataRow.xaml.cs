@@ -408,6 +408,7 @@ namespace Dimat_WPF
 
             // Test values
             bool bool_test;
+            byte byte_test;
             int sint_test;
             uint uint_test;
             float float_test;
@@ -424,6 +425,33 @@ namespace Dimat_WPF
                             if (result)
                                 S7.SetBitAt(ref writearray, 0, addressformatter.Bit, bool_test);
 
+                            break;
+
+                        case "BINARY":
+
+                            string clear = "";
+                            foreach (char c in input)
+                                if (c == '1' || c == '0')
+                                    clear += c;                                    
+
+                            switch (array.Length)
+                            {
+                                case 1:
+                                    if (clear.Length == 8)
+                                        result = true;
+                                        S7.SetByteAt(writearray, 0, Convert.ToByte(clear, 2));
+                                    break;
+                                case 2:
+                                    if (clear.Length == 16)
+                                        result = true;
+                                        S7.SetWordAt(writearray, 0, Convert.ToUInt16(clear, 2));
+                                    break;
+                                case 4:
+                                    if (clear.Length == 32)
+                                        result = true;
+                                        S7.SetDWordAt(writearray, 0, Convert.ToUInt32(clear, 2));
+                                    break;
+                            }
                             break;
 
                         case "DECIMAL +/-":
