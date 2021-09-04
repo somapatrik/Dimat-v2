@@ -408,7 +408,6 @@ namespace Dimat_WPF
 
             // Test values
             bool bool_test;
-            byte byte_test;
             int sint_test;
             uint uint_test;
             float float_test;
@@ -428,9 +427,13 @@ namespace Dimat_WPF
                             break;
 
                         case "BINARY":
-
+                            /* 
+                             First check if length makes sense
+                             because otherwise it slows down whole program
+                            */
                             if (input.Length == 8 || input.Length == 16 || input.Length == 32)
                             {
+                                // Take only 0s 1s from input string
                                 string clear = "";
                                 foreach (char c in input)
                                     if (c == '1' || c == '0')
@@ -455,7 +458,6 @@ namespace Dimat_WPF
                                         break;
                                 }
                             }
-                            
                             break;
 
                         case "DECIMAL +/-":
