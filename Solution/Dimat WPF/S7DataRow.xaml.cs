@@ -429,29 +429,33 @@ namespace Dimat_WPF
 
                         case "BINARY":
 
-                            string clear = "";
-                            foreach (char c in input)
-                                if (c == '1' || c == '0')
-                                    clear += c;                                    
-
-                            switch (array.Length)
+                            if (input.Length == 8 || input.Length == 16 || input.Length == 32)
                             {
-                                case 1:
-                                    if (clear.Length == 8)
-                                        result = true;
+                                string clear = "";
+                                foreach (char c in input)
+                                    if (c == '1' || c == '0')
+                                        clear += c;
+
+                                switch (array.Length)
+                                {
+                                    case 1:
+                                        if (clear.Length == 8)
+                                            result = true;
                                         S7.SetByteAt(writearray, 0, Convert.ToByte(clear, 2));
-                                    break;
-                                case 2:
-                                    if (clear.Length == 16)
-                                        result = true;
+                                        break;
+                                    case 2:
+                                        if (clear.Length == 16)
+                                            result = true;
                                         S7.SetWordAt(writearray, 0, Convert.ToUInt16(clear, 2));
-                                    break;
-                                case 4:
-                                    if (clear.Length == 32)
-                                        result = true;
+                                        break;
+                                    case 4:
+                                        if (clear.Length == 32)
+                                            result = true;
                                         S7.SetDWordAt(writearray, 0, Convert.ToUInt32(clear, 2));
-                                    break;
+                                        break;
+                                }
                             }
+                            
                             break;
 
                         case "DECIMAL +/-":
