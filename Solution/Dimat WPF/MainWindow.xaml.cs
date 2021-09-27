@@ -123,8 +123,6 @@ namespace Dimat_WPF
             if(clicked.userControl != null)
                 if (clicked.userControl is S7PlcDetail)
                     ((S7PlcDetail) clicked.userControl).Kill();
-                
-                    
 
             RemoveBookmark(clicked);
         }
