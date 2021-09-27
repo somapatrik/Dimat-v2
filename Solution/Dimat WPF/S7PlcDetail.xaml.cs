@@ -304,6 +304,11 @@ namespace Dimat_WPF
             ToogleMenu(MenuDetailTag.None);
         }
 
+        public void Kill()
+        {
+            DisconnectAction();
+        }
+
         #region Connect / disconnect button
         private void lblConnect_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {

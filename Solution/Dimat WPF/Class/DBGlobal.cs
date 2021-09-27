@@ -58,7 +58,6 @@ namespace Dimat_WPF
 
         public void SaveRow(int PLC_ID, string Desc, string Address, string Format)
         {
-
             StringBuilder query = new StringBuilder();
             query.AppendLine("INSERT INTO S7_PLC_Signal (");
             query.AppendLine("PLC,");
@@ -82,7 +81,6 @@ namespace Dimat_WPF
 
             db.Exec();
         }
-
         #endregion
 
         public void DeletePlc(int ID)
@@ -174,6 +172,7 @@ namespace Dimat_WPF
             DataTable dt = db.ExecTable();
             return dt.Rows.Count > 0 ? false : true;
         }
+
         public bool IsUpdatePlcIpAvailable(string ip, int ID)
         {
             DBLite db = new DBLite("select * from S7_PLC where IP like @ip AND ID<>@ID");
@@ -213,5 +212,7 @@ namespace Dimat_WPF
             DataTable dt = db.ExecTable();
             return dt;
         }
+
+
     }
 }

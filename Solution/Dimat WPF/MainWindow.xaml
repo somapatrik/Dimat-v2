@@ -54,11 +54,17 @@
             
             <!--Left side menu-->
             <Grid Background="#1F000000">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
                 <StackPanel x:Name="StackLeftSideMenu" Orientation="Vertical">
                     <Label Content="PLC" x:Name="btnMenuPLC" MouseLeftButtonUp="btnMenuPLC_MouseLeftButtonUp"  Style="{StaticResource DetailSideButton}"/>
-                    <!--<Label Content="IT" Style="{StaticResource DetailSideButton}"/>-->
-                    <Label FontFamily="Segoe MDL2 Assets" Content="&#xE713;" Style="{StaticResource DetailSideButton}"/>
+                    
                 </StackPanel>
+                
+                <Label Grid.Row="1" FontFamily="Segoe MDL2 Assets" Content="&#xE713;" Style="{StaticResource DetailSideButton}"/>
+                
             </Grid>
 
             <!--Left Menu-->
@@ -97,7 +103,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Content="v2.0" Style="{StaticResource FooterButton}"/>
-            <Label Grid.Column="2" Content="Created by retarded asshole" Style="{StaticResource FooterButton}" HorizontalAlignment="Right"/>
+            <Label Grid.Column="2" Content="© 2021 Patrik Šoma" Style="{StaticResource FooterButton}" HorizontalAlignment="Right"/>
         </Grid>
 
         <!--Popup grid-->

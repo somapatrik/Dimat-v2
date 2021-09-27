@@ -119,6 +119,13 @@ namespace Dimat_WPF
         private void Bookmark_CloseClicked(object sender, EventArgs e)
         {
             Bookmark clicked = (Bookmark)sender;
+
+            if(clicked.userControl != null)
+                if (clicked.userControl is S7PlcDetail)
+                    ((S7PlcDetail) clicked.userControl).Kill();
+                
+                    
+
             RemoveBookmark(clicked);
         }
 
@@ -190,17 +197,17 @@ namespace Dimat_WPF
             //btnAddGroup.Visibility = btnAddGroup.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
         }
        
-        private void btnAddGroup_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            if (ValidGroup)
-            {
-                //dbglobal.CreateGroup(txtGroupName.Text);
-                //txtGroupName.Text = "";
-                //txtGroupName.Style = (Style)Resources["DarkBox"];
-                //GroupButtons grp = new GroupButtons(dbglobal.GetLastGroupID());
-                //AddGroup(grp);
-            }
-        }
+        //private void btnAddGroup_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (ValidGroup)
+        //    {
+        //        //dbglobal.CreateGroup(txtGroupName.Text);
+        //        //txtGroupName.Text = "";
+        //        //txtGroupName.Style = (Style)Resources["DarkBox"];
+        //        //GroupButtons grp = new GroupButtons(dbglobal.GetLastGroupID());
+        //        //AddGroup(grp);
+        //    }
+        //}
 
         // PLC left clicked
         private void btnMenuPLC_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -223,7 +230,6 @@ namespace Dimat_WPF
                 // Just open
                 GridLeftMenu.Visibility = Visibility.Visible;
 
-                // 
                 switch (tag)
                 {
                     case MenuTag.None:
