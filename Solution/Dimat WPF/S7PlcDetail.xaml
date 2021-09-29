@@ -85,8 +85,7 @@
             <GridSplitter Grid.Row="2" Background="#FF495162" HorizontalAlignment="Stretch"/>
 
             <!--Console log-->
-            <StackPanel Grid.Row="3" x:Name="StackBottom" Orientation="Vertical"/>
-            
+            <Grid Grid.Row="3" x:Name="GridBottom"/>
         </Grid>
 
         <!--Right side-->

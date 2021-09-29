@@ -289,7 +289,8 @@ namespace Dimat_WPF
         {
 
             StackControls.Children.Add(properties);
-            StackBottom.Children.Add(LogConsole);
+            GridBottom.Children.Add(LogConsole);
+            
 
             btnDisconnect.Visibility = Visibility.Collapsed;
             btnReadingStart.Visibility = Visibility.Collapsed;
