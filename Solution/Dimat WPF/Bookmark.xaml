@@ -14,7 +14,7 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="lblName" Content="Name" MouseLeftButtonUp="Name_MouseLeftButtonUp" Style="{StaticResource BookmarkName}"/>
+        <Label x:Name="lblName" Content="Name"  MouseLeftButtonUp="Name_MouseLeftButtonUp" Style="{StaticResource BookmarkName}"/>
         <Label Grid.Column="1" x:Name="Close" Content="x" MouseLeftButtonUp="Close_MouseLeftButtonUp" Style="{StaticResource BookmarkButton}"/>
         <Border x:Name="GridBorder" Grid.ColumnSpan="2" Panel.ZIndex="-1" Style="{StaticResource BookmarkNormal}"/>
     </Grid>

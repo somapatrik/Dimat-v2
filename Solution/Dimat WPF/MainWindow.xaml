@@ -60,7 +60,6 @@
                 </Grid.RowDefinitions>
                 <StackPanel x:Name="StackLeftSideMenu" Orientation="Vertical">
                     <Label Content="PLC" x:Name="btnMenuPLC" MouseLeftButtonUp="btnMenuPLC_MouseLeftButtonUp"  Style="{StaticResource DetailSideButton}"/>
-                    
                 </StackPanel>
                 
                 <Label Grid.Row="1" FontFamily="Segoe MDL2 Assets" Content="&#xE713;" Style="{StaticResource DetailSideButton}"/>

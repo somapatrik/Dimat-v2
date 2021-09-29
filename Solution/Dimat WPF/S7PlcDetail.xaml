@@ -32,9 +32,12 @@
             </Grid.ContextMenu>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
-                <RowDefinition/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition MaxHeight="3"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+            <!-- Buttons -->
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -75,9 +78,15 @@
             </Grid>
 
             <!--Rows-->
-            <ScrollViewer Grid.Row="2"  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer Grid.Row="1"  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <StackPanel  x:Name="StackData" Orientation="Vertical" Margin="5"/>
             </ScrollViewer>
+
+            <GridSplitter Grid.Row="2" Background="#FF495162" HorizontalAlignment="Stretch"/>
+
+            <!--Console log-->
+            <StackPanel Grid.Row="3" x:Name="StackBottom" Orientation="Vertical"/>
+            
         </Grid>
 
         <!--Right side-->

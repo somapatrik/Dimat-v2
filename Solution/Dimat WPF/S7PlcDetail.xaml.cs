@@ -51,6 +51,7 @@ namespace Dimat_WPF
 
         // Control
         S7Properties properties;
+        S7Console LogConsole;
 
 
         public int ID
@@ -82,6 +83,7 @@ namespace Dimat_WPF
             multivar = new S7MultiVar(client);
             // S7 Properties control
             properties = new S7Properties(ref client);
+            LogConsole = new S7Console();
             // Set timer for status watching
             StatusWatch = new System.Threading.Timer(StatusWatchCallBack, WatchReset, Timeout.Infinite, WatchStatusTime);
             //Set Reading timer
@@ -287,6 +289,7 @@ namespace Dimat_WPF
         {
 
             StackControls.Children.Add(properties);
+            StackBottom.Children.Add(LogConsole);
 
             btnDisconnect.Visibility = Visibility.Collapsed;
             btnReadingStart.Visibility = Visibility.Collapsed;

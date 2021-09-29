@@ -18,7 +18,7 @@ namespace Dimat_WPF
     public partial class Bookmark : UserControl
     {
         public int ID;
-        public string PlcName;
+        public string DisplayName;
 
         DBGlobal dbglob = new DBGlobal();
 
@@ -34,17 +34,6 @@ namespace Dimat_WPF
             LoadName();
         }
 
-        public void Refresh(int ID)
-        {
-            this.ID=ID;
-            LoadName();
-        }
-
-        public void Refresh()
-        {
-            LoadName();
-        }
-
         public void Select()
         {
             GridBorder.Style = (Style)Resources["BookmarkSelected"];
@@ -57,8 +46,8 @@ namespace Dimat_WPF
 
         private void LoadName()
         {
-            PlcName = dbglob.GetPlcName(ID);
-            lblName.Content = PlcName;
+            DisplayName = dbglob.GetPlcName(ID);
+            lblName.Content = DisplayName;
         }
         private void Close_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {

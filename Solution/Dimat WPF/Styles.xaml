@@ -260,6 +260,9 @@
                 <Setter Property="Foreground" Value="White"/>
                 <Setter Property="Cursor" Value="Hand"/>
             </Trigger>
+
+            
+
         </Style.Triggers>
     </Style>
 
@@ -267,7 +270,7 @@
         <Setter Property="Foreground" Value="WhiteSmoke"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="MinWidth" Value="50 "/>
+        <Setter Property="MinWidth" Value="50"/>
     </Style>
 
     <Style x:Key="GroupBar" TargetType="Grid">
@@ -323,6 +326,13 @@
         <Setter Property="Background" Value="#1fFFFFFF"/>
     </Style>
 
+    <Style x:Key="LogBlock" TargetType="TextBlock">
+        <Setter Property="Background" Value="#FF353028"/>
+        <Setter Property="Foreground" Value="#FFAAAAAA"/>
+        <Setter Property="Padding" Value="2"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
 
     <!-- Flat ComboBox -->
     
