@@ -9,7 +9,8 @@
         Background="#FF2E3440"
         Foreground="White"
         FontSize="14"
-        WindowStartupLocation="CenterScreen"><!--FF2E3440-->
+        WindowStartupLocation="CenterScreen">
+    <!--FF22272e-->
 
     <Window.Resources>
         <ResourceDictionary Source="Styles.xaml"/>

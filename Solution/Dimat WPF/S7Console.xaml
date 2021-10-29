@@ -14,7 +14,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition/>
+            <RowDefinition x:Name="RowConsole"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -25,17 +25,21 @@
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Log" Style="{StaticResource RowButton}"/>
+            </StackPanel>
+
             <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right">
 
-                <Label x:Name="btnSelectAll" ToolTip="Select all" FontFamily="Segoe MDL2 Assets" Content="&#xeb0f;" Style="{StaticResource RowButton}" />
-                <Label x:Name="btnUnselectAll" ToolTip="Deselect all" FontFamily="Segoe MDL2 Assets" Content="&#xeb11;" Style="{StaticResource RowButton}" />
+                <Label x:Name="btnHide" ToolTip="Hide console" FontFamily="Segoe MDL2 Assets" Content="&#xeb0f;" Style="{StaticResource RowButton}" MouseLeftButtonUp="btnHide_MouseLeftButtonUp" />
+                <Label x:Name="btnShow" ToolTip="Show console" FontFamily="Segoe MDL2 Assets" Content="&#xeb11;" Style="{StaticResource RowButton}" MouseLeftButtonUp="btnShow_MouseLeftButtonUp"/>
 
             </StackPanel>
         </Grid>
 
-        <ScrollViewer Grid.Row="1" x:Name="ScrollLog" VerticalScrollBarVisibility="Auto">
-            <TextBlock x:Name="LogConsole" Style="{StaticResource LogBlock}"/>
-        </ScrollViewer>
+        <ScrollViewer Grid.Row="1"  x:Name="ScrollLog" VerticalScrollBarVisibility="Auto">
+                <TextBlock x:Name="LogConsole" Style="{StaticResource LogBlock}"/>
+            </ScrollViewer>
 
     </Grid>
 </UserControl>

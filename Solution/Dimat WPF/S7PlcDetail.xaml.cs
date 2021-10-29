@@ -109,10 +109,10 @@ namespace Dimat_WPF
 
                 CreateRowWithData(add, desc, format);
             }
-
             } catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                LogConsole.Log(ex.Message);
             }
         }
 
@@ -280,7 +280,8 @@ namespace Dimat_WPF
 
             }catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Kurva!");
+                MessageBox.Show(ex.Message);
+                LogConsole.Log(ex.Message);
             }
 
         }
@@ -326,7 +327,10 @@ namespace Dimat_WPF
         {
             KillReading = true;
             EnableWatch(false);
+            LogConsole.Log("Killed reading");
+
             client.Disconnect();
+            LogConsole.Log("PLC disconnect");
 
             btnDisconnect.Visibility = Visibility.Collapsed;
             btnConnect.Visibility = Visibility.Visible;
@@ -343,12 +347,17 @@ namespace Dimat_WPF
         {
             if (client.ConnectTo(plc.IP, plc.Rack, plc.Slot) == 0)
             {
+                LogConsole.Log("Connected to PLC: " + plc.Name);
                 btnDisconnect.Visibility = Visibility.Visible;
                 btnConnect.Visibility = Visibility.Collapsed;
                 btnReadingStart.Visibility = Visibility.Visible;
                 btnReadOnce.Visibility = Visibility.Visible;
                 btnWriteAll.Visibility = Visibility.Visible;
                 EnableWatch(true);
+            }
+            else
+            {
+                LogConsole.Log("Unable to connect to PLC: " + plc.IP + " (" + plc.Name + ") rack: " + plc.Rack + " slot: " + plc.Slot);
             }
         }
 
@@ -382,17 +391,28 @@ namespace Dimat_WPF
         // Select all
         private void btnSelectAll_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            int i = 0;
             foreach (S7DataRow row in StackData.Children)
             {
                 row.Selected = true;
+                i++;
             }
+
+            LogConsole.Log(i + " rows selected");
         }
 
         // Unselect all
         private void btnUnselectAll_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            int i = 0;
             foreach (S7DataRow row in StackData.Children)
+            {
                 row.Selected = false;
+                i++;
+            }
+                
+
+            LogConsole.Log(i + " rows deselected");
         }
 
         // Delete selected
@@ -460,11 +480,14 @@ namespace Dimat_WPF
                 // Set rows as old
                 dbglob.MarkOldRows(ID);
 
+                LogConsole.Log("Table saved");
+
             } catch (Exception ex)
             {
                 // Failed - remove new rows
                 dbglob.DeleteNewRows(ID);
                 MessageBox.Show(ex.Message);
+                LogConsole.Log(ex.Message);
             }
         }
 
