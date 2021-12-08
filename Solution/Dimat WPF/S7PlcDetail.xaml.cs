@@ -51,8 +51,6 @@ namespace Dimat_WPF
 
         // Control
         S7Properties properties;
-        S7Console LogConsole;
-
 
         public int ID
         {
@@ -83,7 +81,6 @@ namespace Dimat_WPF
             multivar = new S7MultiVar(client);
             // S7 Properties control
             properties = new S7Properties(ref client);
-            LogConsole = new S7Console();
             // Set timer for status watching
             StatusWatch = new System.Threading.Timer(StatusWatchCallBack, WatchReset, Timeout.Infinite, WatchStatusTime);
             //Set Reading timer
@@ -112,7 +109,6 @@ namespace Dimat_WPF
             } catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                LogConsole.Log(ex.Message);
             }
         }
 
@@ -281,7 +277,6 @@ namespace Dimat_WPF
             }catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                LogConsole.Log(ex.Message);
             }
 
         }
@@ -290,7 +285,6 @@ namespace Dimat_WPF
         {
 
             StackControls.Children.Add(properties);
-            GridBottom.Children.Add(LogConsole);
             
 
             btnDisconnect.Visibility = Visibility.Collapsed;
@@ -327,10 +321,8 @@ namespace Dimat_WPF
         {
             KillReading = true;
             EnableWatch(false);
-            LogConsole.Log("Killed reading");
 
             client.Disconnect();
-            LogConsole.Log("PLC disconnect");
 
             btnDisconnect.Visibility = Visibility.Collapsed;
             btnConnect.Visibility = Visibility.Visible;
@@ -347,7 +339,6 @@ namespace Dimat_WPF
         {
             if (client.ConnectTo(plc.IP, plc.Rack, plc.Slot) == 0)
             {
-                LogConsole.Log("Connected to PLC: " + plc.Name);
                 btnDisconnect.Visibility = Visibility.Visible;
                 btnConnect.Visibility = Visibility.Collapsed;
                 btnReadingStart.Visibility = Visibility.Visible;
@@ -357,7 +348,7 @@ namespace Dimat_WPF
             }
             else
             {
-                LogConsole.Log("Unable to connect to PLC: " + plc.IP + " (" + plc.Name + ") rack: " + plc.Rack + " slot: " + plc.Slot);
+                //LogConsole.Log("Unable to connect to PLC: " + plc.IP + " (" + plc.Name + ") rack: " + plc.Rack + " slot: " + plc.Slot);
             }
         }
 
@@ -398,7 +389,7 @@ namespace Dimat_WPF
                 i++;
             }
 
-            LogConsole.Log(i + " rows selected");
+            //LogConsole.Log(i + " rows selected");
         }
 
         // Unselect all
@@ -410,9 +401,6 @@ namespace Dimat_WPF
                 row.Selected = false;
                 i++;
             }
-                
-
-            LogConsole.Log(i + " rows deselected");
         }
 
         // Delete selected
@@ -480,14 +468,12 @@ namespace Dimat_WPF
                 // Set rows as old
                 dbglob.MarkOldRows(ID);
 
-                LogConsole.Log("Table saved");
-
             } catch (Exception ex)
             {
                 // Failed - remove new rows
                 dbglob.DeleteNewRows(ID);
                 MessageBox.Show(ex.Message);
-                LogConsole.Log(ex.Message);
+                //LogConsole.Log(ex.Message);
             }
         }
 

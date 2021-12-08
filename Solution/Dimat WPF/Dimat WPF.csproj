@@ -131,9 +131,6 @@
     <Compile Include="PlcList.xaml.cs">
       <DependentUpon>PlcList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="S7Console.xaml.cs">
-      <DependentUpon>S7Console.xaml</DependentUpon>
-    </Compile>
     <Compile Include="S7DataRow.xaml.cs">
       <DependentUpon>S7DataRow.xaml</DependentUpon>
     </Compile>
@@ -194,10 +191,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PlcList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="S7Console.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
