@@ -37,6 +37,12 @@ namespace Dimat_WPF
             lbl_MaxConnections.Content = MaxConnections;
         }
 
+        public void HideFunctions()
+        {
+            GridFunctionBar.Visibility = Visibility.Collapsed;
+            GridFunctions.Visibility = Visibility.Collapsed;
+        }
+
         private void lblGroupFunctions_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (GridFunctions.Visibility == Visibility.Visible)

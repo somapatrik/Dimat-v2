@@ -60,7 +60,7 @@
 
             </Grid>
 
-            <Grid Grid.Row="3" MouseLeftButtonUp="lblGroupFunctions_MouseLeftButtonUp" Style="{StaticResource GroupBar}">
+            <Grid Grid.Row="3" x:Name="GridFunctionBar" MouseLeftButtonUp="lblGroupFunctions_MouseLeftButtonUp" Style="{StaticResource GroupBar}">
                 <StackPanel Orientation="Horizontal">
                     <Label x:Name="lblGroupFunctionsArrow" FontFamily="Marlett" Content="6" Style="{StaticResource DetailGroupName}"/>
                     <Label x:Name="lblGroupFunctions" Content="Functions" Style="{StaticResource DetailGroupName}"/>

@@ -76,7 +76,6 @@ namespace Dimat_WPF
             plc = new S7PLC(ID);
             // Connection to PLC
             client = new S7Client();
-            
             //Reading variables
             multivar = new S7MultiVar(client);
             // S7 Properties control
@@ -283,9 +282,12 @@ namespace Dimat_WPF
 
         private void SetGUI()
         {
-
+            // Add properties to side menu
             StackControls.Children.Add(properties);
-            
+
+            //Hide functions when S7-1200, S7-1500
+            if (plc.Type == "S7-1200" || plc.Type == "S7-1500")
+                properties.HideFunctions();
 
             btnDisconnect.Visibility = Visibility.Collapsed;
             btnReadingStart.Visibility = Visibility.Collapsed;
