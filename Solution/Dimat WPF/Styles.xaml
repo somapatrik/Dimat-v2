@@ -307,8 +307,8 @@
     <Style x:Key="DetailSideButton" TargetType="Label">
         <Setter Property="Foreground" Value="#AFFFFFFF"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="FontSize" Value="28px"/>
-        <Setter Property="Padding" Value="0 15"/>
+        <Setter Property="FontSize" Value="20px"/>
+        <Setter Property="Padding" Value="0 10"/>
         <Setter Property="BorderBrush" Value="#5B6271"/>
         <!--<Setter Property="BorderBrush" Value="#808b98"/>-->
         <Setter Property="BorderThickness" Value=".5"/>

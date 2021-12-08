@@ -16,7 +16,7 @@
             <ColumnDefinition/>
             <ColumnDefinition MaxWidth="2" x:Name="col_RightMenuGripper"/>
             <ColumnDefinition Width="300px" x:Name="col_RightMenu"/>
-            <ColumnDefinition Width="70px"/>
+            <ColumnDefinition Width="50px"/>
         </Grid.ColumnDefinitions>
 
         <GridSplitter HorizontalAlignment="Stretch" Grid.Column="1" Background="#FF495162"/>
