@@ -6,22 +6,26 @@
              xmlns:local="clr-namespace:Dimat_WPF"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="200" AllowDrop="True" DragEnter="UserControl_DragEnter" Drop="UserControl_Drop">
+    
     <UserControl.Resources>
         <ResourceDictionary Source="Styles.xaml"/>
     </UserControl.Resources>
 
-    <Grid x:Name="GroupGrid">
+    <Grid x:Name="GroupGrid" Margin="5,0,5,5">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         
-        <Grid Style="{StaticResource GroupBar}">
+        <Grid x:Name="gridPLCGroupName" Style="{StaticResource GroupBar}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
+
+            <Border Grid.ColumnSpan="3" Style="{StaticResource BorderPlcGroup}"/>
+            
             <Label x:Name="lbl_Arrow" Grid.Column="0" FontFamily="Marlett" Content="6" MouseLeftButtonUp="GroupName_clicked" Style="{StaticResource PLCGroupName}"/>
             <Label x:Name="lbl_Groupname" Grid.Column="1" MouseLeftButtonUp="GroupName_clicked" Style="{StaticResource PLCGroupName}">
                 <Label.ContextMenu>

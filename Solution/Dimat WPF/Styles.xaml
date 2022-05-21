@@ -113,15 +113,17 @@
 
     <!--PLC list-->
     <Style x:Key="PlcButtonBorder" TargetType="Border">
-        <Setter Property="Background" Value="#FF2E3440"/>
-        <Setter Property="BorderThickness" Value="0 0 1 1"/>
+        <Setter Property="CornerRadius" Value="5,5,5,5"/>
+        <Setter Property="Background" Value="#3F000000"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="#FF495162"/>
         <Setter Property="BorderBrush" Value="#FF495162"/>
     </Style>
 
     <Style x:Key="PlcButtonBorderActive" BasedOn="{StaticResource PlcButtonBorder}" TargetType="Border">
         <Setter Property="BorderBrush" Value="Gray"/>
-        <Setter Property="Background" Value="#FF333945"/>
-        <Setter Property="BorderThickness" Value="0 1 1 1.2"/>
+        <Setter Property="Background" Value="#2F000000"/>
+        <Setter Property="BorderThickness" Value="0 1 1 1"/>
     </Style>
 
     <Style x:Key="PlcButtonLabel" TargetType="Label">
@@ -164,7 +166,6 @@
 
     <Style x:Key="ColorLabel" TargetType="Label">
         <Setter Property="BorderThickness" Value="1"/>
-        <!--<Setter Property="BorderBrush" Value="#FF495162"/>-->
         <Setter Property="BorderBrush" Value="#808b98"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Padding" Value="10 5"/>
@@ -177,8 +178,6 @@
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="BorderBrush" Value="IndianRed"/>
         <Setter Property="Foreground" Value="IndianRed"/>
-        <!--<Setter Property="Padding" Value="10 5"/>-->
-        <!--<Setter Property="Margin" Value="5 2.5 5 2.5"/>-->
     </Style>
 
     <Style x:Key="ColorLabelOK" BasedOn="{StaticResource ColorLabel}" TargetType="Label">
@@ -197,31 +196,39 @@
     </Style>
 
     <Style x:Key="PlcButtonPingOK" TargetType="Border">
-        <!--<Setter Property="Background" Value="LimeGreen"/>-->
         <Setter Property="Background" Value="#39d353"/>
+        <Setter Property="CornerRadius" Value="5,0,0,5"/>
     </Style>
 
-    <Style x:Key="PlcButtonPingNOK" TargetType="Border">
+    <Style x:Key="PlcButtonPingNOK" TargetType="Border" BasedOn="{StaticResource PlcButtonPingOK}">
         <Setter Property="Background" Value="#FF495162"/>
     </Style>
 
+    <Style x:Key="BorderPlcGroup" TargetType="Border">
+        <Setter Property="Background" Value="#5F0d6bf5"/>
+        <Setter Property="CornerRadius" Value="5,0,5,0"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding ElementName=gridPLCGroupName, Path=IsMouseOver}" Value="true">
+                <Setter Property="Background" Value="#9F0d6bf5"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    
     <Style x:Key="PLCGroupName" TargetType="Label">
         <Setter Property="Foreground" Value="White"/>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Cursor" Value="Hand"/>
-                <!--<Setter Property="Background" Value="#1a4b85"/>-->
-                <Setter Property="Background" Value="#2c62b5"/>
-            </Trigger>
-        </Style.Triggers>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="Cursor" Value="Hand"/>
     </Style>
 
     <Style x:Key="PLCGroupButton" TargetType="Label">
         <Setter Property="Foreground" Value="White"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Cursor" Value="Hand"/>
-                <Setter Property="Background" Value="#FF495162"/>
+                <Setter Property="Background" Value="#CF0d6bf5"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -274,16 +281,16 @@
     </Style>
 
     <Style x:Key="GroupBar" TargetType="Grid">
-        <!--<Setter Property="Background" Value="#D01a4b85"/>-->
-        <Setter Property="Background" Value="#2758A2"/>
+        <!--<Setter Property="Background" Value="#2758A2"/>-->
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Margin" Value="0"/>
-        <Style.Triggers>
+        <!--<Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Cursor" Value="Hand"/>
-                <!--<Setter Property="Background" Value="#FF1a4b85"/>-->
+                --><!--<Setter Property="Background" Value="#FF1a4b85"/>--><!--
                 <Setter Property="Background" Value="#2c62b5"/>
             </Trigger>
-        </Style.Triggers>
+        </Style.Triggers>-->
     </Style>
 
     <Style x:Key="DetailGroupName" TargetType="Label">

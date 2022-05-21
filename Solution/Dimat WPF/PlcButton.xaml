@@ -12,7 +12,7 @@
         <ResourceDictionary Source="Styles.xaml"/>
     </UserControl.Resources>
 
-    <Grid MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave" >
+    <Grid MouseEnter="Grid_MouseEnter" MouseLeave="Grid_MouseLeave" Margin="0,7,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5pt"/>
             <ColumnDefinition/>
@@ -42,7 +42,7 @@
         <Label Grid.Row="2" Grid.Column="1" x:Name="lbl_PLCIP" Content="PLC ip"  HorizontalAlignment="Right" Style="{StaticResource PlcButtonLabelSecondary}"/>
 
 
-        <Border x:Name="PlcStatusButton" Grid.Column="0" Grid.RowSpan="4" />
+        <Border x:Name="PlcStatusButton" Grid.Column="0" Grid.RowSpan="3" />
         <Border x:Name="brd_PlcButton" Grid.ColumnSpan="2" Grid.RowSpan="3" Panel.ZIndex="-1" Style="{StaticResource PlcButtonBorder}"/>
 
     </Grid>

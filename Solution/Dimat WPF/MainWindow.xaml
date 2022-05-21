@@ -68,7 +68,7 @@
             </Grid>
 
             <!--Left Menu-->
-            <Grid Grid.Column="1" x:Name="GridLeftMenu">
+            <Grid Grid.Column="1" x:Name="GridLeftMenu" Background="#0F000000">
                 <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
                     <StackPanel x:Name="LeftMenuStack" Orientation="Vertical"/>
                 </ScrollViewer>
