@@ -96,7 +96,7 @@
         </Grid>
         
         <!--Footer-->
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" Background="#1F000000">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>

@@ -10,7 +10,7 @@
         <ResourceDictionary Source="Styles.xaml"/>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Margin="5,0" >
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
 
     <!-- SubMenu -->
-        <Grid>
+        <Grid Background="#1F000000">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -33,7 +33,7 @@
         </Grid>
         
     <!-- Add group -->
-        <Grid Grid.Row="1" x:Name="GridAddGroup" Visibility="Collapsed">
+        <Grid Grid.Row="1" x:Name="GridAddGroup" Background="#1F000000" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -43,7 +43,7 @@
         </Grid>
         
         <!--Plc list-->
-        <StackPanel x:Name="PlcStack" Grid.Row="2" Orientation="Vertical"/>
+        <StackPanel x:Name="PlcStack" Grid.Row="2" Orientation="Vertical" Margin="0,5,0,0"/>
 
     </Grid>
 </UserControl>
