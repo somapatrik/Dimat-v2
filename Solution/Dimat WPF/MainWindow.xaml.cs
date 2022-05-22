@@ -14,6 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using System.Net.Http;
+using System.Net.Http.Headers;
+
 namespace Dimat_WPF
 {
 
@@ -33,12 +36,26 @@ namespace Dimat_WPF
         public MainWindow()
         {
             InitializeComponent();
+            //Test jandi
+            //Jandi();
             // Close left menu
             ToogleLeftMenu(MenuTag.None);
             // Create PLC list
             //PopulatePlcList();
             SetPlcList();
 
+        }
+
+        private async void Jandi()
+        {
+            HttpClient client = new HttpClient();
+            string msg = "{\"body\":\"kódování\"}";
+
+            client.DefaultRequestHeaders.Add("Accept", "application/vnd.tosslab.jandi-v2+json");
+            var res = await client.PostAsync(
+                "https://wh.jandi.com/connect-api/webhook/20314780/fd67f600984bd1c06f3587044401c4d6",
+                new StringContent(msg, Encoding.UTF8, "application/json")
+                );
         }
 
         private void SetPlcList()

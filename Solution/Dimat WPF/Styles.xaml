@@ -112,7 +112,7 @@
 
     <!--PLC list-->
     <Style x:Key="PlcButtonBorder" TargetType="Border">
-        <Setter Property="CornerRadius" Value="5,5,5,5"/>
+        <Setter Property="CornerRadius" Value="5,0,5,5"/>
         <Setter Property="Background" Value="#1AFFFFFF"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="BorderBrush" Value="#FF495162"/>
