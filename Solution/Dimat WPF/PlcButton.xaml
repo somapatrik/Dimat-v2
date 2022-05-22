@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Dimat_WPF"
              mc:Ignorable="d" 
              d:DesignHeight="70" d:DesignWidth="200" 
-             MaxHeight="70">
+             >
     
     <UserControl.Resources>
         <ResourceDictionary Source="Styles.xaml"/>
@@ -18,9 +18,9 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Column="1">

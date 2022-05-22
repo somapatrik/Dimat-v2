@@ -113,25 +113,24 @@
     <!--PLC list-->
     <Style x:Key="PlcButtonBorder" TargetType="Border">
         <Setter Property="CornerRadius" Value="5,5,5,5"/>
-        <Setter Property="Background" Value="#3F000000"/>
+        <Setter Property="Background" Value="#1AFFFFFF"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="BorderBrush" Value="#FF495162"/>
         <Setter Property="BorderBrush" Value="#FF495162"/>
     </Style>
 
     <Style x:Key="PlcButtonBorderActive" BasedOn="{StaticResource PlcButtonBorder}" TargetType="Border">
-        <Setter Property="BorderBrush" Value="Gray"/>
-        <Setter Property="Background" Value="#2F000000"/>
-        <Setter Property="BorderThickness" Value="0 1 1 1"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Background" Value="#3FFFFFFF"/>
     </Style>
 
     <Style x:Key="PlcButtonLabel" TargetType="Label">
-        <Setter Property="Foreground" Value="WhiteSmoke"/>
-        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Padding" Value="3"/>
     </Style>
 
     <Style x:Key="PlcButtonLabelSecondary" BasedOn="{StaticResource PlcButtonLabel}" TargetType="Label">
-        <Setter Property="Foreground" Value="DarkGray"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
@@ -233,14 +232,15 @@
     </Style>
 
     <Style x:Key="PLCListButton" TargetType="Label">
-        <Setter Property="Foreground" Value="Gray"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="Padding" Value="7 0"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Cursor" Value="Hand"/>
-                <Setter Property="Foreground" Value="White"/>
-                <!--<Setter Property="Background" Value="#FF495162"/>-->
+                <Setter Property="Background" Value="#2FFFFFFF"/>
+
+                <Setter Property="Foreground" Value="Black"/>
             </Trigger>
         </Style.Triggers>
     </Style>
