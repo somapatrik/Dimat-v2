@@ -11,7 +11,7 @@
     </UserControl.Resources>
     
         <!--Right side-->
-        <Grid x:Name="GridRightSideInfo">
+        <Grid x:Name="GridRightSideInfo" Margin="10 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -21,11 +21,13 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <!--Properties-->
-            <Grid Grid.Row="1"  MouseLeftButtonUp="lblGroupProperties_MouseLeftButtonUp" Style="{StaticResource GroupBar}">
+        <Border Grid.Row="1" Style="{StaticResource BorderPlcGroup}"/>
+
+        <!--Properties-->
+        <Grid Grid.Row="1"  MouseLeftButtonUp="lblGroupProperties_MouseLeftButtonUp" Style="{StaticResource DetailGroupName}">
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="lblGroupPropertiesArrow" FontFamily="Marlett" Content="6" Style="{StaticResource DetailGroupName}"/>
-                    <Label x:Name="lblGroupProperties" Content="Properties" Style="{StaticResource DetailGroupName}"/>
+                <Label x:Name="lblGroupPropertiesArrow" FontFamily="Marlett" Content="6" Style="{StaticResource PLCGroupName}"/>
+                <Label x:Name="lblGroupProperties" Content="Properties" Style="{StaticResource PLCGroupName}"/>
                 </StackPanel>
             </Grid>
 
@@ -60,10 +62,12 @@
 
             </Grid>
 
-            <Grid Grid.Row="3" x:Name="GridFunctionBar" MouseLeftButtonUp="lblGroupFunctions_MouseLeftButtonUp" Style="{StaticResource GroupBar}">
+        <Border Grid.Row="3" Style="{StaticResource BorderPlcGroup}"/>
+
+        <Grid Grid.Row="3" x:Name="GridFunctionBar" MouseLeftButtonUp="lblGroupFunctions_MouseLeftButtonUp" Style="{StaticResource DetailGroupName}">
                 <StackPanel Orientation="Horizontal">
-                    <Label x:Name="lblGroupFunctionsArrow" FontFamily="Marlett" Content="6" Style="{StaticResource DetailGroupName}"/>
-                    <Label x:Name="lblGroupFunctions" Content="Functions" Style="{StaticResource DetailGroupName}"/>
+                <Label x:Name="lblGroupFunctionsArrow" FontFamily="Marlett" Content="6" Style="{StaticResource PLCGroupName}"/>
+                <Label x:Name="lblGroupFunctions" Content="Functions" Style="{StaticResource PLCGroupName}"/>
                 </StackPanel>
             </Grid>
 

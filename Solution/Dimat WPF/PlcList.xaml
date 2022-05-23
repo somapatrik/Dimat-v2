@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Dimat_WPF"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
     <UserControl.Resources>
         <ResourceDictionary Source="Styles.xaml"/>
     </UserControl.Resources>
@@ -17,29 +18,31 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-    <!-- SubMenu -->
-        <Grid Background="#1F000000">
+        <Border Grid.RowSpan="2" Background="#1F000000"/>
+
+        <!-- SubMenu -->
+        <Grid Margin="0 0 0 5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                <Label x:Name="btnCollapse" ToolTip="Collapse all" FontFamily="Segoe MDL2 Assets" Content="&#xE16A;" MouseLeftButtonUp="btnCollapse_MouseLeftButtonUp" Style="{StaticResource ColorButton}"/>
-                <Label x:Name="btnExpand" ToolTip="Expand all" FontFamily="Segoe MDL2 Assets" Content="&#xE169;" MouseLeftButtonUp="btnExpand_MouseLeftButtonUp" Style="{StaticResource ColorButton}"/>
+                <Label x:Name="btnCollapse" ToolTip="Collapse all" FontFamily="Segoe MDL2 Assets" Content="&#xE16A;" MouseLeftButtonUp="btnCollapse_MouseLeftButtonUp" Style="{StaticResource IconButton}"/>
+                <Label x:Name="btnExpand" ToolTip="Expand all" FontFamily="Segoe MDL2 Assets" Content="&#xE169;" MouseLeftButtonUp="btnExpand_MouseLeftButtonUp" Style="{StaticResource IconButton}"/>
             </StackPanel>
             <StackPanel Grid.Column="1"  Orientation="Horizontal" HorizontalAlignment="Right">
-                <Label x:Name="BtnShowAddGroup" FontFamily="Segoe MDL2 Assets" Content="&#xE948;" ToolTip="Add group" MouseLeftButtonUp="BtnShowAddGroup_MouseLeftButtonUp" Style="{StaticResource ColorButton}"/>
+                <Label x:Name="BtnShowAddGroup" FontFamily="Segoe MDL2 Assets" Content="&#xF168;" ToolTip="Add group" MouseLeftButtonUp="BtnShowAddGroup_MouseLeftButtonUp" Style="{StaticResource IconButton}"/>
             </StackPanel>
         </Grid>
         
     <!-- Add group -->
-        <Grid Grid.Row="1" x:Name="GridAddGroup" Background="#1F000000" Visibility="Collapsed">
+        <Grid Grid.Row="1" x:Name="GridAddGroup" Visibility="Collapsed" Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBox Grid.Row="0" x:Name="txtGroupName" Visibility="Visible" TextChanged="txtGroupName_TextChanged" Style="{StaticResource DarkBox}"/>
-            <Label Grid.Row="1" x:Name="btnAddGroup" Visibility="Visible"  Content="Create group" MouseLeftButtonUp="btnAddGroup_MouseLeftButtonUp" Style="{StaticResource ColorButton}"/>
+            <TextBox Grid.Row="0" x:Name="txtGroupName" Visibility="Visible" TextChanged="txtGroupName_TextChanged" Style="{StaticResource DarkBox}" Margin="0 0 0 1"/>
+            <Label Grid.Row="1" x:Name="btnAddGroup" Visibility="Visible"  Content="Create group" MouseLeftButtonUp="btnAddGroup_MouseLeftButtonUp" Style="{StaticResource RowButton}"/>
         </Grid>
         
         <!--Plc list-->
