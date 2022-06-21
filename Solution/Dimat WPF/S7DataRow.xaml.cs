@@ -172,9 +172,22 @@ namespace Dimat_WPF
                 AddressInfo.WordLen = S7Client.S7WLDWord;
                 array = new byte[4];
             }
+            else if (addressformatter.IsString)
+            {
+                AddressInfo.WordLen = S7Client.S7WLByte;
+                array = new byte[addressformatter.StringLen];
+            }
+            //else
+            //{
+            //    array = new byte[4];
+            //}
 
 
-            AddressInfo.Amount = 1;
+
+            if (addressformatter.IsString)
+                AddressInfo.Amount = addressformatter.StringLen;
+            else
+                AddressInfo.Amount = 1;
 
             if (addressformatter.IsBit)
                 AddressInfo.Start = (addressformatter.Byte * 8) + addressformatter.Bit;
@@ -216,6 +229,11 @@ namespace Dimat_WPF
                     cmb_Format.Items.Add("CHARACTER");
                     cmb_Format.Items.Add("FLOAT");
                 }
+                else if (addressformatter.IsString)
+                {
+                    cmb_Format.Items.Add("STRING");
+                }
+
 
                 // Set last selected
                 if (selected != null && cmb_Format.Items.Contains(selected))
@@ -250,7 +268,15 @@ namespace Dimat_WPF
                 case "FLOAT":
                     txt_Actual.Text = GetFloatS();
                     break;
+                case "STRING":
+                    txt_Actual.Text = GetString();
+                    break;
             }
+        }
+
+        public string GetString()
+        {
+            return S7.GetStringAt(array, 0);
         }
 
         public string GetBooltS()

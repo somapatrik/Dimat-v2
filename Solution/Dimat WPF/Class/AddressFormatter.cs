@@ -19,6 +19,8 @@ namespace Dimat_WPF.Class
         private int _Bit;
         private int _DBNumber;
 
+        private int _StringLen;
+
         private bool ibit;
         private bool ibyte;
         private bool iword;
@@ -38,6 +40,8 @@ namespace Dimat_WPF.Class
         private bool dbbyte;
         private bool dbword;
         private bool dbdouble;
+
+        private bool dbs7string;
 
         private bool _IsInput;
         private bool _IsOutput;
@@ -73,6 +77,11 @@ namespace Dimat_WPF.Class
             get{return idouble || qdouble || mdouble || dbdouble; }
         }
 
+        public bool IsString
+        {
+            get { return dbs7string; }
+        }
+
         public bool IsInput
         {
             get { return _IsInput; }
@@ -103,6 +112,8 @@ namespace Dimat_WPF.Class
             get { return _Bit; }
         }
 
+        public int StringLen => _StringLen;
+
         public int DBNumber
         {
             get { return _DBNumber; }
@@ -126,6 +137,11 @@ namespace Dimat_WPF.Class
                         GetDBNumber();
                     else
                         _DBNumber = 0;
+
+                   if (IsString)
+                   {
+                        GetStringLen();
+                   }
 
                 }else
                 {
@@ -152,12 +168,31 @@ namespace Dimat_WPF.Class
         {
             int Byte;
 
-            if (_IsInput || _IsOutput || _IsMerker)
-                int.TryParse(RawAddress.Substring(2),out Byte);
+            if (IsString)
+            {
+                string split1 = RawAddress.Split('.')[1];
+                string split2 = split1.Split(':')[0];
+                int.TryParse(split2.Substring(3), out Byte);
+            }
             else
-                int.TryParse(RawAddress.Split('.')[1].Substring(3), out Byte);
+            {
+                if (_IsInput || _IsOutput || _IsMerker)
+                    int.TryParse(RawAddress.Substring(2), out Byte);
+                else
+                    int.TryParse(RawAddress.Split('.')[1].Substring(3), out Byte);
+            }
 
             _Byte = Byte;
+        }
+
+        private void GetStringLen()
+        {
+            int len = 0;
+
+            if (IsDB)
+                int.TryParse(RawAddress.Split(':')[1].Substring(0), out len);
+
+            _StringLen = len;
         }
 
         private void GetBit()
@@ -193,6 +228,8 @@ namespace Dimat_WPF.Class
             Regex DBByte = new Regex(@"\DB\d+.DB[B]\d+$", RegexOptions.IgnoreCase);
             Regex DBWord = new Regex(@"\DB\d+.DB[W]\d+$", RegexOptions.IgnoreCase);
             Regex DBDouble = new Regex(@"\DB\d+.DB[D]\d+$", RegexOptions.IgnoreCase);
+
+            Regex DBS7String = new Regex(@"\DB\d+.DB[S]\d+[:]\d+$", RegexOptions.IgnoreCase);
 
             ibit = InputBit.IsMatch(RawAddress) ? true : false;
             ibyte = InputByte.IsMatch(RawAddress) ? true : false;
@@ -245,16 +282,16 @@ namespace Dimat_WPF.Class
             dbbyte = DBByte.IsMatch(RawAddress) ? true : false;
             dbword = DBWord.IsMatch(RawAddress) ? true : false;
             dbdouble = DBDouble.IsMatch(RawAddress) ? true : false;
+            dbs7string = DBS7String.IsMatch(RawAddress);
+            
 
-            if (dbbit || dbbyte || dbword || dbdouble)
+            if (dbbit || dbbyte || dbword || dbdouble || dbs7string)
             {
                 _IsDB = true;
-                //_Valid = true;
             }
             else
             {
                 _IsDB = false;
-                //_Valid = false;
             }
 
             if (_IsInput ^ _IsOutput ^ _IsMerker ^ _IsDB)
